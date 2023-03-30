@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author Alan Rodriguez
+ * @author Alan Rodriguez y Jose Trista
  */
 @Entity
 @Table(name = "licencias")
