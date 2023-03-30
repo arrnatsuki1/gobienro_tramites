@@ -1,5 +1,7 @@
 package Frames;
 
+import Entidades.Persona;
+
 
 
 /*
@@ -16,7 +18,9 @@ public class SolicitarPlacas extends javax.swing.JFrame {
     /**
      * Creates new form AutomovilUsado
      */
-    public SolicitarPlacas() {
+    private Persona persona;
+    public SolicitarPlacas(Persona persona) {
+        this.persona = persona;
         initComponents();
     }
 
@@ -165,7 +169,7 @@ public class SolicitarPlacas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Principal pl = new Principal(true);
+        Principal pl = new Principal(true, persona);
         pl.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
