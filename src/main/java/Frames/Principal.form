@@ -128,8 +128,9 @@
                               <Component id="botonSalir" min="-2" pref="100" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="botonSolicitante" min="-2" pref="128" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -139,8 +140,10 @@
                       <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <Component id="botonSalir" min="-2" max="-2" attributes="0"/>
-                          <Component id="botonSolicitante" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="botonSalir" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="botonSolicitante" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
               </Group>

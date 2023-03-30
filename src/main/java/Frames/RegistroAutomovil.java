@@ -1,5 +1,7 @@
 package Frames;
 
+import Entidades.Persona;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -14,7 +16,10 @@ public class RegistroAutomovil extends javax.swing.JFrame {
     /**
      * Creates new form RegistroAutomovil
      */
-    public RegistroAutomovil() {
+    private Persona persona;
+    
+    public RegistroAutomovil(Persona persona) {
+        this.persona = persona;
         initComponents();
     }
 
@@ -179,7 +184,7 @@ public class RegistroAutomovil extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       Principal pl = new Principal(true);
+       Principal pl = new Principal(true, persona);
        pl.setVisible(true);
        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed

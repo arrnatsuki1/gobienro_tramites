@@ -1,5 +1,7 @@
 package Frames;
 
+import Entidades.Persona;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -14,13 +16,17 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
-    public Principal(boolean logIn) {
+    
+    private Persona persona;
+    
+    public Principal(boolean logIn, Persona p) {
         initComponents();
-
+        persona = p;
         if (logIn) {
             this.botonAutomovil.setEnabled(true);
             this.botonLicencia.setEnabled(true);
             this.botonPlaca.setEnabled(true);
+            this.setTitle(p.getNombre());
         } else {
             this.botonAutomovil.setEnabled(false);
             this.botonLicencia.setEnabled(false);
@@ -97,8 +103,9 @@ public class Principal extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(120, 120, 120)
                         .addComponent(botonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(20, 20, 20)
-                .addComponent(botonSolicitante, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botonSolicitante, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,8 +113,9 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(botonSalir)
-                    .addComponent(botonSolicitante)))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(botonSalir)
+                        .addComponent(botonSolicitante))))
         );
 
         botonAutomovil.setText("Registrar Automovil");
@@ -192,7 +200,7 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLicenciaActionPerformed
-        SolicitarLicencia sl = new SolicitarLicencia();
+        SolicitarLicencia sl = new SolicitarLicencia(persona);
         sl.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_botonLicenciaActionPerformed
@@ -202,19 +210,19 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void botonAutomovilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAutomovilActionPerformed
-        RegistroAutomovil rg = new RegistroAutomovil();
+        RegistroAutomovil rg = new RegistroAutomovil(persona);
         rg.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_botonAutomovilActionPerformed
 
     private void botonPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPlacaActionPerformed
-        SolicitarPlacas sp = new SolicitarPlacas();
+        SolicitarPlacas sp = new SolicitarPlacas(persona);
         sp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_botonPlacaActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        Reporte rp = new Reporte();
+        Reporte rp = new Reporte(persona);
         rp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton7ActionPerformed
