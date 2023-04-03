@@ -1,6 +1,18 @@
 package Frames;
 
+import DAO.AutomovilDAO;
+import DAO.IAutomovilDAO;
+import DAO.IPlacaDAO;
+import DAO.PlacaDAO;
+import Entidades.Automovil;
 import Entidades.Persona;
+import Entidades.Placa;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Random;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 
 
@@ -51,7 +63,7 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtNumeroSeriePrincipal = new javax.swing.JTextField();
         btnRegresarPrincipal = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
 
@@ -92,7 +104,7 @@ public class SolicitarPlacas extends javax.swing.JFrame {
                 btnGenerarActionPerformed(evt);
             }
         });
-        panelDatosCarro.add(btnGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, -1, -1));
+        panelDatosCarro.add(btnGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 250, -1, -1));
 
         btnRegresarNuevo.setText("Regresar");
         btnRegresarNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -132,7 +144,7 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Numero de vehiculo:");
         background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
-        background.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 170, -1));
+        background.add(txtNumeroSeriePrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 170, -1));
 
         btnRegresarPrincipal.setText("Regresar");
         btnRegresarPrincipal.addActionListener(new java.awt.event.ActionListener() {
@@ -143,6 +155,11 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         background.add(btnRegresarPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, -1, -1));
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
         background.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -184,13 +201,84 @@ public class SolicitarPlacas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarNuevoActionPerformed
 
     private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActionPerformed
-        if(!estanVacios()){
+        if(estanVacios()){
             return;
         }
+        //Generamos el automovil que vamos a guardar
+        //Al ser un generar de un auto que no esta registrado
+        //ocupamos guardarlos
+        Automovil auto = new Automovil();
+        auto.setColor(txtColor.getText());
+        auto.setDuenio(persona);
+        auto.setId(0);
+        auto.setLinea(txtLinea.getText());
+        auto.setMarca(txtMarca.getText());
+        auto.setModelo(txtModelo.getText());
+        auto.setNserie(txtNumeroSerie.getText());
+        List<Placa> placas = new ArrayList();
+        //Esto lo vamos a borrar, porque tenemos que buscar una mejor forma
+        //de generar el codigo de las placas
+        Random random = new Random();
+        int numero = random.nextInt(100, 999);
+        String codigo = "ABC"+numero;
         
+        Placa placa = 
+                new Placa(codigo, null, 0, new Date(), new BigDecimal("1500"), auto, persona);
+        placas.add(placa);
+        placa.setAuto(auto);
+        auto.setPlacas(placas);
+        //Como en el cascada del automovil pusimos que fuera persist
+        //Cuando guardemos el automovil se va a guardar la placa
+        IAutomovilDAO daoAutomovil = new AutomovilDAO();
+        Automovil conf = daoAutomovil.insertarAutomovil(auto);
+        
+        if(conf!=null){
+            JOptionPane.showMessageDialog(this, "si agrego con exito");
+            Principal p = new Principal(true, persona);
+            p.setVisible(true);
+            this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(this, "fallo");
+        }
         
     }//GEN-LAST:event_btnGenerarActionPerformed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        if(txtNumeroSeriePrincipal.getText().isBlank()){
+            return;
+        }
+        
+        IAutomovilDAO dao = new AutomovilDAO();
+        Automovil auto = new Automovil();
+        auto.setNserie(txtNumeroSeriePrincipal.getText());
+        auto = dao.obtenerAutomovil(auto);
+        
+        
+        if(auto==null){
+            generarAutoNuevo(txtNumeroSeriePrincipal.getText());
+        }else{
+            
+        }
+        
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void generarAutoNuevo(String serie) {
+        activarPanelDatosCarro();
+        txtNumeroSerie.setText(serie);    
+    }
+    
+    private void activarBackground(){
+        this.background.setVisible(true);
+        this.background.setEnabled(true);
+    }
+    
+    private void activarPanelDatosCarro(){
+        this.background.setVisible(false);
+        this.background.setEnabled(false);
+        panelDatosCarro.setVisible(true);
+        panelDatosCarro.setEnabled(true);
+    }
+    
     private boolean estanVacios() {
         if( txtColor.getText().isBlank() || txtLinea.getText().isBlank()
                 || txtMarca.getText().isBlank() || txtModelo.getText().isBlank()) {
@@ -214,12 +302,12 @@ public class SolicitarPlacas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel panelDatosCarro;
     private javax.swing.JTextField txtColor;
     private javax.swing.JTextField txtLinea;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtModelo;
     private javax.swing.JTextField txtNumeroSerie;
+    private javax.swing.JTextField txtNumeroSeriePrincipal;
     // End of variables declaration//GEN-END:variables
 }
