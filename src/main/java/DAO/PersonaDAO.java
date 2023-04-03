@@ -17,8 +17,12 @@ import javax.persistence.TypedQuery;
  */
 public class PersonaDAO implements IPersonaDAO {
 
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("conexion");
+    private EntityManagerFactory emf;
 
+    public PersonaDAO() {
+        emf = Persistence.createEntityManagerFactory("conexion");
+    }
+    
     @Override
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
