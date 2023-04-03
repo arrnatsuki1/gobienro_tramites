@@ -3,7 +3,6 @@ package Frames;
 import DAO.ILicenciaDAO;
 import DAO.LicenciaDAO;
 import Entidades.Licencia;
-import static Entidades.Licencia_.vigencia;
 import Entidades.Persona;
 import java.math.BigDecimal;
 import java.util.Date;

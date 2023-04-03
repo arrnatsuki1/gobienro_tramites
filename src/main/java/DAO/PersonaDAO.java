@@ -33,22 +33,16 @@ public class PersonaDAO implements IPersonaDAO {
                 em.persist(p);
             em.getTransaction().commit();
             //Fin de la transaccion
+            em.close();
+            return p;
         } catch (Exception e) {
             if (em != null) {
                 em.getTransaction().rollback();
                 em.close();
             }
-
-            p = null;
-
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-            //Si quitas el return el usuario no se regresa con el id
-            //que tiene en la base de datos
-            return p;
-        }
+            
+            return null;
+        } 
     }
 
     @Override
