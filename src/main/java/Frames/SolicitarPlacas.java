@@ -33,20 +33,76 @@ public class SolicitarPlacas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        panelDatosCarro = new javax.swing.JPanel();
+        datosCarro = new javax.swing.JPanel();
+        txtColor = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtMarca = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        txtNumeroSerie = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtLinea = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        txtModelo = new javax.swing.JTextField();
+        btnGenerar = new javax.swing.JButton();
+        btnRegresarNuevo = new javax.swing.JButton();
+        background = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        botonBuscar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        campoTextoPlaca = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        campoTextoMonto = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        btnRegresarPrincipal = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        panelDatosCarro.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        datosCarro.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Automovil"));
+        datosCarro.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        datosCarro.add(txtColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 210, -1));
+
+        jLabel5.setText("Color");
+        datosCarro.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
+        datosCarro.add(txtMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 210, -1));
+
+        jLabel6.setText("Marca");
+        datosCarro.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
+
+        jLabel7.setText("Numero de serie");
+        datosCarro.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
+
+        txtNumeroSerie.setEditable(false);
+        datosCarro.add(txtNumeroSerie, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 210, -1));
+
+        jLabel8.setText("Linea");
+        datosCarro.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, -1));
+        datosCarro.add(txtLinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 210, -1));
+
+        jLabel9.setText("Modelo");
+        datosCarro.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, -1, -1));
+        datosCarro.add(txtModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 210, -1));
+
+        panelDatosCarro.add(datosCarro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 280));
+
+        btnGenerar.setText("Generar");
+        btnGenerar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarActionPerformed(evt);
+            }
+        });
+        panelDatosCarro.add(btnGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, -1, -1));
+
+        btnRegresarNuevo.setText("Regresar");
+        btnRegresarNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarNuevoActionPerformed(evt);
+            }
+        });
+        panelDatosCarro.add(btnRegresarNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 250, -1, -1));
+
+        background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(153, 0, 51));
 
@@ -71,133 +127,99 @@ public class SolicitarPlacas extends javax.swing.JFrame {
                 .addGap(30, 30, 30))
         );
 
+        background.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, -1));
+
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Numero de vehiculo:");
+        background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
+        background.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 170, -1));
 
-        botonBuscar.setText("Buscar");
-        botonBuscar.addActionListener(new java.awt.event.ActionListener() {
+        btnRegresarPrincipal.setText("Regresar");
+        btnRegresarPrincipal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonBuscarActionPerformed(evt);
+                btnRegresarPrincipalActionPerformed(evt);
             }
         });
+        background.add(btnRegresarPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, -1, -1));
 
-        jButton2.setText("Cancelar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("Numero de Placa Nuevo:");
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setText("Monto a Pagar:");
-
-        jButton3.setText("Aceptar");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                        .addComponent(botonBuscar))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(campoTextoMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(28, 28, 28)
-                                .addComponent(campoTextoPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addGap(47, 47, 47)
-                .addComponent(jButton2)
-                .addGap(19, 19, 19))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonBuscar))
-                .addGap(28, 28, 28)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(campoTextoPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(campoTextoMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addGap(20, 20, 20))
-        );
+        btnBuscar.setText("Buscar");
+        background.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(panelDatosCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(panelDatosCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnRegresarPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarPrincipalActionPerformed
         Principal pl = new Principal(true, persona);
         pl.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnRegresarPrincipalActionPerformed
 
-    private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
-        
-        Double numPlaca = Math.random() * 5154;
-        int n = (int)Math.round(numPlaca);
-        String numhex = Integer.toHexString(n);
-        
-        campoTextoPlaca.setText( numhex );
-        campoTextoMonto.setText("1300");
-        
-    }//GEN-LAST:event_botonBuscarActionPerformed
+    private void btnRegresarNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarNuevoActionPerformed
+        this.background.setVisible(true);
+        this.background.setEnabled(true);
+        this.panelDatosCarro.setVisible(false);
+        this.panelDatosCarro.setEnabled(false);
+    }//GEN-LAST:event_btnRegresarNuevoActionPerformed
 
+    private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActionPerformed
+        if(!estanVacios()){
+            return;
+        }
+        
+        
+    }//GEN-LAST:event_btnGenerarActionPerformed
+
+    private boolean estanVacios() {
+        if( txtColor.getText().isBlank() || txtLinea.getText().isBlank()
+                || txtMarca.getText().isBlank() || txtModelo.getText().isBlank()) {
+            return true;
+        }
+        return false;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonBuscar;
-    private javax.swing.JTextField campoTextoMonto;
-    private javax.swing.JTextField campoTextoPlaca;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JPanel background;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnGenerar;
+    private javax.swing.JButton btnRegresarNuevo;
+    private javax.swing.JButton btnRegresarPrincipal;
+    private javax.swing.JPanel datosCarro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JPanel panelDatosCarro;
+    private javax.swing.JTextField txtColor;
+    private javax.swing.JTextField txtLinea;
+    private javax.swing.JTextField txtMarca;
+    private javax.swing.JTextField txtModelo;
+    private javax.swing.JTextField txtNumeroSerie;
     // End of variables declaration//GEN-END:variables
 }
