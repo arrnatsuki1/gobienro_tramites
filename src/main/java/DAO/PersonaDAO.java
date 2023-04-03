@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -46,18 +47,48 @@ public class PersonaDAO implements IPersonaDAO {
     }
 
     @Override
-    public Persona consultarId(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Persona consultarRFC(String rfc) {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            TypedQuery<Persona> query = em
+                    .createQuery("SELECT p FROM Persona p WHERE p.RFC = :rfc",
+                            Persona.class);
+            query.setParameter("rfc", rfc);
+            Persona p = query.getSingleResult();
+            em.close();
+            return p;
+        } catch (Exception e) {
+            e.printStackTrace();
+            if(em!=null){
+                em.close();
+            }
+            return null;
+        }
+        
     }
-
+    
+    @Override
     public Persona consultarObj(Persona p) {
-        return null;
-
+        return consultarRFC(p.getRFC());
     }
 
     @Override
     public List<Persona> consultarTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            List<Persona> personas = em
+                    .createQuery("SELECT p FROM Persona p")
+                    .getResultList();
+            em.close();
+            return personas;
+        } catch (Exception e) {
+            if(em!=null){
+                em.close();
+            }
+            return null;
+        }
     }
 
 }

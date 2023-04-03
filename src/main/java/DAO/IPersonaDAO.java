@@ -11,7 +11,7 @@ import javax.persistence.EntityManager;
 public interface IPersonaDAO {
     public EntityManager getEntityManager();
     public Persona agregarPersona(Persona p);
-    public Persona consultarId(int id);
+    public Persona consultarRFC(String rfc);
     public Persona consultarObj(Persona p);
     public List<Persona> consultarTodos();
 }
