@@ -63,7 +63,7 @@ public class PersonaDAO implements IPersonaDAO {
             em.close();
             return p;
         } catch (Exception e) {
-            e.printStackTrace();
+
             if(em!=null){
                 em.close();
             }

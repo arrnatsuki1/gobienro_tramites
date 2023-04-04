@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  * @author jctri
  */
 public class IngresaSolicitante extends javax.swing.JFrame {
-
+    private Persona persona;
     /**
      * Creates new form Registro
      */
@@ -49,6 +49,7 @@ public class IngresaSolicitante extends javax.swing.JFrame {
         txtTelefono = new javax.swing.JTextField();
         txtFecha = new javax.swing.JTextField();
         botonBuscar = new javax.swing.JButton();
+        BtnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -87,10 +88,17 @@ public class IngresaSolicitante extends javax.swing.JFrame {
 
         jLabel7.setText("Telefono:");
 
-        botonBuscar.setText("Buscar");
+        botonBuscar.setText("Agregar");
         botonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonBuscarActionPerformed(evt);
+            }
+        });
+
+        BtnBuscar.setText("Buscar");
+        BtnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnBuscarActionPerformed(evt);
             }
         });
 
@@ -126,16 +134,19 @@ public class IngresaSolicitante extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(txtRFC, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botonBuscar)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonBuscar, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(BtnBuscar, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(29, 29, 29))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(20, 20, 20)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtRFC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtRFC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnBuscar))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -161,7 +172,7 @@ public class IngresaSolicitante extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -218,7 +229,24 @@ public class IngresaSolicitante extends javax.swing.JFrame {
         
     }//GEN-LAST:event_botonBuscarActionPerformed
 
+    private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
+        buscarPersonaRfc();
+    }//GEN-LAST:event_BtnBuscarActionPerformed
+
+    public void buscarPersonaRfc(){
+        IPersonaDAO dao = new PersonaDAO();
+        persona = dao.consultarRFC(txtRFC.getText());
+        if(persona == null){
+            JOptionPane.showMessageDialog(this, "Persona no encontrada");
+        }else{
+            JOptionPane.showMessageDialog(this, "Persona encontrada");
+            Principal principal = new Principal(true, persona);
+            principal.setVisible(true);
+            this.dispose();
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnBuscar;
     private javax.swing.JButton botonBuscar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

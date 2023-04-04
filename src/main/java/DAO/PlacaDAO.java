@@ -73,7 +73,10 @@ public class PlacaDAO implements IPlacaDAO{
             em = getEntityManager();
             Automovil auto = (Automovil) vehiculo;
             String codigo = auto.getNserie();
-            
+            //Consultar la placa que este activa y tenga el numero de serie de 
+            //este vehiculo 
+            //Para asi cambiarle el estado y agregar la fecha de recepcion con un 
+            //merge
             List<Placa> placas = em
                     .createQuery("SELECT p FROM Placa p WHERE p.codigo = :codigo")
                     .setParameter("codigo", codigo)

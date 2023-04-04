@@ -26,7 +26,8 @@ import javax.swing.JOptionPane;
  * @author jctri
  */
 public class SolicitarPlacas extends javax.swing.JFrame {
-
+    private boolean carronuevo;
+    private Automovil autoEncontrado; 
     /**
      * Creates new form AutomovilUsado
      */
@@ -34,6 +35,63 @@ public class SolicitarPlacas extends javax.swing.JFrame {
     public SolicitarPlacas(Persona persona) {
         this.persona = persona;
         initComponents();
+                this.panelDatosCarro.setVisible(false);
+        this.panelDatosCarro.setEnabled(false);
+    }
+    public void tipoCarro (){
+        if (carronuevo) {
+            //Generamos el automovil que vamos a guardar
+            //Al ser un generar de un auto que no esta registrado
+            //ocupamos guardarlos
+            Automovil auto = new Automovil();
+            auto.setColor(txtColor.getText());
+            auto.setDuenio(persona);
+            auto.setId(0);
+            auto.setLinea(txtLinea.getText());
+            auto.setMarca(txtMarca.getText());
+            auto.setModelo(txtModelo.getText());
+            auto.setNserie(txtNumeroSerie.getText());
+            List<Placa> placas = new ArrayList();
+            //Esto lo vamos a borrar, porque tenemos que buscar una mejor forma
+            //de generar el codigo de las placas
+            Random random = new Random();
+            int numero = random.nextInt(100, 999);
+            String codigo = "ABC" + numero;
+
+            Placa placa
+                    = new Placa(codigo, null, 0, new Date(),new BigDecimal ("1500"), auto, persona);
+            placas.add(placa);
+            placa.setAuto(auto);
+            auto.setPlacas(placas);
+            //Como en el cascada del automovil pusimos que fuera persist
+            //Cuando guardemos el automovil se va a guardar la placa
+            IAutomovilDAO daoAutomovil = new AutomovilDAO();
+            Automovil conf = daoAutomovil.insertarAutomovil(auto);
+
+            if (conf != null) {
+                JOptionPane.showMessageDialog(this, "si agrego con exito");
+                Principal p = new Principal(true, persona);
+                p.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "fallo");
+            }
+        }else{
+            Random random = new Random();
+            int numero = random.nextInt(100, 999);
+            String codigo = "ABC" + numero;
+            IPlacaDAO daoPlaca = new PlacaDAO();
+            Placa placa = new Placa(codigo, null, 0, new Date(),new BigDecimal ("1000"), autoEncontrado, persona);
+            //Aqui cambio la placa actual 
+            if(daoPlaca.generarPlaca(placa)!=null){
+               JOptionPane.showMessageDialog(this, "si agrego con exito");
+                Principal p = new Principal(true, persona);
+                p.setVisible(true);
+                this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(this, "fallo");
+            }
+        }
     }
 
     /**
@@ -69,10 +127,14 @@ public class SolicitarPlacas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panelDatosCarro.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
         datosCarro.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Automovil"));
         datosCarro.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtColor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtColorActionPerformed(evt);
+            }
+        });
         datosCarro.add(txtColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 210, -1));
 
         jLabel5.setText("Color");
@@ -96,15 +158,12 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         datosCarro.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, -1, -1));
         datosCarro.add(txtModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 210, -1));
 
-        panelDatosCarro.add(datosCarro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 280));
-
         btnGenerar.setText("Generar");
         btnGenerar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGenerarActionPerformed(evt);
             }
         });
-        panelDatosCarro.add(btnGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 250, -1, -1));
 
         btnRegresarNuevo.setText("Regresar");
         btnRegresarNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -112,7 +171,31 @@ public class SolicitarPlacas extends javax.swing.JFrame {
                 btnRegresarNuevoActionPerformed(evt);
             }
         });
-        panelDatosCarro.add(btnRegresarNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 250, -1, -1));
+
+        javax.swing.GroupLayout panelDatosCarroLayout = new javax.swing.GroupLayout(panelDatosCarro);
+        panelDatosCarro.setLayout(panelDatosCarroLayout);
+        panelDatosCarroLayout.setHorizontalGroup(
+            panelDatosCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDatosCarroLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(datosCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(btnRegresarNuevo)
+                .addGap(23, 23, 23)
+                .addComponent(btnGenerar))
+        );
+        panelDatosCarroLayout.setVerticalGroup(
+            panelDatosCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDatosCarroLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(datosCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(panelDatosCarroLayout.createSequentialGroup()
+                .addGap(250, 250, 250)
+                .addComponent(btnRegresarNuevo))
+            .addGroup(panelDatosCarroLayout.createSequentialGroup()
+                .addGap(250, 250, 250)
+                .addComponent(btnGenerar))
+        );
 
         background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -204,43 +287,7 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         if(estanVacios()){
             return;
         }
-        //Generamos el automovil que vamos a guardar
-        //Al ser un generar de un auto que no esta registrado
-        //ocupamos guardarlos
-        Automovil auto = new Automovil();
-        auto.setColor(txtColor.getText());
-        auto.setDuenio(persona);
-        auto.setId(0);
-        auto.setLinea(txtLinea.getText());
-        auto.setMarca(txtMarca.getText());
-        auto.setModelo(txtModelo.getText());
-        auto.setNserie(txtNumeroSerie.getText());
-        List<Placa> placas = new ArrayList();
-        //Esto lo vamos a borrar, porque tenemos que buscar una mejor forma
-        //de generar el codigo de las placas
-        Random random = new Random();
-        int numero = random.nextInt(100, 999);
-        String codigo = "ABC"+numero;
-        
-        Placa placa = 
-                new Placa(codigo, null, 0, new Date(), new BigDecimal("1500"), auto, persona);
-        placas.add(placa);
-        placa.setAuto(auto);
-        auto.setPlacas(placas);
-        //Como en el cascada del automovil pusimos que fuera persist
-        //Cuando guardemos el automovil se va a guardar la placa
-        IAutomovilDAO daoAutomovil = new AutomovilDAO();
-        Automovil conf = daoAutomovil.insertarAutomovil(auto);
-        
-        if(conf!=null){
-            JOptionPane.showMessageDialog(this, "si agrego con exito");
-            Principal p = new Principal(true, persona);
-            p.setVisible(true);
-            this.dispose();
-        }else{
-            JOptionPane.showMessageDialog(this, "fallo");
-        }
-        
+        tipoCarro();
     }//GEN-LAST:event_btnGenerarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -251,16 +298,28 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         IAutomovilDAO dao = new AutomovilDAO();
         Automovil auto = new Automovil();
         auto.setNserie(txtNumeroSeriePrincipal.getText());
-        auto = dao.obtenerAutomovil(auto);
+        autoEncontrado = dao.obtenerAutomovil(auto);
         
         
-        if(auto==null){
+        if(autoEncontrado==null){
+            carronuevo = true;
+ 
             generarAutoNuevo(txtNumeroSeriePrincipal.getText());
         }else{
+            carronuevo = false;
             
+            txtColor.setText(autoEncontrado.getColor());
+            txtLinea.setText(autoEncontrado.getLinea());
+            txtMarca.setText(autoEncontrado.getMarca());
+            txtModelo.setText(autoEncontrado.getModelo());
+            generarAutoNuevo(txtNumeroSeriePrincipal.getText());
         }
         
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void txtColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtColorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtColorActionPerformed
 
     private void generarAutoNuevo(String serie) {
         activarPanelDatosCarro();
