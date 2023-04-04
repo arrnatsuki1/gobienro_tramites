@@ -1,8 +1,8 @@
 package Entidades;
 
+import DAO.EstadosPlacas;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -107,5 +107,22 @@ public class Automovil extends Vehiculo implements Serializable {
         this.modelo = modelo;
     }
     
+    public boolean tienePlacaActiva() {
+        for(Placa placa : this.getPlacas()) {
+            if(placa.getActiva() == EstadosPlacas.ACTIVA) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public Placa obtenerPlacaActiva() {
+        for(Placa placa : this.getPlacas()) {
+            if(placa.getActiva() == EstadosPlacas.ACTIVA) {
+                return placa;
+            }
+        }
+        return null;
+    }
     
 }

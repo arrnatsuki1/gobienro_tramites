@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package DAO;
 
 import Entidades.Automovil;
@@ -31,7 +27,7 @@ public class AutomovilDAO implements IAutomovilDAO {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(auto);
+                em.persist(auto);
             em.getTransaction().commit();
             em.close();
             return auto;
@@ -43,6 +39,23 @@ public class AutomovilDAO implements IAutomovilDAO {
         }
     }
 
+    public Automovil actualizarAutomovil(Automovil auto){
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+                em.merge(auto);
+            em.getTransaction().commit();
+            em.close();
+            return auto;
+        } catch (Exception e) {
+            if (em != null) {
+                em.close();
+            }
+            return null;
+        }
+    };
+    
     @Override
     public Automovil obtenerAutomovil(Automovil auto) {
         EntityManager em = null;

@@ -8,5 +8,6 @@ import Entidades.Automovil;
  */
 public interface IAutomovilDAO {
     public Automovil insertarAutomovil(Automovil auto);
+    public Automovil actualizarAutomovil(Automovil auto);
     public Automovil obtenerAutomovil(Automovil auto);
 }
