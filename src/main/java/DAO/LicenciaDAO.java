@@ -1,9 +1,12 @@
 package DAO;
 
 import Entidades.Licencia;
+import Entidades.Persona;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -44,6 +47,37 @@ public class LicenciaDAO implements ILicenciaDAO{
             return licencia;
         }
         
+    }
+
+    @Override
+    public List<Licencia> listaLicenciasVigentes(Persona persona) {
+      EntityManager em = null;
+      List <Licencia> listalicencia = null;
+        try {
+            em = getEntityManager();
+            
+            em.getTransaction().begin();
+              TypedQuery <Licencia> query = em.createQuery(""
+                      + "Select L FROM Licencia L WHERE L.persona.id = :id AND "
+                      + "L.vigencia > CURRENT_DATE",Licencia.class);
+              query.setParameter("id", persona.getId());
+             listalicencia = query.getResultList();
+            em.getTransaction().commit();
+            
+            
+        } catch (Exception e) {
+            if(em!=null){
+                em.close();
+            }
+            
+            return null;
+            
+        } finally {
+            if(em != null) {
+                em.close();
+            }
+            return listalicencia;
+        }
     }
 
     

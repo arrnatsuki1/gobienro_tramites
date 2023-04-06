@@ -1,6 +1,11 @@
 package Frames;
 
+import DAO.ILicenciaDAO;
+import DAO.LicenciaDAO;
+import Entidades.Licencia;
 import Entidades.Persona;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -186,9 +191,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void botonPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPlacaActionPerformed
-        SolicitarPlacas sp = new SolicitarPlacas(persona);
-        sp.setVisible(true);
-        this.dispose();
+        buscarLicenciasVigentes(persona);
     }//GEN-LAST:event_botonPlacaActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -201,7 +204,6 @@ public class Principal extends javax.swing.JFrame {
         this.persona = null;
         this.botonLicencia.setEnabled(false);
         this.botonPlaca.setEnabled(false);
-
     }//GEN-LAST:event_botonSalirActionPerformed
 
     private void botonSolicitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSolicitanteActionPerformed
@@ -209,7 +211,17 @@ public class Principal extends javax.swing.JFrame {
         i.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_botonSolicitanteActionPerformed
-
+    public void buscarLicenciasVigentes(Persona persona){
+        ILicenciaDAO licenciadao = new LicenciaDAO();
+        List <Licencia> listalicencia = licenciadao.listaLicenciasVigentes(persona);
+        if(listalicencia.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Usted no tiene licencia vigente");
+            return;
+        }
+        SolicitarPlacas sp = new SolicitarPlacas(persona);
+        sp.setVisible(true);
+        this.dispose();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonLicencia;

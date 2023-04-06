@@ -75,7 +75,7 @@ public class SolicitarLicencia extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Vigencia (Años) :");
 
-        cboAños.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 ", "2 ", "3" }));
+        cboAños.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
         cboAños.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboAñosActionPerformed(evt);
