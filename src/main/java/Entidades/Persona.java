@@ -1,6 +1,8 @@
 package Entidades;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Basic;
@@ -44,6 +46,10 @@ public class Persona implements Serializable {
     @Column(name="segundo_pellido")
     private String segundoApellido;
 
+    @Basic
+    @Column(name="fecha_Nacimiento")
+    private Date fechaNacimiento;
+    
     @OneToMany(cascade = 
             {CascadeType.REMOVE,
                 CascadeType.PERSIST,
@@ -60,9 +66,9 @@ public class Persona implements Serializable {
     public Persona() {
     }
 
-    public Persona(Integer id, String telefono, String RFC, byte discapacitado, 
-            String nombre, String primerApellido, String segundoApellido,
-            List<Vehiculo> vehiculos, List<Tramite> tramites) {
+    public Persona( String telefono, String RFC, byte discapacitado, 
+            String nombre, String primerApellido, String segundoApellido, Date fechaNacimiento
+          ) {
         this.id = id;
         this.telefono = telefono;
         this.RFC = RFC;
@@ -70,9 +76,11 @@ public class Persona implements Serializable {
         this.nombre = nombre;
         this.primerApellido = primerApellido;
         this.segundoApellido = segundoApellido;
-        this.vehiculos = vehiculos;
-        this.tramites = tramites;
+        this.fechaNacimiento = fechaNacimiento;
+        this.vehiculos = new ArrayList<Vehiculo>();
+        this.tramites =  new ArrayList<Tramite>();
     }
+    
     public Integer getId() {
         return id;
     }
@@ -143,6 +151,14 @@ public class Persona implements Serializable {
 
     public void setTramites(List<Tramite> tramites) {
         this.tramites = tramites;
+    }
+
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     

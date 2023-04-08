@@ -36,6 +36,7 @@ public class IngresaSolicitante extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        txtFecha = new com.toedter.calendar.JDateChooser();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -47,9 +48,9 @@ public class IngresaSolicitante extends javax.swing.JFrame {
         txtPaterno = new javax.swing.JTextField();
         txtMaterno = new javax.swing.JTextField();
         txtTelefono = new javax.swing.JTextField();
-        txtFecha = new javax.swing.JTextField();
-        botonBuscar = new javax.swing.JButton();
+        botonAgregar = new javax.swing.JButton();
         BtnBuscar = new javax.swing.JButton();
+        chxDiscapacidad = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,10 +89,10 @@ public class IngresaSolicitante extends javax.swing.JFrame {
 
         jLabel7.setText("Telefono:");
 
-        botonBuscar.setText("Agregar");
-        botonBuscar.addActionListener(new java.awt.event.ActionListener() {
+        botonAgregar.setText("Agregar");
+        botonAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonBuscarActionPerformed(evt);
+                botonAgregarActionPerformed(evt);
             }
         });
 
@@ -102,6 +103,8 @@ public class IngresaSolicitante extends javax.swing.JFrame {
             }
         });
 
+        chxDiscapacidad.setText("¿ Es discapacitado ?");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -109,33 +112,35 @@ public class IngresaSolicitante extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(48, 48, 48)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtTelefono))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtFecha))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtMaterno))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtPaterno))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtNombre))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtRFC, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(chxDiscapacidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(jLabel7)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtTelefono))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(jLabel6)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(jLabel5)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtMaterno))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(jLabel4)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(txtPaterno))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtNombre))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtRFC, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botonBuscar, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botonAgregar, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(BtnBuscar, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(29, 29, 29))
         );
@@ -159,20 +164,22 @@ public class IngresaSolicitante extends javax.swing.JFrame {
                             .addComponent(txtPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(botonBuscar)))
+                        .addComponent(botonAgregar)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(chxDiscapacidad)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -205,17 +212,23 @@ public class IngresaSolicitante extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
+    private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
         
         //Verificar que los campos no esten nulos
-        if(txtFecha.getText().isBlank() || txtMaterno.getText().isBlank() || 
+        if(txtFecha == null || txtMaterno.getText().isBlank() || 
                 txtNombre.getText().isBlank() || txtPaterno.getText().isBlank() ||
                 txtRFC.getText().isBlank() || txtTelefono.getText().isBlank()) {
             return;
         }
+        byte discapacidad;
+        if(chxDiscapacidad.isSelected()){
+            discapacidad = 1;
+        }else{
+            discapacidad = 0;
+        }
         
-        Persona p = new Persona(0, txtTelefono.getText(), txtRFC.getText(), (byte) 0, txtNombre.getText(),
-                txtPaterno.getText(), txtMaterno.getText(), null, null);
+        Persona p = new Persona(txtTelefono.getText(), txtRFC.getText(), discapacidad, txtNombre.getText(),
+                txtPaterno.getText(), txtMaterno.getText(), txtFecha.getDate());
         IPersonaDAO dao = new PersonaDAO();
         
         p = dao.agregarPersona(p);
@@ -227,7 +240,7 @@ public class IngresaSolicitante extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error al agregar al cliente");
         }
         
-    }//GEN-LAST:event_botonBuscarActionPerformed
+    }//GEN-LAST:event_botonAgregarActionPerformed
 
     private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
         buscarPersonaRfc();
@@ -247,7 +260,8 @@ public class IngresaSolicitante extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnBuscar;
-    private javax.swing.JButton botonBuscar;
+    private javax.swing.JButton botonAgregar;
+    private javax.swing.JCheckBox chxDiscapacidad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -258,7 +272,7 @@ public class IngresaSolicitante extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField txtFecha;
+    private com.toedter.calendar.JDateChooser txtFecha;
     private javax.swing.JTextField txtMaterno;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPaterno;

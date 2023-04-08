@@ -31,7 +31,6 @@ public class Principal extends javax.swing.JFrame {
             this.botonLicencia.setEnabled(false);
             this.botonPlaca.setEnabled(false);
         }
-
     }
 
     /**
@@ -50,7 +49,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         botonSalir = new javax.swing.JButton();
         botonSolicitante = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnGenerarRegistros = new javax.swing.JButton();
         botonPlaca = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
 
@@ -116,7 +115,12 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(botonSolicitante))))
         );
 
-        jButton5.setText("Generar 20 registros ");
+        btnGenerarRegistros.setText("Generar 20 registros ");
+        btnGenerarRegistros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarRegistrosActionPerformed(evt);
+            }
+        });
 
         botonPlaca.setText("Solicitar Nueva Placa");
         botonPlaca.addActionListener(new java.awt.event.ActionListener() {
@@ -147,7 +151,7 @@ public class Principal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botonPlaca)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnGenerarRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -160,7 +164,7 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(botonPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGenerarRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(45, 45, 45))
         );
@@ -211,6 +215,10 @@ public class Principal extends javax.swing.JFrame {
         i.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_botonSolicitanteActionPerformed
+
+    private void btnGenerarRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarRegistrosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGenerarRegistrosActionPerformed
     public void buscarLicenciasVigentes(Persona persona){
         ILicenciaDAO licenciadao = new LicenciaDAO();
         List <Licencia> listalicencia = licenciadao.listaLicenciasVigentes(persona);
@@ -228,8 +236,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton botonPlaca;
     private javax.swing.JButton botonSalir;
     private javax.swing.JButton botonSolicitante;
+    private javax.swing.JButton btnGenerarRegistros;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

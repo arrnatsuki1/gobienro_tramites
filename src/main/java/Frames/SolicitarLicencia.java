@@ -43,9 +43,9 @@ public class SolicitarLicencia extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         cboAños = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        txtMonto = new javax.swing.JTextField();
         botonAceptar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        txtMonto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -113,8 +113,8 @@ public class SolicitarLicencia extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtMonto)
-                            .addComponent(cboAños, 0, 112, Short.MAX_VALUE))
+                            .addComponent(cboAños, 0, 112, Short.MAX_VALUE)
+                            .addComponent(txtMonto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(botonAceptar)
@@ -133,8 +133,8 @@ public class SolicitarLicencia extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                    .addComponent(txtMonto))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonAceptar)
                     .addComponent(jButton2))
@@ -163,19 +163,36 @@ public class SolicitarLicencia extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void cboAñosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboAñosActionPerformed
-        String opcion = (String)cboAños.getSelectedItem();
-        switch (opcion) {
-            case "1":
-                txtMonto.setText("600");
-                break;
-            case "2":
-                 txtMonto.setText("900");
-                break;
-            case "3":
-                 txtMonto.setText("1100");
-                break;
-            default:
-        break;
+        if(persona.getDiscapacitado() == 0){
+            String opcion = (String) cboAños.getSelectedItem();
+            switch (opcion) {
+                case "1":
+                    txtMonto.setText("600");
+                    break;
+                case "2":
+                    txtMonto.setText("900");
+                    break;
+                case "3":
+                    txtMonto.setText("1100");
+                    break;
+                default:
+                    break;
+            }
+        }else{
+            String opcion = (String) cboAños.getSelectedItem();
+            switch (opcion) {
+                case "1":
+                    txtMonto.setText("200");
+                    break;
+                case "2":
+                    txtMonto.setText("500");
+                    break;
+                case "3":
+                    txtMonto.setText("700");
+                    break;
+                default:
+                    break;
+            }
         }
     }//GEN-LAST:event_cboAñosActionPerformed
 
@@ -193,7 +210,7 @@ public class SolicitarLicencia extends javax.swing.JFrame {
         lic = dao.agregarLicencia(lic);
         
         if(lic != null) {
-            JOptionPane.showMessageDialog(this, "felicidades creo una licencia");
+            JOptionPane.showMessageDialog(this, "Licencia creada con exito");
         } else {
             JOptionPane.showMessageDialog(this, "no se pudo crear la licencia"
                     + " intentelo mas tarde");
@@ -211,6 +228,6 @@ public class SolicitarLicencia extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField txtMonto;
+    private javax.swing.JLabel txtMonto;
     // End of variables declaration//GEN-END:variables
 }

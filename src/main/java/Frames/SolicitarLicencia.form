@@ -49,8 +49,8 @@
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="txtMonto" max="32767" attributes="0"/>
                               <Component id="cboAños" pref="112" max="32767" attributes="0"/>
+                              <Component id="txtMonto" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -78,7 +78,7 @@
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtMonto" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="64" max="32767" attributes="0"/>
+                  <EmptySpace pref="67" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="botonAceptar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -163,8 +163,6 @@
             <Property name="text" type="java.lang.String" value="Monto a Pagar:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtMonto">
-        </Component>
         <Component class="javax.swing.JButton" name="botonAceptar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Aceptar"/>
@@ -180,6 +178,8 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="txtMonto">
         </Component>
       </SubComponents>
     </Container>

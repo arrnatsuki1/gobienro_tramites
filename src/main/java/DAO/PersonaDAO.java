@@ -31,6 +31,16 @@ public class PersonaDAO implements IPersonaDAO {
     @Override
     public Persona agregarPersona(Persona p) {
         EntityManager em = null;
+        String nombre = p.getNombre();
+        String apellidoP = p.getPrimerApellido();
+        String apellidoM = p.getSegundoApellido();
+        Encriptacion encripta = new Encriptacion();
+        String encriptado2 = encripta.encriptar(apellidoM);
+        String encriptado3 = encripta.encriptar(apellidoP);
+        String encriptado = encripta.encriptar(nombre);
+        p.setNombre(encriptado);
+        p.setPrimerApellido(encriptado3);
+        p.setSegundoApellido(encriptado2);
         try {
             em = getEntityManager();
 
@@ -39,13 +49,13 @@ public class PersonaDAO implements IPersonaDAO {
             em.getTransaction().commit();
             //Fin de la transaccion
             em.close();
+            p.setNombre(nombre);
             return p;
         } catch (Exception e) {
             if (em != null) {
                 em.getTransaction().rollback();
                 em.close();
             }
-            
             return null;
         } 
     }
@@ -53,6 +63,7 @@ public class PersonaDAO implements IPersonaDAO {
     @Override
     public Persona consultarRFC(String rfc) {
         EntityManager em = null;
+        Encriptacion desencripta = new Encriptacion();
         try {
             em = getEntityManager();
             TypedQuery<Persona> query = em
@@ -60,6 +71,9 @@ public class PersonaDAO implements IPersonaDAO {
                             Persona.class);
             query.setParameter("rfc", rfc);
             Persona p = query.getSingleResult();
+            p.setNombre(desencripta.desencriptar(p.getNombre()));
+            p.setPrimerApellido(desencripta.desencriptar(p.getPrimerApellido()));
+            p.setSegundoApellido(desencripta.desencriptar(p.getSegundoApellido()));
             em.close();
             return p;
         } catch (Exception e) {
