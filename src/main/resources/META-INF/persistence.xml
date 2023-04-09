@@ -12,7 +12,7 @@
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gobierno?serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.password" value="Cubaniux14"/>
+      <property name="javax.persistence.jdbc.password" value="AACEF6E8D16F04BB"/>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
     </properties>
   </persistence-unit>

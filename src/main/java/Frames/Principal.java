@@ -52,6 +52,7 @@ public class Principal extends javax.swing.JFrame {
         btnGenerarRegistros = new javax.swing.JButton();
         botonPlaca = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        btnRecepcion = new javax.swing.JButton();
 
         jButton2.setText("Licencia");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -136,6 +137,13 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        btnRecepcion.setText("Generar recepcion");
+        btnRecepcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecepcionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -153,6 +161,10 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(botonPlaca)
                     .addComponent(btnGenerarRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnRecepcion, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,7 +174,9 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonLicencia, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnRecepcion, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+                .addGap(11, 11, 11)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGenerarRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -219,6 +233,12 @@ public class Principal extends javax.swing.JFrame {
     private void btnGenerarRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarRegistrosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnGenerarRegistrosActionPerformed
+
+    private void btnRecepcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecepcionActionPerformed
+        
+        RecepcionDialog r = new RecepcionDialog(this, true);
+        
+    }//GEN-LAST:event_btnRecepcionActionPerformed
     public void buscarLicenciasVigentes(Persona persona){
         ILicenciaDAO licenciadao = new LicenciaDAO();
         List <Licencia> listalicencia = licenciadao.listaLicenciasVigentes(persona);
@@ -237,6 +257,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton botonSalir;
     private javax.swing.JButton botonSolicitante;
     private javax.swing.JButton btnGenerarRegistros;
+    private javax.swing.JButton btnRecepcion;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;

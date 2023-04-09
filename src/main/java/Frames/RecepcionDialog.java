@@ -18,6 +18,7 @@ public class RecepcionDialog extends javax.swing.JDialog {
     public RecepcionDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setVisible(true);
     }
 
     /**
