@@ -5,6 +5,7 @@ import DAO.IPlacaDAO;
 import DAO.PlacaDAO;
 import Entidades.Placa;
 import java.util.GregorianCalendar;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -123,6 +124,15 @@ public class RecepcionDialog extends javax.swing.JDialog {
         }
         
         nplaca.setFechaRecepcion(new GregorianCalendar());
+        placa = null;
+        placa = daoplaca.actualizar(nplaca);
+        
+        if(placa==null){
+            JOptionPane.showMessageDialog(this, "SALIO MAL");
+            return;
+        }
+            JOptionPane.showMessageDialog(this, "SALIO BIEN");
+        
     }//GEN-LAST:event_btnGenerarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
