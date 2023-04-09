@@ -1,7 +1,7 @@
 package Frames;
 
 import DAO.AutomovilDAO;
-import DAO.EstadosPlacas;
+import DAO.Estados;
 import DAO.IAutomovilDAO;
 import DAO.IPlacaDAO;
 import DAO.PlacaDAO;
@@ -68,7 +68,7 @@ public class SolicitarPlacas extends javax.swing.JFrame {
                 new BigDecimal("1500"), auto, persona);
 
         placa.setAuto(auto);
-        placa.setActiva(EstadosPlacas.ACTIVA);
+        placa.setActiva(Estados.PLACA_ACTIVA);
         placas.add(placa);
         auto.setPlacas(placas);
         //Como en el cascada del automovil pusimos que fuera persist
@@ -126,7 +126,7 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         }
 
         placa.setAuto(autoEncontrado);
-        placa.setActiva(EstadosPlacas.ACTIVA);
+        placa.setActiva(Estados.PLACA_ACTIVA);
 
         IAutomovilDAO dao = new AutomovilDAO();
 
@@ -171,7 +171,7 @@ public class SolicitarPlacas extends javax.swing.JFrame {
      */
     private boolean cancelarPlaca(Automovil auto) {
         Placa activa = auto.obtenerPlacaActiva();
-        activa.setActiva(EstadosPlacas.NO_ACTIVA);
+        activa.setActiva(Estados.PLACA_NO_ACTIVA);
         IPlacaDAO dao = new PlacaDAO();
         activa = dao.actualizar(activa);
         if (activa == null) {

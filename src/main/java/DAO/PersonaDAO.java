@@ -4,6 +4,7 @@
  */
 package DAO;
 
+import Utilidades.Encriptacion;
 import Entidades.Persona;
 import java.util.List;
 import javax.persistence.EntityManager;

@@ -14,6 +14,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -25,51 +27,52 @@ public class Persona implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_persona")
+    @Column(name = "id_persona")
     private Integer id;
     @Basic
-    @Column(name="telefono")
+    @Column(name = "telefono")
     private String telefono;
     @Basic
-    @Column(name="RFC")
+    @Column(name = "RFC")
     private String RFC;
     @Basic
-    @Column(name="discapacitado")
+    @Column(name = "discapacitado")
     private byte discapacitado;
     @Basic
-    @Column(name="nombre")
+    @Column(name = "nombre")
     private String nombre;
     @Basic
-    @Column(name="primer_pellido")
+    @Column(name = "primer_pellido")
     private String primerApellido;
     @Basic
-    @Column(name="segundo_pellido")
+    @Column(name = "segundo_pellido")
     private String segundoApellido;
 
-    @Basic
-    @Column(name="fecha_Nacimiento")
+    @Temporal(TemporalType.DATE)
+    @Column(name = "fecha_Nacimiento")
     private Date fechaNacimiento;
-    
-    @OneToMany(cascade = 
-            {CascadeType.REMOVE,
+
+    @OneToMany(cascade
+            = {CascadeType.REMOVE,
                 CascadeType.PERSIST,
                 CascadeType.MERGE
             }, fetch = FetchType.LAZY)
     private List<Vehiculo> vehiculos;
-    
+
     @OneToMany(cascade = {
         CascadeType.PERSIST,
         CascadeType.MERGE
     }, fetch = FetchType.LAZY)
     private List<Tramite> tramites;
-    
+
     public Persona() {
     }
 
-    public Persona( String telefono, String RFC, byte discapacitado, 
-            String nombre, String primerApellido, String segundoApellido, Date fechaNacimiento
-          ) {
-        this.id = id;
+    public Persona(String telefono, String RFC, byte discapacitado,
+            String nombre, String primerApellido, String segundoApellido,
+            Date fechaNacimiento)
+    {
+
         this.telefono = telefono;
         this.RFC = RFC;
         this.discapacitado = discapacitado;
@@ -77,10 +80,8 @@ public class Persona implements Serializable {
         this.primerApellido = primerApellido;
         this.segundoApellido = segundoApellido;
         this.fechaNacimiento = fechaNacimiento;
-        this.vehiculos = new ArrayList<Vehiculo>();
-        this.tramites =  new ArrayList<Tramite>();
     }
-    
+
     public Integer getId() {
         return id;
     }
@@ -161,6 +162,4 @@ public class Persona implements Serializable {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    
-    
 }
