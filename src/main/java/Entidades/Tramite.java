@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author Alan Rodriguez
+ * @author Rosa Rodriguez
  */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
