@@ -13,4 +13,6 @@ public interface ILicenciaDAO {
     public EntityManager getEntityManager();
     public Licencia agregarLicencia(Licencia licencia);
     public List <Licencia> listaLicenciasVigentes(Persona persona);
+    public void refrescar(Licencia licencia);
+    public void actualizar(Licencia licencia);
 }

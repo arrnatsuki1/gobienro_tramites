@@ -109,5 +109,18 @@ public class PersonaDAO implements IPersonaDAO {
             return null;
         }
     }
-
+    @Override
+    public void refrescar(Persona p){
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.refresh(p);
+            em.close();
+        } catch (Exception e) {
+            if(em!=null){
+                em.close();
+            }
+        }
+    }
+    
 }

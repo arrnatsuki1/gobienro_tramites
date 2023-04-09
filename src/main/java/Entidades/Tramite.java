@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,7 +38,9 @@ public class Tramite implements Serializable {
     @Column(name = "costo")
     private BigDecimal costo;
 
-    @ManyToOne()
+    @ManyToOne(cascade = {
+    CascadeType.MERGE, CascadeType.REFRESH
+    })
     @JoinColumn(name="id_persona")
     protected Persona persona;
     

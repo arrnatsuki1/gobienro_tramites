@@ -14,4 +14,5 @@ public interface IPersonaDAO {
     public Persona consultarRFC(String rfc);
     public Persona consultarObj(Persona p);
     public List<Persona> consultarTodos();
+    public void refrescar(Persona p);
 }

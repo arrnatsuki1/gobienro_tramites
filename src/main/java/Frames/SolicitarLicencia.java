@@ -2,11 +2,15 @@ package Frames;
 
 import DAO.Estados;
 import DAO.ILicenciaDAO;
+import DAO.IPersonaDAO;
 import DAO.LicenciaDAO;
+import DAO.PersonaDAO;
 import Entidades.Licencia;
 import Entidades.Persona;
+import Entidades.Tramite;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /*
@@ -24,9 +28,18 @@ public class SolicitarLicencia extends javax.swing.JFrame {
      * Creates new form SolicitarLicencia
      */
     private Persona persona;
+    
+    private IPersonaDAO daopersona;
+    
     public SolicitarLicencia(Persona persona) {
         this.persona = persona;
         initComponents();
+        daopersona = new PersonaDAO();
+        daopersona.refrescar(persona);
+        if(persona.tieneLicenciaActiva()) {
+            mostrarMensaje("ERROR", "SI SIGUE CON EL PROCESO SE CANCELARA\n"
+                    + "LA LICENCIA ANTERIOR", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -45,7 +58,7 @@ public class SolicitarLicencia extends javax.swing.JFrame {
         cboAños = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         botonAceptar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         txtMonto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -93,10 +106,10 @@ public class SolicitarLicencia extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Cancelar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -120,7 +133,7 @@ public class SolicitarLicencia extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(botonAceptar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)
+                        .addComponent(btnCancelar)
                         .addGap(44, 44, 44))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -138,7 +151,7 @@ public class SolicitarLicencia extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonAceptar)
-                    .addComponent(jButton2))
+                    .addComponent(btnCancelar))
                 .addGap(43, 43, 43))
         );
 
@@ -157,42 +170,35 @@ public class SolicitarLicencia extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         Principal pl = new Principal(true, persona);
         pl.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
+        
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void mostrarMensaje(String title, String message, int option) {
+        JOptionPane.showMessageDialog(this, message, title, option);
+    }
+    
     private void cboAñosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboAñosActionPerformed
         if(persona.getDiscapacitado() == 0){
             String opcion = (String) cboAños.getSelectedItem();
             switch (opcion) {
-                case "1":
-                    txtMonto.setText("600");
-                    break;
-                case "2":
-                    txtMonto.setText("900");
-                    break;
-                case "3":
-                    txtMonto.setText("1100");
-                    break;
-                default:
-                    break;
+                case "1" -> txtMonto.setText("600");
+                case "2" -> txtMonto.setText("900");
+                case "3" -> txtMonto.setText("1100");
+                default -> {
+                }
             }
         }else{
             String opcion = (String) cboAños.getSelectedItem();
             switch (opcion) {
-                case "1":
-                    txtMonto.setText("200");
-                    break;
-                case "2":
-                    txtMonto.setText("500");
-                    break;
-                case "3":
-                    txtMonto.setText("700");
-                    break;
-                default:
-                    break;
+                case "1" -> txtMonto.setText("200");
+                case "2" -> txtMonto.setText("500");
+                case "3" -> txtMonto.setText("700");
+                default -> {
+                }
             }
         }
     }//GEN-LAST:event_cboAñosActionPerformed
@@ -201,14 +207,23 @@ public class SolicitarLicencia extends javax.swing.JFrame {
         if(txtMonto.getText().isBlank()) {
             return;
         }
+        ILicenciaDAO daolicencia = new LicenciaDAO();
         
-        ILicenciaDAO dao = new LicenciaDAO();
+        Date fechaLimite = new Date();
+        fechaLimite.setYear(fechaLimite.getYear() + cboAños.getSelectedIndex() + 1);
         
-        Date d = new Date();
-        d.setYear(d.getYear() + cboAños.getSelectedIndex() + 1);
+        if(persona.tieneLicenciaActiva()){
+            cancelarLicenciaActiva(daolicencia);
+        }
         
-        Licencia lic = new Licencia(d, 0, new Date(), new BigDecimal(txtMonto.getText()), persona);
-        lic = dao.agregarLicencia(lic);
+        Licencia lic = new Licencia(fechaLimite, 0, new Date(), new BigDecimal(txtMonto.getText()), persona, Estados.LICENCIA_VIGENTE);
+        
+        List<Tramite> tramites = persona.getTramites();
+        tramites.add(lic);
+        
+        persona.setTramites(tramites);
+        
+        lic = daolicencia.agregarLicencia(lic);
         
         if(lic != null) {
             JOptionPane.showMessageDialog(this, "Licencia creada con exito");
@@ -216,14 +231,19 @@ public class SolicitarLicencia extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "no se pudo crear la licencia"
                     + " intentelo mas tarde");
         }
-        
+        daopersona.refrescar(persona);
     }//GEN-LAST:event_botonAceptarActionPerformed
 
+    private void cancelarLicenciaActiva(ILicenciaDAO dao) {
+        Licencia lic = persona.obtenerLicenciaVigente();
+        lic.setEstado(Estados.LICENCIA_NO_VIGENTE);
+        dao.actualizar(lic);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAceptar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JComboBox<String> cboAños;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

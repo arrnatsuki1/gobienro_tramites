@@ -9,4 +9,6 @@ public class Estados {
     public static byte PLACA_NO_ACTIVA = 0;
     public static byte PERSONA_DISCAPACITADA = 1;
     public static byte PERSONA_NO_DISCAPACITADA = 0;
+    public static byte LICENCIA_VIGENTE = 1;
+    public static byte LICENCIA_NO_VIGENTE = 0;
 }

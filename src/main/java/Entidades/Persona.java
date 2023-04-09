@@ -1,5 +1,6 @@
 package Entidades;
 
+import DAO.Estados;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -61,8 +62,9 @@ public class Persona implements Serializable {
 
     @OneToMany(cascade = {
         CascadeType.PERSIST,
-        CascadeType.MERGE
-    }, fetch = FetchType.LAZY)
+        CascadeType.MERGE,
+        CascadeType.REFRESH
+    }, fetch = FetchType.LAZY, mappedBy = "persona")
     private List<Tramite> tramites;
 
     public Persona() {
@@ -162,4 +164,28 @@ public class Persona implements Serializable {
         this.fechaNacimiento = fechaNacimiento;
     }
 
+    public boolean tieneLicenciaActiva() {
+        for(Tramite t : getTramites()) {
+            if(t.getClass() == Licencia.class) {
+                Licencia lic = (Licencia) t;
+                if(lic.getEstado() == Estados.LICENCIA_VIGENTE) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    public Licencia obtenerLicenciaVigente() {
+        for(Tramite t : getTramites()) {
+            if(t.getClass() == Licencia.class) {
+                Licencia lic = (Licencia) t;
+                if(lic.getEstado() == Estados.LICENCIA_VIGENTE) {
+                    return lic;
+                }
+            }
+        }
+        return null;
+    }
+    
 }
