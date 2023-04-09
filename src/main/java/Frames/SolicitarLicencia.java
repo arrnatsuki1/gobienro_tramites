@@ -1,5 +1,6 @@
 package Frames;
 
+import DAO.Estados;
 import DAO.ILicenciaDAO;
 import DAO.LicenciaDAO;
 import Entidades.Licencia;

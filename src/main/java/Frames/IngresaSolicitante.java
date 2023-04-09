@@ -1,5 +1,6 @@
 package Frames;
 
+import DAO.Estados;
 import DAO.IPersonaDAO;
 import DAO.PersonaDAO;
 import Entidades.Persona;
@@ -222,9 +223,9 @@ public class IngresaSolicitante extends javax.swing.JFrame {
         }
         byte discapacidad;
         if(chxDiscapacidad.isSelected()){
-            discapacidad = 1;
+            discapacidad = Estados.PERSONA_DISCAPACITADA;
         }else{
-            discapacidad = 0;
+            discapacidad = Estados.PERSONA_NO_DISCAPACITADA;
         }
         
         Persona p = new Persona(txtTelefono.getText(), txtRFC.getText(), discapacidad, txtNombre.getText(),
