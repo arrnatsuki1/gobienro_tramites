@@ -2,6 +2,7 @@ package Entidades;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -32,7 +33,7 @@ public class Tramite implements Serializable {
 
     @Temporal(TemporalType.DATE)
     @Column(name = "fecha_emision")
-    private Date fechaEmision;
+    protected Calendar fechaEmision;
     
     @Basic
     @Column(name = "costo")
@@ -47,7 +48,7 @@ public class Tramite implements Serializable {
     public Tramite() {
     }
 
-    public Tramite(Integer id, Date fechaEmision, BigDecimal costo,
+    public Tramite(Integer id, Calendar fechaEmision, BigDecimal costo,
             Persona persona) {
         this.id = id;
         this.fechaEmision = fechaEmision;
@@ -65,11 +66,11 @@ public class Tramite implements Serializable {
         this.id = id;
     }
 
-    public Date getFechaEmision() {
+    public Calendar getFechaEmision() {
         return fechaEmision;
     }
 
-    public void setFechaEmision(Date fechaEmision) {
+    public void setFechaEmision(Calendar fechaEmision) {
         this.fechaEmision = fechaEmision;
     }
 

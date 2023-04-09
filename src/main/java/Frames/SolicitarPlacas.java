@@ -11,6 +11,7 @@ import Entidades.Placa;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Random;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -64,7 +65,9 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         //de generar el codigo de las placas
         String codigo = generarNumeroPlaca();
 
-        Placa placa = new Placa(codigo, new Date(), 0, new Date(),
+        
+        
+        Placa placa = new Placa(codigo, new GregorianCalendar(), 0, new GregorianCalendar(),
                 new BigDecimal("1500"), auto, persona);
 
         placa.setAuto(auto);
@@ -115,13 +118,13 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         //Si el auto es robado, crea una placa con la fecha de recepcion actual
         //Lo que significa que da las placas el mismo dia que las pide
         if (robado) {
-            placa = new Placa(codigo, new Date(), 0, new Date(),
+            placa = new Placa(codigo, new GregorianCalendar(), 0, new GregorianCalendar(),
                     new BigDecimal("1000"), autoEncontrado, persona);
         } else {
             //En cambio si no es robado, deja la fecha de recepcion como
             //nula y tendra que hacerce un tipo de actualizacion para 
             //poner la fecha de recepcion
-            placa = new Placa(codigo, null, 0, new Date(),
+            placa = new Placa(codigo, null, 0, new GregorianCalendar(),
                     new BigDecimal("1000"), autoEncontrado, persona);
         }
 

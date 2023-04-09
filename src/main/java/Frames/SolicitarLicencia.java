@@ -9,7 +9,9 @@ import Entidades.Licencia;
 import Entidades.Persona;
 import Entidades.Tramite;
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -209,8 +211,10 @@ public class SolicitarLicencia extends javax.swing.JFrame {
         }
         ILicenciaDAO daolicencia = new LicenciaDAO();
         
-        Date fechaLimite = new Date();
-        fechaLimite.setYear(fechaLimite.getYear() + cboAños.getSelectedIndex() + 1);
+        Calendar fechaLimite = new GregorianCalendar();
+        fechaLimite.set( Calendar.YEAR, (fechaLimite.get(Calendar.YEAR) + cboAños.getSelectedIndex() + 1) );
+        
+        
         
         if(persona.tieneLicenciaActiva()){
             mostrarMensaje("ERROR", "SE CANCELARA\n"
@@ -218,7 +222,9 @@ public class SolicitarLicencia extends javax.swing.JFrame {
             cancelarLicenciaActiva(daolicencia);
         }
         
-        Licencia lic = new Licencia(fechaLimite, 0, new Date(), new BigDecimal(txtMonto.getText()), persona, Estados.LICENCIA_VIGENTE);
+        
+        
+        Licencia lic = new Licencia(fechaLimite, 0, new GregorianCalendar(), new BigDecimal(txtMonto.getText()), persona, Estados.LICENCIA_VIGENTE);
         
         List<Tramite> tramites = persona.getTramites();
         tramites.add(lic);
