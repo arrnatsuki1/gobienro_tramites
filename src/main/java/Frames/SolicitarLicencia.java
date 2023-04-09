@@ -213,6 +213,8 @@ public class SolicitarLicencia extends javax.swing.JFrame {
         fechaLimite.setYear(fechaLimite.getYear() + cboAños.getSelectedIndex() + 1);
         
         if(persona.tieneLicenciaActiva()){
+            mostrarMensaje("ERROR", "SE CANCELARA\n"
+                    + "LA LICENCIA ANTERIOR", JOptionPane.ERROR_MESSAGE);
             cancelarLicenciaActiva(daolicencia);
         }
         
