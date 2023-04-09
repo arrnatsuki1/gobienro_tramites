@@ -6,6 +6,7 @@ package Entidades;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -31,7 +32,7 @@ public class Placa extends Tramite implements Serializable {
     @Column(name="activa")
     private byte activa;
     @Temporal(TemporalType.DATE)
-    private Date fechaRecepcion;
+    private Calendar fechaRecepcion;
 
     @ManyToOne()
     @JoinColumn(name="id_auto")
@@ -41,8 +42,8 @@ public class Placa extends Tramite implements Serializable {
         super();
     }
 
-    public Placa(String codigo, Date fechaRecepcion, Integer id,
-            Date fechaEmision, BigDecimal costo,
+    public Placa(String codigo, Calendar fechaRecepcion, Integer id,
+            Calendar fechaEmision, BigDecimal costo,
             Automovil auto, Persona persona) {
         super(id, fechaEmision, costo, persona);
         this.codigo = codigo;
@@ -66,11 +67,11 @@ public class Placa extends Tramite implements Serializable {
         this.activa = activa;
     }
 
-    public Date getFechaRecepcion() {
+    public Calendar getFechaRecepcion() {
         return fechaRecepcion;
     }
 
-    public void setFechaRecepcion(Date fechaRecepcion) {
+    public void setFechaRecepcion(Calendar fechaRecepcion) {
         this.fechaRecepcion = fechaRecepcion;
     }
 
