@@ -3,11 +3,11 @@ package Entidades;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,7 +41,7 @@ public class Tramite implements Serializable {
 
     @ManyToOne(cascade = {
     CascadeType.MERGE, CascadeType.REFRESH
-    })
+    }, fetch = FetchType.EAGER)
     @JoinColumn(name="id_persona")
     protected Persona persona;
     
