@@ -2,9 +2,14 @@ package Frames;
 
 import DAO.ITramiteDAO;
 import DAO.TramiteDAO;
+import Entidades.Licencia;
 import Entidades.Persona;
+import Entidades.Placa;
 import Entidades.Tramite;
+import Utilidades.Encriptacion;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -21,10 +26,36 @@ public class Reporte extends javax.swing.JFrame {
      * Creates new form Reporte
      */
 
-    public Reporte( ) {
+    public Reporte() {
+        
         initComponents();
+        llenarTabla();
     }
+    
+    public void llenarTabla(){
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        String nombre = txtNombre.getText();
+        Encriptacion encripta = new Encriptacion();
+         String nombredES = encripta.encriptar(nombre);
 
+        ITramiteDAO dao = new TramiteDAO();
+        List<Tramite> listaTramite = dao.listaTramitesNombre(nombredES);
+        DefaultTableModel def = (DefaultTableModel) tabla.getModel();
+        def.setRowCount(0);
+        for (int i = 0; i < listaTramite.size(); i++) {
+            Object[] datos = new Object[def.getColumnCount()];
+            if(listaTramite.get(i)instanceof Placa){
+                datos[0]= "placa";
+            }
+            if(listaTramite.get(i)instanceof Licencia){
+                datos[0]= "licencia";
+            }
+            datos[1] = encripta.desencriptar(listaTramite.get(i).getPersona().getNombre());
+            datos[2] = formato.format(listaTramite.get(i).getFechaEmision().getTime());
+            datos[3] = listaTramite.get(i).getCosto();
+            def.addRow(datos);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,7 +69,7 @@ public class Reporte extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabla = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -72,7 +103,7 @@ public class Reporte extends javax.swing.JFrame {
                 .addGap(20, 20, 20))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -83,7 +114,7 @@ public class Reporte extends javax.swing.JFrame {
                 "Tipo de Tramite", "Nombre", "Fecha realizacion", "Costo"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabla);
 
         jButton1.setText("Generar PDF");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -125,23 +156,24 @@ public class Reporte extends javax.swing.JFrame {
                 .addGap(97, 97, 97))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(38, 38, 38)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(jButton3)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                        .addComponent(jButton3)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(19, 19, 19))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton4)
-                                .addContainerGap())))))
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4)
+                        .addContainerGap())))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,9 +201,7 @@ public class Reporte extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,10 +223,7 @@ public class Reporte extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-      ITramiteDAO dao = new TramiteDAO();
-      
-      List<Tramite> listaTramite = dao.listaTramitesNombre(txtNombre.getText());
-        System.out.println(listaTramite.size());
+      llenarTabla();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     
@@ -211,7 +238,7 @@ public class Reporte extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tabla;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }
