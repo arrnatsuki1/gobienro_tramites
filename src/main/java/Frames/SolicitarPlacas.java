@@ -37,10 +37,26 @@ public class SolicitarPlacas extends javax.swing.JFrame {
     }
 
     private String generarNumeroPlaca() {
-        Random random = new Random();
-        int numero = random.nextInt(100, 999);
-        String codigo = "ABC-" + numero;
-        return codigo;
+        String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String numeros = "0123456789";
+        StringBuilder sb = new StringBuilder();
+
+        // Generamos las 3 letras aleatorias
+        for (int i = 0; i < 3; i++) {
+            int index = (int) (letras.length() * Math.random());
+            sb.append(letras.charAt(index));
+        }
+
+        // Agregamos el guión
+        sb.append("-");
+
+        // Generamos los 3 números aleatorios
+        for (int i = 0; i < 3; i++) {
+            int index = (int) (numeros.length() * Math.random());
+            sb.append(numeros.charAt(index));
+        }
+
+        return sb.toString();
     }
 
     /**
