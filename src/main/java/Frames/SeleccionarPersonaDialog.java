@@ -129,13 +129,8 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
             if (p == null) {
                 return;
             }
-            
-            
-            
             personas.add(p);
-            
             mostrarTabla(personas);
-
             return;
         }
 
@@ -155,31 +150,29 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
 
             personas = daopersona.buscarPorNombreNacimiento(p);
 
-            if (personas.isEmpty()) {
-                return;
+            if (personas == null || personas.isEmpty()) {
+                personas = new ArrayList();
             }
-
             mostrarTabla(personas);
-
             return;
         }
 
         if (nombre) {
             personas = daopersona.buscarPorNombre(p);
             if(personas.isEmpty()) {
-                return;
+                personas = new ArrayList();
             }
             mostrarTabla(personas);
+            return;
         }
 
         if (nacimiento) {
             personas = daopersona.buscarPorNacimiento(fecha_nacimiento);
             if(personas == null || personas.isEmpty()) {
-                return;
+               personas = new ArrayList();
             }
             mostrarTabla(personas);
         }
-
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private Persona obtenerPersona() {
@@ -187,9 +180,10 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
         LocalDate fecha = calendario.getSelectedDate();
         
         Calendar nacimiento = new GregorianCalendar();
-        nacimiento.set(fecha.getYear(), fecha.getMonthValue()-1, fecha.getDayOfMonth());
+        
         
         if(fecha!=null){
+            nacimiento.set(fecha.getYear(), fecha.getMonthValue()-1, fecha.getDayOfMonth());
             p.setFechaNacimiento(nacimiento);
         }
         p.setPrimerApellido(txtPrimerApellido.getText());

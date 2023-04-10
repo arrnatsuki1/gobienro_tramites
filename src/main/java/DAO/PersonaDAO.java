@@ -133,7 +133,6 @@ public class PersonaDAO implements IPersonaDAO {
         EntityManager em = null;
         Encriptacion desencripta = new Encriptacion();
         Encriptacion cipher = new Encriptacion();
-
         try {
 
             String n_encriptado = cipher.encriptar(persona.getNombre());
@@ -183,9 +182,9 @@ public class PersonaDAO implements IPersonaDAO {
                             Persona.class);
             query.setParameter("fecha", date);
             List<Persona> lista = query.getResultList();
-            
+
             lista = chiper.desencriptarLista(lista);
-            
+
             em.close();
             return lista;
         } catch (Exception e) {
@@ -199,7 +198,42 @@ public class PersonaDAO implements IPersonaDAO {
 
     @Override
     public List<Persona> buscarPorNombreNacimiento(Persona persona) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        EntityManager em = null;
+        ChiperPersonas chiperPersona = new ChiperPersonas();
+        Encriptacion cipher = new Encriptacion();
+        try {
+
+            String n_encriptado = cipher.encriptar(persona.getNombre());
+            String pp_encriptado = cipher.encriptar(persona.getPrimerApellido());
+            String sp_encriptado = cipher.encriptar(persona.getSegundoApellido());
+
+            em = getEntityManager();
+            TypedQuery<Persona> query = em
+                    .createQuery("SELECT p FROM Persona p WHERE "
+                            + "p.nombre LIKE :nombre AND p.primerApellido LIKE :apellido1 "
+                            + "AND p.segundoApellido LIKE :apellido2 AND p.fechaNacimiento = :fecha", Persona.class)
+                    .setParameter("nombre", "%" + n_encriptado + "%")
+                    .setParameter("apellido1", "%" + pp_encriptado + "%")
+                    .setParameter("apellido2", "%" + sp_encriptado + "%")
+                    .setParameter("fecha", persona.getFechaNacimiento());
+
+            List<Persona> personas = query.getResultList();
+            
+            if (personas.isEmpty()) {
+                return null;
+            }
+
+            personas = chiperPersona.desencriptarLista(personas);
+            
+            em.close();
+            return personas;
+        } catch (Exception e) {
+
+            if (em != null) {
+                em.close();
+            }
+            return null;
+        }
     }
 
 }
