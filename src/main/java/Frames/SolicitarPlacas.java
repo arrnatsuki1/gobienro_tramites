@@ -39,7 +39,7 @@ public class SolicitarPlacas extends javax.swing.JFrame {
     private String generarNumeroPlaca() {
         Random random = new Random();
         int numero = random.nextInt(100, 999);
-        String codigo = "ABC" + numero;
+        String codigo = "ABC-" + numero;
         return codigo;
     }
 

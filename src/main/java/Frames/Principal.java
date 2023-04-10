@@ -213,7 +213,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_botonPlacaActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        Reporte rp = new Reporte(persona);
+        Reporte rp = new Reporte();
         rp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton7ActionPerformed

@@ -4,10 +4,15 @@
  */
 package DAO;
 
+import Entidades.Tramite;
+import java.util.List;
+import javax.persistence.EntityManager;
+
 /**
  *
  * @author jctri
  */
 public interface ITramiteDAO {
-    
+    public EntityManager getEntityManager();
+    public List<Tramite> listaTramitesNombre(String nombre);
 }
