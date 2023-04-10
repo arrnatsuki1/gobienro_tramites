@@ -45,19 +45,19 @@ public class Automovil extends Vehiculo implements Serializable {
     private List<Placa> placas;
     
     public Automovil() {
-        super();
+        
     }
 
-    public Automovil(String color, String marca, String linea, String nserie,
-            String modelo, List<Placa> placas, Integer id, Persona duenio) {
-        super(id, duenio);
-        this.color = color;
-        this.marca = marca;
-        this.linea = linea;
-        this.nserie = nserie;
-        this.modelo = modelo;
-        this.placas = placas;
-    }
+//    public Automovil(String color, String marca, String linea, String nserie,
+//            String modelo, List<Placa> placas, Integer id, Persona duenio) {
+//        super(id, duenio);
+//        this.color = color;
+//        this.marca = marca;
+//        this.linea = linea;
+//        this.nserie = nserie;
+//        this.modelo = modelo;
+//        this.placas = placas;
+//    }
 
     public List<Placa> getPlacas() {
         return placas;

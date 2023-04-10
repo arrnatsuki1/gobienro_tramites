@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package Entidades;
 
 import java.io.Serializable;
@@ -16,7 +20,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author Rosa Rodriguez
+ * @author jctri
  */
 @Entity
 @Table(name = "vehiculos")
@@ -34,7 +38,8 @@ public class Vehiculo implements Serializable {
     @JoinColumn(name = "id_dueno")
     protected Persona duenio;
     
-    public Vehiculo() {}
+    public Vehiculo() {
+    }
 
     public Vehiculo(Integer id, Persona duenio) {
         this.id = id;
@@ -56,5 +61,6 @@ public class Vehiculo implements Serializable {
     public void setDuenio(Persona duenio) {
         this.duenio = duenio;
     }
+    
     
 }

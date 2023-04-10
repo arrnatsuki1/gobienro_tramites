@@ -39,7 +39,7 @@ public class Tramite implements Serializable {
     private BigDecimal costo;
 
     @ManyToOne(cascade = {
-    CascadeType.MERGE, CascadeType.REFRESH
+     CascadeType.REFRESH
     })
     @JoinColumn(name="id_persona")
     protected Persona persona;

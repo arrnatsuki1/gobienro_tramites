@@ -4,6 +4,9 @@ import DAO.IPersonaDAO;
 import DAO.PersonaDAO;
 import Entidades.Persona;
 import Frames.Principal;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -25,8 +28,7 @@ public class Main {
 //        
 //        System.out.println(p2.getId());
         
-        
-        
+
     }
     
 }

@@ -235,9 +235,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGenerarRegistrosActionPerformed
 
     private void btnRecepcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecepcionActionPerformed
-        
         RecepcionDialog r = new RecepcionDialog(this, true);
-        
     }//GEN-LAST:event_btnRecepcionActionPerformed
     public void buscarLicenciasVigentes(Persona persona){
         ILicenciaDAO licenciadao = new LicenciaDAO();
