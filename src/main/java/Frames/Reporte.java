@@ -29,7 +29,10 @@ public class Reporte extends javax.swing.JFrame {
     public Reporte() {
         
         initComponents();
-        llenarTabla();
+        
+        SeleccionarPersonaDialog dialog = new SeleccionarPersonaDialog(this, true);
+        dialog.setVisible(true);
+        
     }
     
     public void llenarTabla(){

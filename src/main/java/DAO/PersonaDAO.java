@@ -6,6 +6,10 @@ package DAO;
 
 import Utilidades.Encriptacion;
 import Entidades.Persona;
+import Utilidades.ChiperPersonas;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -23,7 +27,7 @@ public class PersonaDAO implements IPersonaDAO {
     public PersonaDAO() {
         emf = Persistence.createEntityManagerFactory("conexion");
     }
-    
+
     @Override
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
@@ -46,7 +50,7 @@ public class PersonaDAO implements IPersonaDAO {
             em = getEntityManager();
 
             em.getTransaction().begin();
-                em.persist(p);
+            em.persist(p);
             em.getTransaction().commit();
             //Fin de la transaccion
             em.close();
@@ -58,7 +62,7 @@ public class PersonaDAO implements IPersonaDAO {
                 em.close();
             }
             return null;
-        } 
+        }
     }
 
     @Override
@@ -79,14 +83,14 @@ public class PersonaDAO implements IPersonaDAO {
             return p;
         } catch (Exception e) {
 
-            if(em!=null){
+            if (em != null) {
                 em.close();
             }
             return null;
         }
-        
+
     }
-    
+
     @Override
     public Persona consultarObj(Persona p) {
         return consultarRFC(p.getRFC());
@@ -103,24 +107,99 @@ public class PersonaDAO implements IPersonaDAO {
             em.close();
             return personas;
         } catch (Exception e) {
-            if(em!=null){
+            if (em != null) {
                 em.close();
             }
             return null;
         }
     }
+
     @Override
-    public void refrescar(Persona p){
+    public void refrescar(Persona p) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.refresh(p);
             em.close();
         } catch (Exception e) {
-            if(em!=null){
+            if (em != null) {
                 em.close();
             }
         }
     }
-    
+
+    @Override
+    public List<Persona> buscarPorNombre(Persona persona) {
+        EntityManager em = null;
+        Encriptacion desencripta = new Encriptacion();
+        Encriptacion cipher = new Encriptacion();
+
+        try {
+
+            String n_encriptado = cipher.encriptar(persona.getNombre());
+            String pp_encriptado = cipher.encriptar(persona.getPrimerApellido());
+            String sp_encriptado = cipher.encriptar(persona.getSegundoApellido());
+
+            em = getEntityManager();
+            TypedQuery<Persona> query = em
+                    .createQuery("SELECT p FROM Persona p WHERE "
+                            + "p.nombre LIKE :nombre AND p.primerApellido LIKE :apellido1 "
+                            + "AND p.segundoApellido LIKE :apellido2", Persona.class)
+                    .setParameter("nombre", "%" + n_encriptado + "%")
+                    .setParameter("apellido1", "%" + pp_encriptado + "%")
+                    .setParameter("apellido2", "%" + sp_encriptado + "%");
+
+            List<Persona> personas = query.getResultList();
+
+            if (personas.isEmpty()) {
+                return null;
+            }
+
+            for (Persona ipersona : personas) {
+                ipersona.setNombre(desencripta.desencriptar(ipersona.getNombre()));
+                ipersona.setPrimerApellido(desencripta.desencriptar(ipersona.getPrimerApellido()));
+                ipersona.setSegundoApellido(desencripta.desencriptar(ipersona.getSegundoApellido()));
+            }
+
+            em.close();
+            return personas;
+        } catch (Exception e) {
+
+            if (em != null) {
+                em.close();
+            }
+            return null;
+        }
+    }
+
+    @Override
+    public List<Persona> buscarPorNacimiento(Calendar date) {
+        EntityManager em = null;
+        ChiperPersonas chiper = new ChiperPersonas();
+        try {
+            em = getEntityManager();
+            TypedQuery<Persona> query = em
+                    .createQuery("SELECT p FROM Persona p WHERE p.fechaNacimiento = :fecha",
+                            Persona.class);
+            query.setParameter("fecha", date);
+            List<Persona> lista = query.getResultList();
+            
+            lista = chiper.desencriptarLista(lista);
+            
+            em.close();
+            return lista;
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (em != null) {
+                em.close();
+            }
+            return null;
+        }
+    }
+
+    @Override
+    public List<Persona> buscarPorNombreNacimiento(Persona persona) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

@@ -2,7 +2,9 @@ package Entidades;
 
 import DAO.Estados;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -51,7 +53,7 @@ public class Persona implements Serializable {
 
     @Temporal(TemporalType.DATE)
     @Column(name = "fecha_Nacimiento")
-    private Date fechaNacimiento;
+    private Calendar fechaNacimiento;
 
     @OneToMany(cascade
             = {CascadeType.REMOVE,
@@ -72,7 +74,7 @@ public class Persona implements Serializable {
 
     public Persona(String telefono, String RFC, byte discapacitado,
             String nombre, String primerApellido, String segundoApellido,
-            Date fechaNacimiento)
+            Calendar fechaNacimiento)
     {
 
         this.telefono = telefono;
@@ -156,11 +158,11 @@ public class Persona implements Serializable {
         this.tramites = tramites;
     }
 
-    public Date getFechaNacimiento() {
+    public Calendar getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(Calendar fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
