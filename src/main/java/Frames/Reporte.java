@@ -26,12 +26,20 @@ public class Reporte extends javax.swing.JFrame {
      * Creates new form Reporte
      */
 
+    private final Persona consultante = new Persona();
+    
     public Reporte() {
         
         initComponents();
         
-        SeleccionarPersonaDialog dialog = new SeleccionarPersonaDialog(this, true);
-        dialog.setVisible(true);
+        SeleccionarPersonaDialog dialog = new SeleccionarPersonaDialog(null, true, consultante); 
+        
+        if(consultante == null) {
+            System.out.println("ERROR NO SE QUE PASO ALV");
+            this.dispose();
+        }
+        txtNombre.setText(consultante.getNombre());
+        llenarTabla();
         
     }
     
@@ -39,7 +47,7 @@ public class Reporte extends javax.swing.JFrame {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         String nombre = txtNombre.getText();
         Encriptacion encripta = new Encriptacion();
-         String nombredES = encripta.encriptar(nombre);
+        String nombredES = encripta.encriptar(nombre);
 
         ITramiteDAO dao = new TramiteDAO();
         List<Tramite> listaTramite = dao.listaTramitesNombre(nombredES);

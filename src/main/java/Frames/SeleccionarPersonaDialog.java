@@ -7,12 +7,15 @@ package Frames;
 import DAO.IPersonaDAO;
 import DAO.PersonaDAO;
 import Entidades.Persona;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -23,13 +26,57 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
 
     private final IPersonaDAO daopersona;
 
+    private Persona selectedPersona;
+
     /**
      * Creates new form SeleccionarPersonaDialog
      */
-    public SeleccionarPersonaDialog(java.awt.Frame parent, boolean modal) {
+    public SeleccionarPersonaDialog(java.awt.Frame parent, boolean modal, Persona selectedPersona) {
         super(parent, modal);
         initComponents();
         daopersona = new PersonaDAO();
+
+        this.selectedPersona = selectedPersona;
+
+        tablaPersonas.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent evt) {
+                if (evt.getClickCount() == 2) {
+
+                    dobleClick(evt);
+
+                }
+            }
+
+        });
+
+        
+        this.setVisible(true);
+    }
+
+    private void dobleClick(MouseEvent evt) {
+        JTable tabla = (JTable) evt.getSource();
+        int row = tabla.getSelectedRow();
+
+        Persona dummy = daopersona.consultarRFC((String) tabla.getValueAt(row, 3));
+        
+        selectedPersona.setId(dummy.getId());
+        selectedPersona.setDiscapacitado(dummy.getDiscapacitado());
+        selectedPersona.setFechaNacimiento(dummy.getFechaNacimiento());
+        selectedPersona.setNombre(dummy.getNombre());
+        selectedPersona.setPrimerApellido(dummy.getPrimerApellido());
+        selectedPersona.setRFC(dummy.getRFC());
+        selectedPersona.setSegundoApellido(dummy.getSegundoApellido());
+        selectedPersona.setTelefono(dummy.getTelefono());
+        selectedPersona.setTramites(dummy.getTramites());
+        selectedPersona.setVehiculos(dummy.getVehiculos());
+        
+        if (selectedPersona == null) {
+            System.out.println("ERROR DOBLE CLICK");
+        }
+        
+        this.dispose();
+        
     }
 
     /**
@@ -73,17 +120,27 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
         jLabel3.setText("Fecha de nacimiento");
         background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, -1, -1));
 
+        jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
         tablaPersonas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nombre", "Primer Apellido", "Segundo Apellido", "RFC"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaPersonas.setRowSelectionAllowed(true);
+        tablaPersonas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tablaPersonas.setShowGrid(true);
         jScrollPane1.setViewportView(tablaPersonas);
 
         background.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 360, 550));
@@ -94,10 +151,10 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
                 btnBuscarActionPerformed(evt);
             }
         });
-        background.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 530, -1, -1));
+        background.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 530, -1, -1));
 
         btnRegresar.setText("Regresar");
-        background.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 540, -1, -1));
+        background.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 530, -1, -1));
         background.add(calendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, -1, -1));
 
         jLabel4.setText("Primer apellido");
@@ -116,7 +173,7 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         List<Persona> personas = new ArrayList();
         Persona p = obtenerPersona();
-        
+
         if (txtNombre.getText().equals("") && txtRfc.getText().equals("")
                 && calendario.getSelectedDate() == null) {
             return;
@@ -140,10 +197,10 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
 
         LocalDate fecha = calendario.getSelectedDate();
         Calendar fecha_nacimiento = new GregorianCalendar();
-        
+
         if (fecha != null) {
             nacimiento = true;
-            fecha_nacimiento.set(fecha.getYear(), fecha.getMonthValue()-1, fecha.getDayOfMonth());
+            fecha_nacimiento.set(fecha.getYear(), fecha.getMonthValue() - 1, fecha.getDayOfMonth());
         }
 
         if (nombre && nacimiento) {
@@ -159,7 +216,7 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
 
         if (nombre) {
             personas = daopersona.buscarPorNombre(p);
-            if(personas.isEmpty()) {
+            if (personas.isEmpty()) {
                 personas = new ArrayList();
             }
             mostrarTabla(personas);
@@ -168,8 +225,8 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
 
         if (nacimiento) {
             personas = daopersona.buscarPorNacimiento(fecha_nacimiento);
-            if(personas == null || personas.isEmpty()) {
-               personas = new ArrayList();
+            if (personas == null || personas.isEmpty()) {
+                personas = new ArrayList();
             }
             mostrarTabla(personas);
         }
@@ -178,12 +235,11 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
     private Persona obtenerPersona() {
         Persona p = new Persona();
         LocalDate fecha = calendario.getSelectedDate();
-        
+
         Calendar nacimiento = new GregorianCalendar();
-        
-        
-        if(fecha!=null){
-            nacimiento.set(fecha.getYear(), fecha.getMonthValue()-1, fecha.getDayOfMonth());
+
+        if (fecha != null) {
+            nacimiento.set(fecha.getYear(), fecha.getMonthValue() - 1, fecha.getDayOfMonth());
             p.setFechaNacimiento(nacimiento);
         }
         p.setPrimerApellido(txtPrimerApellido.getText());
