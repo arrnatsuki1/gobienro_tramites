@@ -205,7 +205,12 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, mensaje, titutlo, tipo);
 
     }
-
+    private void limpiarTXT() {
+       txtColor.setText("");
+        txtLinea.setText("");
+        txtMarca.setText("");
+        txtModelo.setText("");
+    }
     private void generarAutoNuevo(String serie) {
         activarPanelDatosCarro();
         txtNumeroSerie.setText(serie);
@@ -427,6 +432,7 @@ public class SolicitarPlacas extends javax.swing.JFrame {
     private void btnRegresarNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarNuevoActionPerformed
         activarBackground();
         autoEncontrado = null;
+        limpiarTXT();
     }//GEN-LAST:event_btnRegresarNuevoActionPerformed
 
     private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActionPerformed

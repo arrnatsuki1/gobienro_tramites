@@ -29,17 +29,18 @@ public class Reporte extends javax.swing.JFrame {
 
     private final Persona consultante = new Persona();
     
-    public Reporte() {
+    public Reporte(boolean p) {
         
         initComponents();
-        
-        SeleccionarPersonaDialog dialog = new SeleccionarPersonaDialog(null, true, consultante); 
-        
-        if(consultante == null) {
-            System.out.println("ERROR NO SE QUE PASO ALV");
-            this.dispose();
+        if (p) {
+            SeleccionarPersonaDialog dialog = new SeleccionarPersonaDialog(null, true, consultante);
+
+            if (consultante == null) {
+                System.out.println("ERROR NO SE QUE PASO ALV");
+                this.dispose();
+            }
+            txtNombre.setText(consultante.getNombre());
         }
-        txtNombre.setText(consultante.getNombre());
         llenarTabla();
         
     }
@@ -50,7 +51,7 @@ public class Reporte extends javax.swing.JFrame {
     
     public void llenarTabla(){
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        String nombre = txtNombre.getText();
+        String nombre = txtNombre.getText().toLowerCase();
         ITramiteDAO dao = new TramiteDAO();
         List<Tramite> listaTramite = dao.listaTramite();
        
@@ -58,7 +59,7 @@ public class Reporte extends javax.swing.JFrame {
         listaTramite = encripta.desencriptarListaTramite(listaTramite);        
         List<Tramite> listaTramiteNombre = new ArrayList<Tramite>();
         for (Tramite tramite: listaTramite) {
-            if(tramite.getPersona().getNombre().contains(nombre)){
+            if(tramite.getPersona().getNombre().toLowerCase().contains(nombre)){
                 listaTramiteNombre.add(tramite);
             }
         }
