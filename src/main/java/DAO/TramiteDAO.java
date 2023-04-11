@@ -4,7 +4,9 @@
  */
 package DAO;
 
+import Entidades.Licencia;
 import Entidades.Persona;
+import Entidades.Placa;
 import Entidades.Tramite;
 import Utilidades.Encriptacion;
 import java.util.Calendar;
@@ -168,6 +170,71 @@ public class TramiteDAO implements ITramiteDAO {
                     .setParameter("fecha2", f2)
                     .setFirstResult(inicio)
                     .setMaxResults(limit)
+                    .getResultList();
+
+            Encriptacion e = new Encriptacion();
+            tramites = e.desencriptarListaTramite(tramites);
+
+            em.close();
+            return tramites;
+        } catch (Exception e) {
+            if (em != null) {
+                em.close();
+            }
+            return null;
+        }
+    }
+
+    @Override
+    public List<Tramite> listaPorTipoPersona(Persona p, StringBuffer respuesta, int inicio, int limite) {
+        EntityManager em = null;
+        try {
+
+            String query = null;
+
+            if (Integer.parseInt(respuesta.substring(0, 1)) == Estados.TIPO_LICENCIA) {
+                query = "SELECT l FROM Licencia l WHERE l.persona = :persona";
+            } else if (Integer.parseInt(respuesta.substring(0, 1)) == Estados.TIPO_PLACA) {
+                query = "SELECT p FROM Placa p WHERE p.persona = :persona";
+            }
+
+            em = getEntityManager();
+            List<Tramite> tramites = em.createQuery(query)
+                    .setParameter("persona", p)
+                    .setFirstResult(inicio)
+                    .setMaxResults(limite)
+                    .getResultList();
+
+            Encriptacion e = new Encriptacion();
+            tramites = e.desencriptarListaTramite(tramites);
+
+            em.close();
+            return tramites;
+        } catch (Exception e) {
+            if (em != null) {
+                em.close();
+            }
+            return null;
+        }
+    }
+
+    @Override
+    public List<Tramite> listaPorTipoTodos(StringBuffer respuesta, int inicio, int limite) {
+        EntityManager em = null;
+        try {
+
+            String query = null;
+
+            if (Integer.parseInt(respuesta.substring(0, 1)) == Estados.TIPO_LICENCIA) {
+                query = "SELECT l FROM Licencia l";
+            } else if (Integer.parseInt(respuesta.substring(0, 1)) == Estados.TIPO_PLACA) {
+                query = "SELECT p FROM Placa p";
+            }
+
+            em = getEntityManager();
+            List<Tramite> tramites = em.createQuery(query)
+                    .setFirstResult(inicio)
+                    .setMaxResults(limite)
                     .getResultList();
 
             Encriptacion e = new Encriptacion();

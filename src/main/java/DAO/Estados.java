@@ -11,4 +11,6 @@ public class Estados {
     public static byte PERSONA_NO_DISCAPACITADA = 0;
     public static String LICENCIA_VIGENTE = "VIGENTE";
     public static String LICENCIA_NO_VIGENTE = "EXPIRADA";
+    public static byte TIPO_LICENCIA = 1;
+    public static byte TIPO_PLACA = 0;
 }

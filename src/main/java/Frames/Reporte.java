@@ -430,15 +430,34 @@ public class Reporte extends javax.swing.JFrame {
         new SeleccionarPeriodo(this, true, f1, f2);
         tramites = daotramite.listaPeriodoPersona(consultante, f1, f2, inicio, limite);
     }
-    
+
     private void buscarPorPeriodoTodos(Calendar f1, Calendar f2) {
         new SeleccionarPeriodo(this, true, f1, f2);
         tramites = daotramite.listaPeriodoTodos(f1, f2, inicio, limite);
     }
-    /*AQUI TERMINAN LOS METODOS PARA LA BUSQUEDA POR PERIODO*/
-    
-    private void buscarPorTramite() {
 
+    /*AQUI TERMINAN LOS METODOS PARA LA BUSQUEDA POR PERIODO*/
+    private void buscarPorTramite() {
+        StringBuffer respuesta = new StringBuffer();
+        if (consultante != null) {
+            buscarPorTipoTramiteConsultante(respuesta);
+        } else {
+            buscarPorTipoTramiteTodos(respuesta);
+        }
+
+        llenarTabla(tramites);
+    }
+
+    private void buscarPorTipoTramiteConsultante(StringBuffer respuesta) {
+        new TipoDeTramites(this, true, respuesta);
+        
+        tramites = daotramite.listaPorTipoPersona(consultante, respuesta, inicio, limite);
+        
+    }
+
+    private void buscarPorTipoTramiteTodos(StringBuffer respuesta) {
+        new TipoDeTramites(this, true, respuesta);
+        tramites = daotramite.listaPorTipoTodos(respuesta, inicio, limite);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

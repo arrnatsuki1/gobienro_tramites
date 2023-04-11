@@ -22,4 +22,6 @@ public interface ITramiteDAO {
     public List<Tramite> listaTramiteFechaTodos(Calendar fecha, int inicio, int limit);
     public List<Tramite> listaPeriodoPersona(Persona p, Calendar f1, Calendar f2, int inicio, int limit);
     public List<Tramite> listaPeriodoTodos(Calendar f1, Calendar f2, int inicio, int limit);
+    public List<Tramite> listaPorTipoPersona(Persona p, StringBuffer respuesta, int inicio, int limite);
+    public List<Tramite> listaPorTipoTodos(StringBuffer respuesta, int inicio, int limite);
 }
