@@ -3,6 +3,7 @@ package Entidades;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -19,15 +20,16 @@ public class Licencia extends Tramite implements Serializable {
     @Column(name = "vigencia")
     @Temporal(TemporalType.DATE)
     private Calendar vigencia;
-
-    private byte estado;
+    @Basic
+    @Column(name="estado")
+    private String estado;
     
     public Licencia() {
         super();
     }
 
     public Licencia(Calendar vigencia, Integer id, Calendar fechaEmision,
-            BigDecimal costo, Persona persona, byte estado) {
+            BigDecimal costo, Persona persona, String estado) {
         super(id, fechaEmision, costo, persona);
         this.vigencia = vigencia;
         this.estado = estado;
@@ -41,11 +43,11 @@ public class Licencia extends Tramite implements Serializable {
         this.vigencia = vigencia;
     }
 
-    public byte getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(byte estado){
+    public void setEstado(String estado){
         this.estado = estado;
     }
     

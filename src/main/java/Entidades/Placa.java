@@ -30,7 +30,7 @@ public class Placa extends Tramite implements Serializable {
     private String codigo;
     @Basic
     @Column(name="activa")
-    private byte activa;
+    private String activa;
     @Temporal(TemporalType.DATE)
     private Calendar fechaRecepcion;
 
@@ -59,11 +59,11 @@ public class Placa extends Tramite implements Serializable {
         this.codigo = codigo;
     }
 
-    public byte getActiva() {
+    public String getActiva() {
         return activa;
     }
 
-    public void setActiva(byte activa) {
+    public void setActiva(String activa) {
         this.activa = activa;
     }
 

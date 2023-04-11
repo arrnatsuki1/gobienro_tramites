@@ -2,6 +2,7 @@ package Frames;
 
 import DAO.ITramiteDAO;
 import DAO.TramiteDAO;
+import Entidades.Automovil;
 import Entidades.Licencia;
 import Entidades.Persona;
 import Entidades.Placa;
@@ -16,50 +17,94 @@ import javax.swing.table.DefaultTableModel;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author jctri
  */
 public class Reporte extends javax.swing.JFrame {
 
+    
+    /**
+     * NOTA 
+     * Jose, como estamos haciendo los reportes generales y los reportes
+     * de una persona en general en el mismo JFrame, vamos a tener
+     * que poner un modelo de tabla donde salga el nombre de la persona
+     * en caso de ser los reportes generales y un modelo de tabla diferente
+     * para las personas en particular
+     * 
+     */
+    
     /**
      * Creates new form Reporte
      */
-
-    private final Persona consultante = new Persona();
+    
+    private Persona consultante;
+    private final ITramiteDAO daotramite;
+    
+    /**
+     * inicio es desde que valor a va a iniciar la consulta
+     * fin donde va a terminar la toma de datos
+     * limit el limite de cuantos registros nos vamos a traer de la base de datos
+     */
+    private int inicio = 0, fin = 10, limite = 100;
+    
+    private List<Tramite> tramites;
     
     public Reporte(boolean p) {
-        
+        daotramite = new TramiteDAO();
         initComponents();
         if (p) {
-            SeleccionarPersonaDialog dialog = new SeleccionarPersonaDialog(null, true, consultante);
-
-            if (consultante == null) {
-                System.out.println("ERROR NO SE QUE PASO ALV");
-                this.dispose();
-            }
-            txtNombre.setText(consultante.getNombre());
+            configurarHistorialPersona();
+        }else{
+            configurarTodosLosTramites();
         }
-        llenarTabla();
+
+    }
+    /**
+     * Configura todos los tramites de una persona guiados por el limite
+     */
+    private void configurarHistorialPersona() {
+        this.consultante = new Persona();
+        SeleccionarPersonaDialog dialog = new SeleccionarPersonaDialog(null, true, consultante);
+
+        if (consultante == null) {
+            System.out.println("ERROR NO SE QUE PASO");
+            this.dispose();
+        }
         
+        txtNombre.setText(consultante.getNombre());
+        obtenerTramitesPersonas();
     }
     
-    private void tramitesPorFecha() {
-        List<Tramite> tramites;
+    /**
+     * Configura todos los tramites de la base de datos guiados por el limite
+     */
+    private void configurarTodosLosTramites() {
+        tramites = daotramite.listaTramite(inicio, limite);
+        llenarTabla(tramites);
     }
-    
-    public void llenarTabla(){
+    /**
+     * Obtiene tramites de la persona guiados por el limite
+     */
+    private void obtenerTramitesPersonas() {
+        tramites = daotramite
+                .listaTramitePersina(consultante, inicio, limite);
+        llenarTabla(tramites);
+    }
+
+    /**
+     * Este es el metodo que hiciste Carlos, el otro que dice llenarTabla es para
+     * llenar la tabla, no hay que hacer consultas en metodos con nombres genericos
+     */
+    public void llenarTabla2() {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         String nombre = txtNombre.getText().toLowerCase();
         ITramiteDAO dao = new TramiteDAO();
-        List<Tramite> listaTramite = dao.listaTramite();
-       
-        Encriptacion encripta = new Encriptacion();
-        listaTramite = encripta.desencriptarListaTramite(listaTramite);        
+        List<Tramite> listaTramite = dao.listaTramite(inicio, fin);
+
         List<Tramite> listaTramiteNombre = new ArrayList<Tramite>();
-        for (Tramite tramite: listaTramite) {
-            if(tramite.getPersona().getNombre().toLowerCase().contains(nombre)){
+        for (Tramite tramite : listaTramite) {
+            if (tramite.getPersona().getNombre().toLowerCase().contains(nombre)) {
                 listaTramiteNombre.add(tramite);
             }
         }
@@ -67,11 +112,11 @@ public class Reporte extends javax.swing.JFrame {
         def.setRowCount(0);
         for (int i = 0; i < listaTramiteNombre.size(); i++) {
             Object[] datos = new Object[def.getColumnCount()];
-            if(listaTramiteNombre.get(i)instanceof Placa){
-                datos[0]= "Expedicion de Placa";
+            if (listaTramiteNombre.get(i) instanceof Placa) {
+                datos[0] = "Expedicion de Placa";
             }
-            if(listaTramiteNombre.get(i)instanceof Licencia){
-                datos[0]= "Expedicion de Licencia";
+            if (listaTramiteNombre.get(i) instanceof Licencia) {
+                datos[0] = "Expedicion de Licencia";
             }
             datos[1] = listaTramiteNombre.get(i).getPersona().getNombre();
             datos[2] = formato.format(listaTramiteNombre.get(i).getFechaEmision().getTime());
@@ -79,6 +124,44 @@ public class Reporte extends javax.swing.JFrame {
             def.addRow(datos);
         }
     }
+    
+    /**
+     * Metodo para llenar la tabla con tramites
+     * @param tramites los tramites que se llenaran en la tabla
+     */
+    public void llenarTabla(List<Tramite> tramites) {
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        DefaultTableModel def = (DefaultTableModel) tabla.getModel();
+        
+        List<Tramite> listaAcortada = new ArrayList();
+        for(int i = inicio; i<fin; i++) {
+            if(i>=tramites.size()){
+                break;
+            }
+            listaAcortada.add(tramites.get(i));
+        }
+        
+        def.setRowCount(0);
+        for (int i = 0; i < listaAcortada.size(); i++) {
+            Object[] datos = new Object[def.getColumnCount()];
+            
+            if (listaAcortada.get(i) instanceof Placa) {
+                datos[0] = "Expedicion de Placa";
+                Placa t = (Placa)listaAcortada.get(i);
+                datos[1] = t.getActiva();
+            }
+            if (listaAcortada.get(i) instanceof Licencia) {
+                datos[0] = "Expedicion de Licencia";
+                Licencia t = (Licencia)listaAcortada.get(i);
+                datos[1] = t.getEstado();
+            }
+
+            datos[2] = formato.format(listaAcortada.get(i).getFechaEmision().getTime());
+            datos[3] = listaAcortada.get(i).getCosto();
+            def.addRow(datos);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -93,11 +176,11 @@ public class Reporte extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnPDF = new javax.swing.JButton();
+        btnFecha = new javax.swing.JButton();
+        btnTipo = new javax.swing.JButton();
         btnBuscarporNombre = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         txtNombre = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         btnPeriodo = new javax.swing.JButton();
@@ -133,6 +216,9 @@ public class Reporte extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 542, -1));
 
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -147,26 +233,34 @@ public class Reporte extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Tipo de Tramite", "Nombre", "Fecha realizacion", "Costo"
+                "Tipo de Tramite", "Estado", "Fecha realizacion", "Costo"
             }
-        ));
-        jScrollPane1.setViewportView(tabla);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 540, 190));
-
-        jButton1.setText("Generar PDF");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 400, -1, -1));
+        jScrollPane1.setViewportView(tabla);
 
-        jButton2.setText("Buscar por Fecha");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, -1, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 540, 180));
 
-        jButton3.setText("Buscar por Tipo de Tramite");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, 170, -1));
+        btnPDF.setText("Generar PDF");
+        btnPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPDFActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 400, -1, -1));
+
+        btnFecha.setText("Buscar por Fecha");
+        jPanel1.add(btnFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, -1, -1));
+
+        btnTipo.setText("Buscar por Tipo de Tramite");
+        jPanel1.add(btnTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, 170, -1));
 
         btnBuscarporNombre.setText("Buscar por nombre");
         btnBuscarporNombre.addActionListener(new java.awt.event.ActionListener() {
@@ -176,25 +270,41 @@ public class Reporte extends javax.swing.JFrame {
         });
         jPanel1.add(btnBuscarporNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 350, 170, -1));
 
-        jButton5.setText("Cancelar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 400, -1, -1));
-        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 84, -1));
+        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 400, -1, -1));
+
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 400, 230, -1));
 
         jLabel2.setText("Nombre:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, -1, -1));
 
         btnPeriodo.setText("Periodo");
         jPanel1.add(btnPeriodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 120, -1));
 
         btnSigPagina.setText(">");
+        btnSigPagina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSigPaginaActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnSigPagina, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, -1, -1));
 
         btnAntPagina.setText("<");
+        btnAntPagina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAntPaginaActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnAntPagina, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 280, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -212,30 +322,62 @@ public class Reporte extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDFActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnPDFActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         Principal pl = new Principal(false, new Persona());
         pl.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnBuscarporNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarporNombreActionPerformed
-      llenarTabla();
+        llenarTabla2();
     }//GEN-LAST:event_btnBuscarporNombreActionPerformed
 
-    
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void btnSigPaginaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSigPaginaActionPerformed
+        this.inicio += 10;
+        this.fin += 10;
+        
+        //En caso de que inicio sea igual al limite significa que tenemos que traer
+        //Mas tramites de la base de datos
+        if(this.inicio == limite) {
+            if(consultante!=null) {
+                configurarHistorialPersona();
+            }else{
+                configurarTodosLosTramites();
+            }
+            this.inicio = 0;
+            this.fin = 10;
+        }
+        
+        llenarTabla(tramites);
+    }//GEN-LAST:event_btnSigPaginaActionPerformed
+
+    private void btnAntPaginaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAntPaginaActionPerformed
+        if (this.inicio == 0) {
+            return;
+        }
+        this.inicio -= 10;
+        this.fin -= 10;
+        llenarTabla(tramites);
+    }//GEN-LAST:event_btnAntPaginaActionPerformed
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAntPagina;
     private javax.swing.JButton btnBuscarporNombre;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnFecha;
+    private javax.swing.JButton btnPDF;
     private javax.swing.JButton btnPeriodo;
     private javax.swing.JButton btnSigPagina;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton btnTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

@@ -170,7 +170,7 @@ public class Persona implements Serializable {
         for(Tramite t : getTramites()) {
             if(t.getClass() == Licencia.class) {
                 Licencia lic = (Licencia) t;
-                if(lic.getEstado() == Estados.LICENCIA_VIGENTE) {
+                if(lic.getEstado().equals(Estados.LICENCIA_VIGENTE)) {
                     return true;
                 }
             }
@@ -182,7 +182,7 @@ public class Persona implements Serializable {
         for(Tramite t : getTramites()) {
             if(t.getClass() == Licencia.class) {
                 Licencia lic = (Licencia) t;
-                if(lic.getEstado() == Estados.LICENCIA_VIGENTE) {
+                if(lic.getEstado().equals(Estados.LICENCIA_VIGENTE) ) {
                     return lic;
                 }
             }

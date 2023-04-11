@@ -4,6 +4,7 @@
  */
 package DAO;
 
+import Entidades.Persona;
 import Entidades.Tramite;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -14,5 +15,6 @@ import javax.persistence.EntityManager;
  */
 public interface ITramiteDAO {
     public EntityManager getEntityManager();
-    public List<Tramite> listaTramite();
+    public List<Tramite> listaTramite(int inicio, int limit);
+    public List<Tramite> listaTramitePersina(Persona persona, int inicio, int limit);
 }

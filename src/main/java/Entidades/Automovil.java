@@ -109,7 +109,7 @@ public class Automovil extends Vehiculo implements Serializable {
     
     public boolean tienePlacaActiva() {
         for(Placa placa : this.getPlacas()) {
-            if(placa.getActiva() == Estados.PLACA_ACTIVA) {
+            if(placa.getActiva().equalsIgnoreCase(Estados.PLACA_ACTIVA)) {
                 return true;
             }
         }
@@ -118,7 +118,7 @@ public class Automovil extends Vehiculo implements Serializable {
     
     public Placa obtenerPlacaActiva() {
         for(Placa placa : this.getPlacas()) {
-            if(placa.getActiva() == Estados.PLACA_ACTIVA) {
+            if(placa.getActiva().equals(Estados.PLACA_ACTIVA)) {
                 return placa;
             }
         }
