@@ -7,6 +7,7 @@ package DAO;
 import Entidades.Persona;
 import Entidades.Tramite;
 import Utilidades.Encriptacion;
+import java.util.Calendar;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -59,12 +60,61 @@ public class TramiteDAO implements ITramiteDAO {
     }
 
     @Override
-    public List<Tramite> listaTramitePersina(Persona persona, int inicio, int limit) {
+    public List<Tramite> listaTramitePersona(Persona persona, int inicio, int limit) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             List<Tramite> tramites = em.createQuery("SELECT t FROM Tramite t WHERE t.persona = :persona")
                     .setParameter("persona", persona)
+                    .setFirstResult(inicio)
+                    .setMaxResults(limit)
+                    .getResultList();
+
+            Encriptacion e = new Encriptacion();
+            tramites = e.desencriptarListaTramite(tramites);
+
+            em.close();
+            return tramites;
+        } catch (Exception e) {
+            if (em != null) {
+                em.close();
+            }
+            return null;
+        }
+    }
+
+    @Override
+    public List<Tramite> listaTramitePersona(Persona p, Calendar fecha, int inicio, int limit) {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            List<Tramite> tramites = em.createQuery("SELECT t FROM Tramite t WHERE t.persona = :persona AND t.fechaEmision = :fecha")
+                    .setParameter("persona", p)
+                    .setParameter("fecha", fecha)
+                    .setFirstResult(inicio)
+                    .setMaxResults(limit)
+                    .getResultList();
+
+            Encriptacion e = new Encriptacion();
+            tramites = e.desencriptarListaTramite(tramites);
+
+            em.close();
+            return tramites;
+        } catch (Exception e) {
+            if (em != null) {
+                em.close();
+            }
+            return null;
+        }
+    }
+
+    @Override
+    public List<Tramite> listaTramiteFechaTodos(Calendar fecha, int inicio, int limit) {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            List<Tramite> tramites = em.createQuery("SELECT t FROM Tramite t WHERE t.fechaEmision = :fecha")
+                    .setParameter("fecha", fecha)
                     .setFirstResult(inicio)
                     .setMaxResults(limit)
                     .getResultList();

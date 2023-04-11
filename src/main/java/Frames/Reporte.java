@@ -10,6 +10,8 @@ import Entidades.Tramite;
 import Utilidades.Encriptacion;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -88,7 +90,7 @@ public class Reporte extends javax.swing.JFrame {
      */
     private void obtenerTramitesPersonas() {
         tramites = daotramite
-                .listaTramitePersina(consultante, inicio, limite);
+                .listaTramitePersona(consultante, inicio, limite);
         llenarTabla(tramites);
     }
 
@@ -257,9 +259,19 @@ public class Reporte extends javax.swing.JFrame {
         jPanel1.add(btnPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 400, -1, -1));
 
         btnFecha.setText("Buscar por Fecha");
+        btnFecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFechaActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, -1, -1));
 
         btnTipo.setText("Buscar por Tipo de Tramite");
+        btnTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTipoActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, 170, -1));
 
         btnBuscarporNombre.setText("Buscar por nombre");
@@ -289,6 +301,11 @@ public class Reporte extends javax.swing.JFrame {
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, -1, -1));
 
         btnPeriodo.setText("Periodo");
+        btnPeriodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPeriodoActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnPeriodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 120, -1));
 
         btnSigPagina.setText(">");
@@ -368,7 +385,45 @@ public class Reporte extends javax.swing.JFrame {
         llenarTabla(tramites);
     }//GEN-LAST:event_btnAntPaginaActionPerformed
 
+    private void btnTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTipoActionPerformed
+        buscarPorTramite();
+    }//GEN-LAST:event_btnTipoActionPerformed
 
+    private void btnPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeriodoActionPerformed
+        buscarPorPeriodo();
+    }//GEN-LAST:event_btnPeriodoActionPerformed
+
+    private void btnFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFechaActionPerformed
+        Calendar fecha = new GregorianCalendar();
+        buscarPorFecha(fecha);
+    }//GEN-LAST:event_btnFechaActionPerformed
+
+    private void buscarPorFecha(Calendar fecha){
+        if(consultante!=null){
+            buscarPorFechaConsultante(fecha);
+        }else{
+            buscarPorFechaTodos(fecha);
+        }
+        
+        llenarTabla(tramites);
+    }
+    
+    private void buscarPorFechaTodos(Calendar c) {
+        new SeleccionarFecha(this, true, c);
+        tramites = daotramite.listaTramiteFechaTodos( c, inicio, limite);
+    }
+    
+    private void buscarPorFechaConsultante(Calendar c) {
+        new SeleccionarFecha(this, true, c);
+        tramites = daotramite.listaTramitePersona(consultante, c, inicio, limite);
+    }
+    
+    private void buscarPorPeriodo(){};
+    
+    private void buscarPorTramite() {
+        
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAntPagina;
     private javax.swing.JButton btnBuscarporNombre;
