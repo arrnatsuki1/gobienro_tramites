@@ -8,6 +8,7 @@ import Entidades.Placa;
 import Entidades.Tramite;
 import Utilidades.Encriptacion;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -50,22 +51,30 @@ public class Reporte extends javax.swing.JFrame {
     public void llenarTabla(){
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         String nombre = txtNombre.getText();
-        
         ITramiteDAO dao = new TramiteDAO();
         List<Tramite> listaTramite = dao.listaTramite();
+       
+        Encriptacion encripta = new Encriptacion();
+        listaTramite = encripta.desencriptarListaTramite(listaTramite);        
+        List<Tramite> listaTramiteNombre = new ArrayList<Tramite>();
+        for (Tramite tramite: listaTramite) {
+            if(tramite.getPersona().getNombre().contains(nombre)){
+                listaTramiteNombre.add(tramite);
+            }
+        }
         DefaultTableModel def = (DefaultTableModel) tabla.getModel();
         def.setRowCount(0);
-        for (int i = 0; i < listaTramite.size(); i++) {
+        for (int i = 0; i < listaTramiteNombre.size(); i++) {
             Object[] datos = new Object[def.getColumnCount()];
-            if(listaTramite.get(i)instanceof Placa){
+            if(listaTramiteNombre.get(i)instanceof Placa){
                 datos[0]= "Expedicion de Placa";
             }
-            if(listaTramite.get(i)instanceof Licencia){
+            if(listaTramiteNombre.get(i)instanceof Licencia){
                 datos[0]= "Expedicion de Licencia";
             }
-//            datos[1] = encripta.desencriptar(listaTramite.get(i).getPersona().getNombre());
-            datos[2] = formato.format(listaTramite.get(i).getFechaEmision().getTime());
-            datos[3] = listaTramite.get(i).getCosto();
+            datos[1] = listaTramiteNombre.get(i).getPersona().getNombre();
+            datos[2] = formato.format(listaTramiteNombre.get(i).getFechaEmision().getTime());
+            datos[3] = listaTramiteNombre.get(i).getCosto();
             def.addRow(datos);
         }
     }
@@ -86,7 +95,7 @@ public class Reporte extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnBuscarporNombre = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         txtNombre = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -140,10 +149,10 @@ public class Reporte extends javax.swing.JFrame {
 
         jButton3.setText("Buscar por Tipo de Tramite");
 
-        jButton4.setText("Buscar por nombre");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscarporNombre.setText("Buscar por nombre");
+        btnBuscarporNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnBuscarporNombreActionPerformed(evt);
             }
         });
 
@@ -181,7 +190,7 @@ public class Reporte extends javax.swing.JFrame {
                         .addGap(19, 19, 19))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4)
+                        .addComponent(btnBuscarporNombre)
                         .addContainerGap())))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -200,7 +209,7 @@ public class Reporte extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
+                    .addComponent(btnBuscarporNombre)
                     .addComponent(jButton3)
                     .addComponent(jButton2))
                 .addGap(38, 38, 38)
@@ -235,16 +244,16 @@ public class Reporte extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnBuscarporNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarporNombreActionPerformed
       llenarTabla();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnBuscarporNombreActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscarporNombre;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -5,6 +5,7 @@ package Utilidades;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 import Entidades.Persona;
+import Entidades.Tramite;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -81,4 +82,22 @@ public class Encriptacion {
         return lista_desencriptada;
     }
     
+    public List<Tramite> desencriptarListaTramite(List<Tramite> lista) {
+        List<Persona> personasDesencriptadas = new ArrayList<>(); // crea una lista auxiliar de personas
+        List<Tramite> lista_tramitePersona = new ArrayList<>(); // crea una lista de trámites
+
+        for (Tramite tramite : lista) {
+            Persona persona = tramite.getPersona(); // obtiene la persona del trámite
+
+            if (!personasDesencriptadas.contains(persona)) { // si la persona no está en la lista auxiliar
+                personasDesencriptadas.add(persona); // agrega la persona a la lista auxiliar
+                persona.setNombre(this.desencriptar(persona.getNombre()));
+                persona.setPrimerApellido(this.desencriptar(persona.getPrimerApellido()));
+                persona.setSegundoApellido(this.desencriptar(persona.getSegundoApellido())); 
+            }
+            lista_tramitePersona.add(tramite); // agrega el trámite a la lista
+        }
+
+        return lista_tramitePersona;
+    }
 }

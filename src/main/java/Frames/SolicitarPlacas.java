@@ -468,8 +468,8 @@ public class SolicitarPlacas extends javax.swing.JFrame {
                     + " si continua esta generarndo placas nuevas y cancelando"
                     + " las anteriores";
 
-            generarMensaje("ERROR", msg,
-                    JOptionPane.ERROR_MESSAGE);
+            generarMensaje("ADVERTENCIA", msg,
+                    JOptionPane.WARNING_MESSAGE);
 
         }
 
