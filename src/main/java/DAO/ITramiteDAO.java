@@ -14,5 +14,5 @@ import javax.persistence.EntityManager;
  */
 public interface ITramiteDAO {
     public EntityManager getEntityManager();
-    public List<Tramite> listaTramitesNombre(String nombre);
+    public List<Tramite> listaTramite();
 }

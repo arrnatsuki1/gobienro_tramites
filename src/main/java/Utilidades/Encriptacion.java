@@ -4,8 +4,11 @@ package Utilidades;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+import Entidades.Persona;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -63,4 +66,19 @@ public class Encriptacion {
         }
         return null;
     }
+    
+    public List<Persona> desencriptarLista(List<Persona> lista) {
+        List<Persona> lista_desencriptada = new ArrayList();
+        
+        for(Persona persona : lista) {
+            
+            persona.setNombre( this.desencriptar( persona.getNombre()) );
+            persona.setPrimerApellido( this.desencriptar( persona.getPrimerApellido()) );
+            persona.setSegundoApellido( this.desencriptar( persona.getSegundoApellido() ) );
+            lista_desencriptada.add(persona);
+            
+        }
+        return lista_desencriptada;
+    }
+    
 }

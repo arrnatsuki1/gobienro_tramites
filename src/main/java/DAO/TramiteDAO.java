@@ -23,15 +23,13 @@ public class TramiteDAO implements ITramiteDAO {
     }
 
     @Override
-    public List<Tramite> listaTramitesNombre(String nombre) {
+    public List<Tramite> listaTramite() {
         EntityManager em = null;
         try {
             em = getEntityManager();
-            List<Tramite> tramites = em.createQuery("SELECT t FROM Tramite t WHERE t.persona.nombre LIKE :nombre")
-                    .setParameter("nombre", "%" + nombre + "%")
+            List<Tramite> tramites = em.createQuery("SELECT t FROM Tramite t")
                     .getResultList();
             em.close();
-            System.out.println(nombre);
             return tramites;
         } catch (Exception e) {
             if (em != null) {

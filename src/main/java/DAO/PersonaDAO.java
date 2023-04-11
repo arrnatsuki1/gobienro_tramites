@@ -6,7 +6,7 @@ package DAO;
 
 import Utilidades.Encriptacion;
 import Entidades.Persona;
-import Utilidades.ChiperPersonas;
+//import Utilidades.ChiperPersonas;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
@@ -174,7 +174,7 @@ public class PersonaDAO implements IPersonaDAO {
     @Override
     public List<Persona> buscarPorNacimiento(Calendar date) {
         EntityManager em = null;
-        ChiperPersonas chiper = new ChiperPersonas();
+        Encriptacion chiper = new Encriptacion();
         try {
             em = getEntityManager();
             TypedQuery<Persona> query = em
@@ -199,7 +199,6 @@ public class PersonaDAO implements IPersonaDAO {
     @Override
     public List<Persona> buscarPorNombreNacimiento(Persona persona) {
         EntityManager em = null;
-        ChiperPersonas chiperPersona = new ChiperPersonas();
         Encriptacion cipher = new Encriptacion();
         try {
 
@@ -223,7 +222,7 @@ public class PersonaDAO implements IPersonaDAO {
                 return null;
             }
 
-            personas = chiperPersona.desencriptarLista(personas);
+            personas = cipher.desencriptarLista(personas);
             
             em.close();
             return personas;

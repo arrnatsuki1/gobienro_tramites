@@ -217,8 +217,8 @@ public class SolicitarLicencia extends javax.swing.JFrame {
         
         
         if(persona.tieneLicenciaActiva()){
-            mostrarMensaje("ERROR", "SE CANCELARA\n"
-                    + "LA LICENCIA ANTERIOR", JOptionPane.ERROR_MESSAGE);
+            mostrarMensaje("ADVERTENCIA", "SE CANCELARA\n"
+                    + "LA LICENCIA ANTERIOR", JOptionPane.WARNING_MESSAGE);
             cancelarLicenciaActiva(daolicencia);
         }
         
@@ -235,6 +235,9 @@ public class SolicitarLicencia extends javax.swing.JFrame {
         
         if(lic != null) {
             JOptionPane.showMessageDialog(this, "Licencia creada con exito");
+            Principal pl = new Principal(true, persona);
+            pl.setVisible(true);
+            this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(this, "no se pudo crear la licencia"
                     + " intentelo mas tarde");

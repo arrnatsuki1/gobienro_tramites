@@ -138,7 +138,6 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        tablaPersonas.setRowSelectionAllowed(true);
         tablaPersonas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tablaPersonas.setShowGrid(true);
         jScrollPane1.setViewportView(tablaPersonas);
@@ -154,6 +153,11 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
         background.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 530, -1, -1));
 
         btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
         background.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 530, -1, -1));
         background.add(calendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, -1, -1));
 
@@ -162,12 +166,13 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
 
         jLabel5.setText("Segundo apellido");
         background.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
-        background.add(txtPrimerApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 150, -1));
-        background.add(txtSegundoApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 140, -1));
+        background.add(txtPrimerApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 140, -1));
+        background.add(txtSegundoApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 130, -1));
 
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 580));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -204,7 +209,7 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
         }
 
         if (nombre && nacimiento) {
-
+            p= this.obtenerPersona();
             personas = daopersona.buscarPorNombreNacimiento(p);
 
             if (personas == null || personas.isEmpty()) {
@@ -215,8 +220,9 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
         }
 
         if (nombre) {
+            p= this.obtenerPersona();
             personas = daopersona.buscarPorNombre(p);
-            if (personas.isEmpty()) {
+            if (personas == null) {
                 personas = new ArrayList();
             }
             mostrarTabla(personas);
@@ -224,6 +230,7 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
         }
 
         if (nacimiento) {
+            p= this.obtenerPersona();
             personas = daopersona.buscarPorNacimiento(fecha_nacimiento);
             if (personas == null || personas.isEmpty()) {
                 personas = new ArrayList();
@@ -231,6 +238,10 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
             mostrarTabla(personas);
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+       this.dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     private Persona obtenerPersona() {
         Persona p = new Persona();

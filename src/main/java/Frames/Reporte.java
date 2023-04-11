@@ -45,29 +45,25 @@ public class Reporte extends javax.swing.JFrame {
     
     private void tramitesPorFecha() {
         List<Tramite> tramites;
-        
-        
     }
     
     public void llenarTabla(){
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         String nombre = txtNombre.getText();
-        Encriptacion encripta = new Encriptacion();
-        String nombredES = encripta.encriptar(nombre);
-
+        
         ITramiteDAO dao = new TramiteDAO();
-        List<Tramite> listaTramite = dao.listaTramitesNombre(nombredES);
+        List<Tramite> listaTramite = dao.listaTramite();
         DefaultTableModel def = (DefaultTableModel) tabla.getModel();
         def.setRowCount(0);
         for (int i = 0; i < listaTramite.size(); i++) {
             Object[] datos = new Object[def.getColumnCount()];
             if(listaTramite.get(i)instanceof Placa){
-                datos[0]= "placa";
+                datos[0]= "Expedicion de Placa";
             }
             if(listaTramite.get(i)instanceof Licencia){
-                datos[0]= "licencia";
+                datos[0]= "Expedicion de Licencia";
             }
-            datos[1] = encripta.desencriptar(listaTramite.get(i).getPersona().getNombre());
+//            datos[1] = encripta.desencriptar(listaTramite.get(i).getPersona().getNombre());
             datos[2] = formato.format(listaTramite.get(i).getFechaEmision().getTime());
             datos[3] = listaTramite.get(i).getCosto();
             def.addRow(datos);
