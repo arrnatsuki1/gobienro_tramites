@@ -43,6 +43,12 @@ public class Reporte extends javax.swing.JFrame {
         
     }
     
+    private void tramitesPorFecha() {
+        List<Tramite> tramites;
+        
+        
+    }
+    
     public void llenarTabla(){
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         String nombre = txtNombre.getText();
