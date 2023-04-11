@@ -50,6 +50,7 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
 
         });
 
+        this.setLocationRelativeTo(parent);
         
         this.setVisible(true);
     }
@@ -105,6 +106,7 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
         txtSegundoApellido = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Buscar persona");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -142,7 +144,7 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
         tablaPersonas.setShowGrid(true);
         jScrollPane1.setViewportView(tablaPersonas);
 
-        background.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 360, 550));
+        background.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 360, 370));
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -150,7 +152,7 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
                 btnBuscarActionPerformed(evt);
             }
         });
-        background.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 530, -1, -1));
+        background.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 360, -1, -1));
 
         btnRegresar.setText("Regresar");
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
@@ -158,8 +160,8 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
                 btnRegresarActionPerformed(evt);
             }
         });
-        background.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 530, -1, -1));
-        background.add(calendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, -1, -1));
+        background.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, -1, -1));
+        background.add(calendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, -1, -1));
 
         jLabel4.setText("Primer apellido");
         background.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
@@ -169,7 +171,7 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
         background.add(txtPrimerApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 140, -1));
         background.add(txtSegundoApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 130, -1));
 
-        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 580));
+        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 390));
 
         pack();
         setLocationRelativeTo(null);
