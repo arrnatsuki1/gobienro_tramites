@@ -26,7 +26,7 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
 
     private final IPersonaDAO daopersona;
 
-    private Persona selectedPersona;
+    private Persona personaSeleccionada;
 
     /**
      * Creates new form SeleccionarPersonaDialog
@@ -36,7 +36,7 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
         initComponents();
         daopersona = new PersonaDAO();
 
-        this.selectedPersona = selectedPersona;
+        this.personaSeleccionada = selectedPersona;
 
         tablaPersonas.addMouseListener(new MouseAdapter() {
             @Override
@@ -60,18 +60,18 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
 
         Persona dummy = daopersona.consultarRFC((String) tabla.getValueAt(row, 3));
         
-        selectedPersona.setId(dummy.getId());
-        selectedPersona.setDiscapacitado(dummy.getDiscapacitado());
-        selectedPersona.setFechaNacimiento(dummy.getFechaNacimiento());
-        selectedPersona.setNombre(dummy.getNombre());
-        selectedPersona.setPrimerApellido(dummy.getPrimerApellido());
-        selectedPersona.setRFC(dummy.getRFC());
-        selectedPersona.setSegundoApellido(dummy.getSegundoApellido());
-        selectedPersona.setTelefono(dummy.getTelefono());
-        selectedPersona.setTramites(dummy.getTramites());
-        selectedPersona.setVehiculos(dummy.getVehiculos());
+        personaSeleccionada.setId(dummy.getId());
+        personaSeleccionada.setDiscapacitado(dummy.getDiscapacitado());
+        personaSeleccionada.setFechaNacimiento(dummy.getFechaNacimiento());
+        personaSeleccionada.setNombre(dummy.getNombre());
+        personaSeleccionada.setPrimerApellido(dummy.getPrimerApellido());
+        personaSeleccionada.setRFC(dummy.getRFC());
+        personaSeleccionada.setSegundoApellido(dummy.getSegundoApellido());
+        personaSeleccionada.setTelefono(dummy.getTelefono());
+        personaSeleccionada.setTramites(dummy.getTramites());
+        personaSeleccionada.setVehiculos(dummy.getVehiculos());
         
-        if (selectedPersona == null) {
+        if (personaSeleccionada == null) {
             System.out.println("ERROR DOBLE CLICK");
         }
         
