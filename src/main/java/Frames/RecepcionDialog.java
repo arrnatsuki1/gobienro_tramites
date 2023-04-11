@@ -4,6 +4,7 @@ package Frames;
 import DAO.IPlacaDAO;
 import DAO.PlacaDAO;
 import Entidades.Placa;
+import Utilidades.Encriptacion;
 import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 
@@ -56,7 +57,7 @@ public class RecepcionDialog extends javax.swing.JDialog {
         lblPersona.setText("Persona:");
         informacionPanel.add(lblPersona, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
-        lblAuto.setText("codigo auto:");
+        lblAuto.setText("numero serie auto:");
         informacionPanel.add(lblAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
 
         btnRegresar.setText("Regresar");
@@ -89,6 +90,7 @@ public class RecepcionDialog extends javax.swing.JDialog {
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -140,7 +142,9 @@ public class RecepcionDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void llenarCampos(Placa p) {
-        lblPersona.setText("Persona: "+p.getPersona().getNombre());
+        Encriptacion encripta= new Encriptacion(); 
+        
+        lblPersona.setText("Persona: "+encripta.desencriptar(p.getPersona().getNombre()));
         lblAuto.setText("codigo auto: "+p.getAuto().getNserie());
     }
     

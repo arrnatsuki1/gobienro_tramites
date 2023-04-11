@@ -307,8 +307,8 @@ public class SolicitarPlacas extends javax.swing.JFrame {
 
         background.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, -1));
 
+        jLabel2.setText("Numero de serie del vehiculo:");
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Numero de vehiculo:");
         background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
         background.add(txtNumeroSeriePrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 170, -1));
 
