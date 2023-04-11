@@ -25,43 +25,42 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Reporte extends javax.swing.JFrame {
 
-    
     /**
-     * NOTA 
-     * Jose, como estamos haciendo los reportes generales y los reportes
-     * de una persona en general en el mismo JFrame, vamos a tener
-     * que poner un modelo de tabla donde salga el nombre de la persona
-     * en caso de ser los reportes generales y un modelo de tabla diferente
-     * para las personas en particular
-     * 
+     * NOTA Jose, como estamos haciendo los reportes generales y los reportes de
+     * una persona en general en el mismo JFrame, vamos a tener que poner un
+     * modelo de tabla donde salga el nombre de la persona en caso de ser los
+     * reportes generales y un modelo de tabla diferente para las personas en
+     * particular
+     *
      */
-    
     /**
      * Creates new form Reporte
      */
-    
     private Persona consultante;
     private final ITramiteDAO daotramite;
-    
+
     /**
-     * inicio es desde que valor a va a iniciar la consulta
-     * fin donde va a terminar la toma de datos
-     * limit el limite de cuantos registros nos vamos a traer de la base de datos
+     * inicio es desde que valor a va a iniciar la consulta fin donde va a
+     * terminar la toma de datos limit el limite de cuantos registros nos vamos
+     * a traer de la base de datos
      */
     private int inicio = 0, fin = 10, limite = 100;
-    
+
     private List<Tramite> tramites;
-    
+
     public Reporte(boolean p) {
         daotramite = new TramiteDAO();
         initComponents();
         if (p) {
+            this.btnBuscarporNombre.setEnabled(false);
+            this.txtNombre.setEnabled(false);
             configurarHistorialPersona();
-        }else{
+        } else {
             configurarTodosLosTramites();
         }
 
     }
+
     /**
      * Configura todos los tramites de una persona guiados por el limite
      */
@@ -73,11 +72,11 @@ public class Reporte extends javax.swing.JFrame {
             System.out.println("ERROR NO SE QUE PASO");
             this.dispose();
         }
-        
+
         txtNombre.setText(consultante.getNombre());
         obtenerTramitesPersonas();
     }
-    
+
     /**
      * Configura todos los tramites de la base de datos guiados por el limite
      */
@@ -85,6 +84,7 @@ public class Reporte extends javax.swing.JFrame {
         tramites = daotramite.listaTramite(inicio, limite);
         llenarTabla(tramites);
     }
+
     /**
      * Obtiene tramites de la persona guiados por el limite
      */
@@ -95,8 +95,9 @@ public class Reporte extends javax.swing.JFrame {
     }
 
     /**
-     * Este es el metodo que hiciste Carlos, el otro que dice llenarTabla es para
-     * llenar la tabla, no hay que hacer consultas en metodos con nombres genericos
+     * Este es el metodo que hiciste Carlos, el otro que dice llenarTabla es
+     * para llenar la tabla, no hay que hacer consultas en metodos con nombres
+     * genericos
      */
     public void llenarTabla2() {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
@@ -126,35 +127,36 @@ public class Reporte extends javax.swing.JFrame {
             def.addRow(datos);
         }
     }
-    
+
     /**
      * Metodo para llenar la tabla con tramites
+     *
      * @param tramites los tramites que se llenaran en la tabla
      */
     public void llenarTabla(List<Tramite> tramites) {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         DefaultTableModel def = (DefaultTableModel) tabla.getModel();
-        
+
         List<Tramite> listaAcortada = new ArrayList();
-        for(int i = inicio; i<fin; i++) {
-            if(i>=tramites.size()){
+        for (int i = inicio; i < fin; i++) {
+            if (i >= tramites.size()) {
                 break;
             }
             listaAcortada.add(tramites.get(i));
         }
-        
+
         def.setRowCount(0);
         for (int i = 0; i < listaAcortada.size(); i++) {
             Object[] datos = new Object[def.getColumnCount()];
-            
+
             if (listaAcortada.get(i) instanceof Placa) {
                 datos[0] = "Expedicion de Placa";
-                Placa t = (Placa)listaAcortada.get(i);
+                Placa t = (Placa) listaAcortada.get(i);
                 datos[1] = t.getActiva();
             }
             if (listaAcortada.get(i) instanceof Licencia) {
                 datos[0] = "Expedicion de Licencia";
-                Licencia t = (Licencia)listaAcortada.get(i);
+                Licencia t = (Licencia) listaAcortada.get(i);
                 datos[1] = t.getEstado();
             }
 
@@ -289,12 +291,6 @@ public class Reporte extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 400, -1, -1));
-
-        txtNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreActionPerformed(evt);
-            }
-        });
         jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 400, 230, -1));
 
         jLabel2.setText("Nombre:");
@@ -353,26 +349,22 @@ public class Reporte extends javax.swing.JFrame {
         llenarTabla2();
     }//GEN-LAST:event_btnBuscarporNombreActionPerformed
 
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
-
     private void btnSigPaginaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSigPaginaActionPerformed
         this.inicio += 10;
         this.fin += 10;
-        
+
         //En caso de que inicio sea igual al limite significa que tenemos que traer
         //Mas tramites de la base de datos
-        if(this.inicio == limite) {
-            if(consultante!=null) {
+        if (this.inicio == limite) {
+            if (consultante != null) {
                 configurarHistorialPersona();
-            }else{
+            } else {
                 configurarTodosLosTramites();
             }
             this.inicio = 0;
             this.fin = 10;
         }
-        
+
         llenarTabla(tramites);
     }//GEN-LAST:event_btnSigPaginaActionPerformed
 
@@ -380,6 +372,7 @@ public class Reporte extends javax.swing.JFrame {
         if (this.inicio == 0) {
             return;
         }
+        //esta suma es para saber en que posicion de la pagina esta
         this.inicio -= 10;
         this.fin -= 10;
         llenarTabla(tramites);
@@ -390,7 +383,8 @@ public class Reporte extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTipoActionPerformed
 
     private void btnPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeriodoActionPerformed
-        buscarPorPeriodo();
+        Calendar fecha1 = new GregorianCalendar(), fecha2 = new GregorianCalendar();
+        buscarPorPeriodo(fecha1, fecha2);
     }//GEN-LAST:event_btnPeriodoActionPerformed
 
     private void btnFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFechaActionPerformed
@@ -398,32 +392,55 @@ public class Reporte extends javax.swing.JFrame {
         buscarPorFecha(fecha);
     }//GEN-LAST:event_btnFechaActionPerformed
 
-    private void buscarPorFecha(Calendar fecha){
-        if(consultante!=null){
+    /*AQUI EMPIEZAN LOS METODOS PARA BUSCAR POR FECHA*/
+    private void buscarPorFecha(Calendar fecha) {
+        if (consultante != null) {
             buscarPorFechaConsultante(fecha);
-        }else{
+        } else {
             buscarPorFechaTodos(fecha);
         }
-        
+
         llenarTabla(tramites);
     }
-    
+
     private void buscarPorFechaTodos(Calendar c) {
         new SeleccionarFecha(this, true, c);
-        tramites = daotramite.listaTramiteFechaTodos( c, inicio, limite);
+        tramites = daotramite.listaTramiteFechaTodos(c, inicio, limite);
     }
-    
+
     private void buscarPorFechaConsultante(Calendar c) {
         new SeleccionarFecha(this, true, c);
         tramites = daotramite.listaTramitePersona(consultante, c, inicio, limite);
     }
-    
-    private void buscarPorPeriodo(){};
-    
-    private void buscarPorTramite() {
-        
+
+    /*AQUI TERMINAN LOS METODOS PARA BUSCAR POR FECHA*/
+
+    /*AQUI EMPIZAN LOS METODOS PARA LA BUSQUEDA POR PERIODO*/
+    private void buscarPorPeriodo(Calendar f1, Calendar f2) {
+        if (consultante != null) {
+            buscarPorPeriodoConsultante(f1, f2);
+        } else {
+            buscarPorPeriodoTodos(f1, f2);
+        }
+
+        llenarTabla(tramites);
+    }
+
+    private void buscarPorPeriodoConsultante(Calendar f1, Calendar f2) {
+        new SeleccionarPeriodo(this, true, f1, f2);
+        tramites = daotramite.listaPeriodoPersona(consultante, f1, f2, inicio, limite);
     }
     
+    private void buscarPorPeriodoTodos(Calendar f1, Calendar f2) {
+        new SeleccionarPeriodo(this, true, f1, f2);
+        tramites = daotramite.listaPeriodoTodos(f1, f2, inicio, limite);
+    }
+    /*AQUI TERMINAN LOS METODOS PARA LA BUSQUEDA POR PERIODO*/
+    
+    private void buscarPorTramite() {
+
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAntPagina;
     private javax.swing.JButton btnBuscarporNombre;

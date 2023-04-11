@@ -132,4 +132,55 @@ public class TramiteDAO implements ITramiteDAO {
         }
     }
 
+    @Override
+    public List<Tramite> listaPeriodoPersona(Persona p, Calendar f1, Calendar f2, int inicio, int limit) {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            List<Tramite> tramites = em.createQuery("SELECT t FROM Tramite t WHERE t.persona = :persona AND t.fechaEmision BETWEEN :fecha1 AND :fecha2")
+                    .setParameter("fecha1", f1)
+                    .setParameter("fecha2", f2)
+                    .setParameter("persona", p)
+                    .setFirstResult(inicio)
+                    .setMaxResults(limit)
+                    .getResultList();
+
+            Encriptacion e = new Encriptacion();
+            tramites = e.desencriptarListaTramite(tramites);
+
+            em.close();
+            return tramites;
+        } catch (Exception e) {
+            if (em != null) {
+                em.close();
+            }
+            return null;
+        }
+    }
+
+    @Override
+    public List<Tramite> listaPeriodoTodos(Calendar f1, Calendar f2, int inicio, int limit) {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            List<Tramite> tramites = em.createQuery("SELECT t FROM Tramite t WHERE t.fechaEmision BETWEEN :fecha1 AND :fecha2")
+                    .setParameter("fecha1", f1)
+                    .setParameter("fecha2", f2)
+                    .setFirstResult(inicio)
+                    .setMaxResults(limit)
+                    .getResultList();
+
+            Encriptacion e = new Encriptacion();
+            tramites = e.desencriptarListaTramite(tramites);
+
+            em.close();
+            return tramites;
+        } catch (Exception e) {
+            if (em != null) {
+                em.close();
+            }
+            return null;
+        }
+    }
+
 }
