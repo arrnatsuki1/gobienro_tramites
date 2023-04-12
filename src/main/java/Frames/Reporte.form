@@ -104,11 +104,12 @@
             <Component class="javax.swing.JTable" name="tabla">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="4" rowCount="10">
+                  <Table columnCount="5" rowCount="10">
                     <Column editable="false" title="Tipo de Tramite" type="java.lang.Object"/>
                     <Column editable="false" title="Estado" type="java.lang.Object"/>
                     <Column editable="false" title="Fecha realizacion" type="java.lang.Object"/>
                     <Column editable="false" title="Costo" type="java.lang.Object"/>
+                    <Column editable="false" title="Nombre Persona" type="java.lang.Object"/>
                   </Table>
                 </Property>
               </Properties>

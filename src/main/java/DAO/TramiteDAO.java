@@ -65,6 +65,10 @@ public class TramiteDAO implements ITramiteDAO {
     @Override
     public List<Tramite> listaTramitePersona(Persona persona, int inicio, int limit) {
         EntityManager em = null;
+        Encriptacion encripta = new Encriptacion();
+        encripta.encriptar(persona.getNombre());
+        encripta.encriptar(persona.getPrimerApellido());
+        encripta.encriptar(persona.getSegundoApellido());
         try {
             em = getEntityManager();
             List<Tramite> tramites = em.createQuery("SELECT t FROM Tramite t WHERE t.persona = :persona")

@@ -111,9 +111,8 @@ public class Reporte extends javax.swing.JFrame {
         p.setSegundoApellido(txtSegundoApellido.getText().toUpperCase());
         
         List<Tramite> listaTramite = daotramite.listaTramiteNombre(p, inicio, fin);
-
+        System.out.println(listaTramite.size());
         DefaultTableModel def = (DefaultTableModel) tabla.getModel();
-        def.addColumn("Nombre Persona");
         def.setRowCount(0);
         for (int i = 0; i < listaTramite.size(); i++) {
             Object[] datos = new Object[def.getColumnCount()];
@@ -169,6 +168,9 @@ public class Reporte extends javax.swing.JFrame {
 
             datos[2] = formato.format(listaAcortada.get(i).getFechaEmision().getTime());
             datos[3] = listaAcortada.get(i).getCosto();
+            datos[4] = listaAcortada.get(i).getPersona().getNombre()
+                    +" "+listaAcortada.get(i).getPersona().getPrimerApellido()
+                    +" "+listaAcortada.get(i).getPersona().getSegundoApellido();
             def.addRow(datos);
         }
     }
@@ -236,23 +238,23 @@ public class Reporte extends javax.swing.JFrame {
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Tipo de Tramite", "Estado", "Fecha realizacion", "Costo"
+                "Tipo de Tramite", "Estado", "Fecha realizacion", "Costo", "Nombre Persona"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
