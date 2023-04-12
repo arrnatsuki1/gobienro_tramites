@@ -237,8 +237,8 @@ public class IngresaSolicitante extends javax.swing.JFrame {
         LocalDate date = txtFecha.getDate();
         fecha.set(date.getYear(), date.getMonthValue()-1, date.getDayOfMonth());
         
-        Persona p = new Persona(txtTelefono.getText(), txtRFC.getText(), discapacidad, txtNombre.getText(),
-                txtPaterno.getText(), txtMaterno.getText(), fecha);
+        Persona p = new Persona(txtTelefono.getText(), txtRFC.getText().toUpperCase(), discapacidad, txtNombre.getText().toUpperCase(),
+                txtPaterno.getText().toUpperCase(), txtMaterno.getText().toUpperCase(), fecha);
         IPersonaDAO dao = new PersonaDAO();
         
         p = dao.agregarPersona(p);

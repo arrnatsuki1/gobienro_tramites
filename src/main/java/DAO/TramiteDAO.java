@@ -14,6 +14,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -86,7 +87,7 @@ public class TramiteDAO implements ITramiteDAO {
     }
 
     @Override
-    public List<Tramite> listaTramitePersona(Persona p, Calendar fecha, int inicio, int limit) {
+    public List<Tramite> listaTramitePersonaNacimiento(Persona p, Calendar fecha, int inicio, int limit) {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -239,6 +240,37 @@ public class TramiteDAO implements ITramiteDAO {
 
             Encriptacion e = new Encriptacion();
             tramites = e.desencriptarListaTramite(tramites);
+
+            em.close();
+            return tramites;
+        } catch (Exception e) {
+            if (em != null) {
+                em.close();
+            }
+            return null;
+        }
+    }
+
+    @Override
+    public List<Tramite> listaTramiteNombre(Persona p, int inicio, int limit) {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            Encriptacion encriptar = new Encriptacion();
+            p = encriptar.encriptarNombrePersona(p);
+            
+            TypedQuery<Tramite> query = em
+                    .createQuery("SELECT t FROM Tramite t WHERE "
+                            + "t.persona.nombre LIKE :nombre AND t.persona.primerApellido LIKE :apellido1 "
+                            + "AND t.persona.segundoApellido LIKE :apellido2", Tramite.class)
+                    .setParameter("nombre", "%" + p.getNombre() + "%")
+                    .setParameter("apellido1", "%" + p.getPrimerApellido() + "%")
+                    .setParameter("apellido2", "%" + p.getSegundoApellido() + "%")
+                    .setFirstResult(inicio)
+                    .setMaxResults(limit);
+            
+            List<Tramite> tramites = query.getResultList();
+            tramites = encriptar.desencriptarListaTramite(tramites);
 
             em.close();
             return tramites;

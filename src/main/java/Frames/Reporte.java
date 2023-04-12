@@ -54,6 +54,8 @@ public class Reporte extends javax.swing.JFrame {
         if (p) {
             this.btnBuscarporNombre.setEnabled(false);
             this.txtNombre.setEnabled(false);
+            this.txtPrimerApellido.setEnabled(false);
+            this.txtSegundoApellido.setEnabled(false);
             configurarHistorialPersona();
         } else {
             configurarTodosLosTramites();
@@ -99,31 +101,36 @@ public class Reporte extends javax.swing.JFrame {
      * para llenar la tabla, no hay que hacer consultas en metodos con nombres
      * genericos
      */
-    public void llenarTabla2() {
+    public void consultarPorNombre() {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         String nombre = txtNombre.getText().toLowerCase();
-        ITramiteDAO dao = new TramiteDAO();
-        List<Tramite> listaTramite = dao.listaTramite(inicio, fin);
+        
+        Persona p = new Persona();
+        p.setNombre(txtNombre.getText().toUpperCase());
+        p.setPrimerApellido(txtPrimerApellido.getText().toUpperCase());
+        p.setSegundoApellido(txtSegundoApellido.getText().toUpperCase());
+        
+        List<Tramite> listaTramite = daotramite.listaTramiteNombre(p, inicio, fin);
 
-        List<Tramite> listaTramiteNombre = new ArrayList<Tramite>();
-        for (Tramite tramite : listaTramite) {
-            if (tramite.getPersona().getNombre().toLowerCase().contains(nombre)) {
-                listaTramiteNombre.add(tramite);
-            }
-        }
         DefaultTableModel def = (DefaultTableModel) tabla.getModel();
+        def.addColumn("Nombre Persona");
         def.setRowCount(0);
-        for (int i = 0; i < listaTramiteNombre.size(); i++) {
+        for (int i = 0; i < listaTramite.size(); i++) {
             Object[] datos = new Object[def.getColumnCount()];
-            if (listaTramiteNombre.get(i) instanceof Placa) {
+            if (listaTramite.get(i) instanceof Placa) {
                 datos[0] = "Expedicion de Placa";
+                Placa t = (Placa) listaTramite.get(i);
+                datos[1] = t.getActiva();
             }
-            if (listaTramiteNombre.get(i) instanceof Licencia) {
+            if (listaTramite.get(i) instanceof Licencia) {
                 datos[0] = "Expedicion de Licencia";
+                Licencia t = (Licencia) listaTramite.get(i);
+                datos[1] = t.getEstado();
             }
-            datos[1] = listaTramiteNombre.get(i).getPersona().getNombre();
-            datos[2] = formato.format(listaTramiteNombre.get(i).getFechaEmision().getTime());
-            datos[3] = listaTramiteNombre.get(i).getCosto();
+            
+            datos[2] = formato.format(listaTramite.get(i).getFechaEmision().getTime());
+            datos[3] = listaTramite.get(i).getCosto();
+            datos[4] = listaTramite.get(i).getPersona().getNombre();
             def.addRow(datos);
         }
     }
@@ -175,7 +182,7 @@ public class Reporte extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        background = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -190,10 +197,14 @@ public class Reporte extends javax.swing.JFrame {
         btnPeriodo = new javax.swing.JButton();
         btnSigPagina = new javax.swing.JButton();
         btnAntPagina = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtPrimerApellido = new javax.swing.JTextField();
+        txtSegundoApellido = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(153, 0, 51));
 
@@ -218,7 +229,7 @@ public class Reporte extends javax.swing.JFrame {
                 .addGap(20, 20, 20))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 542, -1));
+        background.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 542, -1));
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
@@ -250,7 +261,7 @@ public class Reporte extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabla);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 540, 180));
+        background.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 540, 180));
 
         btnPDF.setText("Generar PDF");
         btnPDF.addActionListener(new java.awt.event.ActionListener() {
@@ -258,7 +269,7 @@ public class Reporte extends javax.swing.JFrame {
                 btnPDFActionPerformed(evt);
             }
         });
-        jPanel1.add(btnPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 400, -1, -1));
+        background.add(btnPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 400, -1, -1));
 
         btnFecha.setText("Buscar por Fecha");
         btnFecha.addActionListener(new java.awt.event.ActionListener() {
@@ -266,7 +277,7 @@ public class Reporte extends javax.swing.JFrame {
                 btnFechaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, -1, -1));
+        background.add(btnFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, -1, -1));
 
         btnTipo.setText("Buscar por Tipo de Tramite");
         btnTipo.addActionListener(new java.awt.event.ActionListener() {
@@ -274,7 +285,7 @@ public class Reporte extends javax.swing.JFrame {
                 btnTipoActionPerformed(evt);
             }
         });
-        jPanel1.add(btnTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, 170, -1));
+        background.add(btnTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, 170, -1));
 
         btnBuscarporNombre.setText("Buscar por nombre");
         btnBuscarporNombre.addActionListener(new java.awt.event.ActionListener() {
@@ -282,7 +293,7 @@ public class Reporte extends javax.swing.JFrame {
                 btnBuscarporNombreActionPerformed(evt);
             }
         });
-        jPanel1.add(btnBuscarporNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 350, 170, -1));
+        background.add(btnBuscarporNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 350, 170, -1));
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -290,11 +301,11 @@ public class Reporte extends javax.swing.JFrame {
                 btnCancelarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 400, -1, -1));
-        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 400, 230, -1));
+        background.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 400, -1, -1));
+        background.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 390, 160, -1));
 
         jLabel2.setText("Nombre:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, -1, -1));
+        background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, -1, -1));
 
         btnPeriodo.setText("Periodo");
         btnPeriodo.addActionListener(new java.awt.event.ActionListener() {
@@ -302,7 +313,7 @@ public class Reporte extends javax.swing.JFrame {
                 btnPeriodoActionPerformed(evt);
             }
         });
-        jPanel1.add(btnPeriodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 120, -1));
+        background.add(btnPeriodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 120, -1));
 
         btnSigPagina.setText(">");
         btnSigPagina.addActionListener(new java.awt.event.ActionListener() {
@@ -310,7 +321,7 @@ public class Reporte extends javax.swing.JFrame {
                 btnSigPaginaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnSigPagina, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, -1, -1));
+        background.add(btnSigPagina, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, -1, -1));
 
         btnAntPagina.setText("<");
         btnAntPagina.addActionListener(new java.awt.event.ActionListener() {
@@ -318,17 +329,25 @@ public class Reporte extends javax.swing.JFrame {
                 btnAntPaginaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAntPagina, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 280, -1, -1));
+        background.add(btnAntPagina, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 280, -1, -1));
+
+        jLabel3.setText("Primer Apellido");
+        background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, -1, -1));
+
+        jLabel4.setText("Segundo Apellido");
+        background.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, -1, -1));
+        background.add(txtPrimerApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 420, 160, -1));
+        background.add(txtSegundoApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 450, 160, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
         );
 
         pack();
@@ -346,7 +365,7 @@ public class Reporte extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnBuscarporNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarporNombreActionPerformed
-        llenarTabla2();
+        consultarPorNombre();
     }//GEN-LAST:event_btnBuscarporNombreActionPerformed
 
     private void btnSigPaginaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSigPaginaActionPerformed
@@ -410,7 +429,7 @@ public class Reporte extends javax.swing.JFrame {
 
     private void buscarPorFechaConsultante(Calendar c) {
         new SeleccionarFecha(this, true, c);
-        tramites = daotramite.listaTramitePersona(consultante, c, inicio, limite);
+        tramites = daotramite.listaTramitePersonaNacimiento(consultante, c, inicio, limite);
     }
 
     /*AQUI TERMINAN LOS METODOS PARA BUSCAR POR FECHA*/
@@ -435,8 +454,8 @@ public class Reporte extends javax.swing.JFrame {
         new SeleccionarPeriodo(this, true, f1, f2);
         tramites = daotramite.listaPeriodoTodos(f1, f2, inicio, limite);
     }
-
     /*AQUI TERMINAN LOS METODOS PARA LA BUSQUEDA POR PERIODO*/
+    
     private void buscarPorTramite() {
         StringBuffer respuesta = new StringBuffer();
         if (consultante != null) {
@@ -461,6 +480,7 @@ public class Reporte extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel background;
     private javax.swing.JButton btnAntPagina;
     private javax.swing.JButton btnBuscarporNombre;
     private javax.swing.JButton btnCancelar;
@@ -471,10 +491,13 @@ public class Reporte extends javax.swing.JFrame {
     private javax.swing.JButton btnTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabla;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtPrimerApellido;
+    private javax.swing.JTextField txtSegundoApellido;
     // End of variables declaration//GEN-END:variables
 }

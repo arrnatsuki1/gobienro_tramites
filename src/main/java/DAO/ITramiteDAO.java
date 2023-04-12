@@ -17,8 +17,9 @@ import javax.persistence.EntityManager;
 public interface ITramiteDAO {
     public EntityManager getEntityManager();
     public List<Tramite> listaTramite(int inicio, int limit);
+    public List<Tramite> listaTramiteNombre(Persona p, int inicio, int limit);
     public List<Tramite> listaTramitePersona(Persona persona, int inicio, int limit);
-    public List<Tramite> listaTramitePersona(Persona p, Calendar fecha, int inicio, int limit);
+    public List<Tramite> listaTramitePersonaNacimiento(Persona p, Calendar fecha, int inicio, int limit);
     public List<Tramite> listaTramiteFechaTodos(Calendar fecha, int inicio, int limit);
     public List<Tramite> listaPeriodoPersona(Persona p, Calendar f1, Calendar f2, int inicio, int limit);
     public List<Tramite> listaPeriodoTodos(Calendar f1, Calendar f2, int inicio, int limit);

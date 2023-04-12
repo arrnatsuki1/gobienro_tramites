@@ -100,4 +100,12 @@ public class Encriptacion {
 
         return lista_tramitePersona;
     }
+
+    public Persona encriptarNombrePersona(Persona persona) {
+        persona.setNombre(encriptar(persona.getNombre()));
+        persona.setPrimerApellido(encriptar(persona.getPrimerApellido()));
+        persona.setSegundoApellido(encriptar(persona.getSegundoApellido()));
+        return persona;
+    }
+    
 }
