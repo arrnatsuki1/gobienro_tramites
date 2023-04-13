@@ -8,8 +8,10 @@ import Utilidades.Encriptacion;
 import Entidades.Persona;
 //import Utilidades.ChiperPersonas;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -54,7 +56,6 @@ public class PersonaDAO implements IPersonaDAO {
             em.getTransaction().commit();
             //Fin de la transaccion
             em.close();
-            p.setNombre(nombre);
             return p;
         } catch (Exception e) {
             if (em != null) {
@@ -256,4 +257,63 @@ public class PersonaDAO implements IPersonaDAO {
         }
     }
 
+    public List<Persona> agregar20Personas() {
+        try {
+            List<Persona> personas = new ArrayList();
+            personas.add(new Persona("6441906030", "ABC123", Estados.PERSONA_DISCAPACITADA, "JOSE", "ROSAS", "PANDURO", new GregorianCalendar(2000, 8, 24)));
+            personas.add(new Persona("6442076531", "CARS25", Estados.PERSONA_NO_DISCAPACITADA, "AZUL", "CHAVEZ", "GONZALES", new GregorianCalendar(1994, 5, 4)));
+            personas.add(new Persona("6442099371", "VALK25", Estados.PERSONA_NO_DISCAPACITADA, "LUIS", "PEREZ", "MADURO", new GregorianCalendar(2001, 0, 8)));
+            personas.add(new Persona("6442090175", "PEPE25", Estados.PERSONA_NO_DISCAPACITADA, "ROAS", "ROSAS", "TORRES", new GregorianCalendar(1998, 4, 25)));
+            personas.add(new Persona("6442090210", "NOSE:d", Estados.PERSONA_NO_DISCAPACITADA, "JOSE", "VALLEZ", "TRISTA", new GregorianCalendar(1995, 3, 29)));
+            personas.add(new Persona("6442090310", "ROPG91", Estados.PERSONA_NO_DISCAPACITADA, "LOURDES", "QUINTERO", "CAMPA", new GregorianCalendar(1995, 9, 10)));
+            personas.add(new Persona("6442090520", "JGH1MY", Estados.PERSONA_NO_DISCAPACITADA, "GENARO", "GASTELUM", "ANN", new GregorianCalendar(2000, 8, 24)));
+            personas.add(new Persona("6442090632", "BQYB13", Estados.PERSONA_DISCAPACITADA, "AXEL", "BARCO", "BOTE", new GregorianCalendar(1970, 0, 1)));
+            personas.add(new Persona("6442090806", "P018B2", Estados.PERSONA_DISCAPACITADA, "OLIVER", "VALENZUELA", "LOPEZ", new GregorianCalendar(1979, 7, 21)));
+            personas.add(new Persona("6442090861", "BY61CA", Estados.PERSONA_DISCAPACITADA, "IVETH", "LOPEZ", "VALENZUELA", new GregorianCalendar(1983, 4, 21)));
+            personas.add(new Persona("6442090958", "BY691Z", Estados.PERSONA_NO_DISCAPACITADA, "DOLORES", "RODRIGUEZ", "VALENZUELA", new GregorianCalendar(1990, 9, 25)));
+            personas.add(new Persona("6442091186", "VRT1RA", Estados.PERSONA_NO_DISCAPACITADA, "KARLA", "CRUZ", "ZILMAN", new GregorianCalendar(1986, 11, 25)));
+            personas.add(new Persona("6442091286", "POI5AB", Estados.PERSONA_NO_DISCAPACITADA, "JOTARO", "JOESTAR", "JOESTAR", new GregorianCalendar(1987, 2, 17)));
+            personas.add(new Persona("6442091438", "24AB87", Estados.PERSONA_NO_DISCAPACITADA, "JOSUKE", "JOESTAR", "JOESTAR", new GregorianCalendar(1994, 4, 6)));
+            personas.add(new Persona("6442091559", "QWERTY", Estados.PERSONA_DISCAPACITADA, "JOLYNE", "KUJO", "JOESTAR", new GregorianCalendar(2003, 3, 20)));
+            personas.add(new Persona("6442091778", "ZVQRTQ", Estados.PERSONA_DISCAPACITADA, "JONATHAN", "ENRIQUE", "LEON", new GregorianCalendar(1999, 7, 12)));
+            personas.add(new Persona("6442091924", "AYUOPA", Estados.PERSONA_NO_DISCAPACITADA, "JONATHAN", "JOESTAR", "JOESTAR", new GregorianCalendar(1980, 10, 31)));
+            personas.add(new Persona("6442095551", "JUKILO", Estados.PERSONA_DISCAPACITADA, "KAKYOIN", "NORIAKI", "VALENZUELA", new GregorianCalendar(2000, 9, 30)));
+            personas.add(new Persona("6442099993", "MOTOMA", Estados.PERSONA_NO_DISCAPACITADA, "GIORNO", "BUCCARATI", "JOESTAR", new GregorianCalendar(1970, 5, 17)));
+            personas.add(new Persona("6442098889", "ARCAGO", Estados.PERSONA_DISCAPACITADA, "JOSEPH", "PAREDES", "TORRES", new GregorianCalendar(2001, 11, 15)));
+            
+            for(Persona p : personas) {
+                this.agregarPersona(p);
+            }
+            Encriptacion en = new Encriptacion();
+            personas = en.desencriptarNombresPersonas(personas);
+            
+            return personas;
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

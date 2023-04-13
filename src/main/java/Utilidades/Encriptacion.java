@@ -108,4 +108,13 @@ public class Encriptacion {
         return persona;
     }
     
+    public List<Persona> desencriptarNombresPersonas(List<Persona> lista) {
+        for(Persona p : lista) {
+            p.setNombre(desencriptar(p.getNombre()));
+            p.setPrimerApellido(desencriptar(p.getPrimerApellido()));
+            p.setSegundoApellido(desencriptar(p.getSegundoApellido()));
+        }
+        return lista;
+    }
+    
 }

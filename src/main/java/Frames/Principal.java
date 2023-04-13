@@ -1,7 +1,9 @@
 package Frames;
 
 import DAO.ILicenciaDAO;
+import DAO.IPersonaDAO;
 import DAO.LicenciaDAO;
+import DAO.PersonaDAO;
 import Entidades.Licencia;
 import Entidades.Persona;
 import java.util.List;
@@ -245,7 +247,21 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_botonSolicitanteActionPerformed
 
     private void btnGenerarRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarRegistrosActionPerformed
-        // TODO add your handling code here:
+        IPersonaDAO dao = new PersonaDAO();
+        List<Persona> personas = dao.agregar20Personas();
+        
+        JOptionPane.showMessageDialog(this, "Va a tener 20 mensajes seguidos mostrando la informacion de cada persona agregada");
+        
+        for(Persona p : personas) {
+            
+            String msg = String.format("LA PERSONA %s CON RFC %s esta lista para hacer tramites",
+                    p.getNombre()+" "+p.getPrimerApellido()+" "+p.getSegundoApellido(),
+                    p.getRFC());
+                    JOptionPane.showMessageDialog(this, msg);
+            
+        }
+        
+        
     }//GEN-LAST:event_btnGenerarRegistrosActionPerformed
 
     private void btnRecepcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecepcionActionPerformed
