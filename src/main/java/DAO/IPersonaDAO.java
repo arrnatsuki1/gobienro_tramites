@@ -20,4 +20,5 @@ public interface IPersonaDAO {
     public List<Persona> buscarPorNombre(Persona persona);
     public List<Persona> buscarPorNacimiento(Calendar date);
     public List<Persona> buscarPorNombreNacimiento(Persona persona);
+    public List<Persona> consultarRFClista(String rfc);
 }

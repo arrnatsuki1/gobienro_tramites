@@ -34,6 +34,7 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
     public SeleccionarPersonaDialog(java.awt.Frame parent, boolean modal, Persona selectedPersona) {
         super(parent, modal);
         initComponents();
+        
         daopersona = new PersonaDAO();
 
         this.personaSeleccionada = selectedPersona;
@@ -49,10 +50,11 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
             }
 
         });
-
+       mostrarTabla(listaTablaActual());
         this.setLocationRelativeTo(parent);
         
         this.setVisible(true);
+  
     }
 
     private void dobleClick(MouseEvent evt) {
@@ -113,10 +115,16 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
 
         jLabel1.setText("RFC Persona");
         background.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 14, -1, -1));
+
+        txtRfc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtRfcKeyReleased(evt);
+            }
+        });
         background.add(txtRfc, new org.netbeans.lib.awtextra.AbsoluteConstraints(87, 12, 160, -1));
 
         jLabel2.setText("Nombre");
-        background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 37, -1, -1));
+        background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
         background.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 100, -1));
 
         jLabel3.setText("Fecha de nacimiento :");
@@ -178,24 +186,96 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        List<Persona> personas = new ArrayList();
+//        List<Persona> listaPersonasActual = new ArrayList();
+//        Persona p = obtenerPersona();
+//
+//        if (txtNombre.getText().equals("") && txtRfc.getText().equals("")
+//                && calendario.getSelectedDate() == null) {
+//            return;
+//        }
+//
+//        boolean nombre = false, nacimiento = false;
+//
+//        if (!txtRfc.getText().equals("")) {
+//            p = buscarPorRFC();
+//            if (p == null) {
+//                return;
+//            }
+//            listaPersonasActual.add(p);
+//            mostrarTabla(listaPersonasActual);
+//            return;
+//        }
+//
+//        if (!txtNombre.getText().equalsIgnoreCase("")) {
+//            nombre = true;
+//        }
+//
+//        LocalDate fecha = calendario.getSelectedDate();
+//        Calendar fecha_nacimiento = new GregorianCalendar();
+//
+//        if (fecha != null) {
+//            nacimiento = true;
+//            fecha_nacimiento.set(fecha.getYear(), fecha.getMonthValue() - 1, fecha.getDayOfMonth());
+//        }
+//
+//        if (nombre && nacimiento) {
+//            p= this.obtenerPersona();
+//            listaPersonasActual = daopersona.buscarPorNombreNacimiento(p);
+//
+//            if (listaPersonasActual == null || listaPersonasActual.isEmpty()) {
+//                listaPersonasActual = new ArrayList();
+//            }
+//            mostrarTabla(listaPersonasActual);
+//            return;
+//        }
+//
+//        if (nombre) {
+//            p= this.obtenerPersona();
+//            listaPersonasActual = daopersona.buscarPorNombre(p);
+//            if (listaPersonasActual == null) {
+//                listaPersonasActual = new ArrayList();
+//            }
+//            mostrarTabla(listaPersonasActual);
+//            return;
+//        }
+//
+//        if (nacimiento) {
+//            p= this.obtenerPersona();
+//            listaPersonasActual = daopersona.buscarPorNacimiento(fecha_nacimiento);
+//            if (listaPersonasActual == null || listaPersonasActual.isEmpty()) {
+//                listaPersonasActual = new ArrayList();
+//            }
+//            mostrarTabla(listaPersonasActual);
+//        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+       this.dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void txtRfcKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRfcKeyReleased
+        mostrarTabla(listaTablaActual());
+    }//GEN-LAST:event_txtRfcKeyReleased
+    
+    public List<Persona> listaTablaActual(){
+        List<Persona> listaPersonasActual = new ArrayList();
         Persona p = obtenerPersona();
 
         if (txtNombre.getText().equals("") && txtRfc.getText().equals("")
                 && calendario.getSelectedDate() == null) {
-            return;
+            return daopersona.consultarTodos();
         }
 
         boolean nombre = false, nacimiento = false;
-
+        System.out.println(txtRfc.getText());
         if (!txtRfc.getText().equals("")) {
             p = buscarPorRFC();
-            if (p == null) {
-                return;
-            }
-            personas.add(p);
-            mostrarTabla(personas);
-            return;
+//            if (p == null) {
+//                return listaPersonasActual;
+//            }
+            listaPersonasActual = daopersona.consultarRFClista(txtRfc.getText());
+          
+            return listaPersonasActual;
         }
 
         if (!txtNombre.getText().equalsIgnoreCase("")) {
@@ -212,39 +292,37 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
 
         if (nombre && nacimiento) {
             p= this.obtenerPersona();
-            personas = daopersona.buscarPorNombreNacimiento(p);
+            listaPersonasActual = daopersona.buscarPorNombreNacimiento(p);
 
-            if (personas == null || personas.isEmpty()) {
-                personas = new ArrayList();
+            if (listaPersonasActual == null || listaPersonasActual.isEmpty()) {
+                listaPersonasActual = new ArrayList();
             }
-            mostrarTabla(personas);
-            return;
+            
+            return listaPersonasActual;
         }
 
         if (nombre) {
             p= this.obtenerPersona();
-            personas = daopersona.buscarPorNombre(p);
-            if (personas == null) {
-                personas = new ArrayList();
+            listaPersonasActual = daopersona.buscarPorNombre(p);
+            if (listaPersonasActual == null) {
+                listaPersonasActual = new ArrayList();
             }
-            mostrarTabla(personas);
-            return;
+           
+            return listaPersonasActual;
         }
 
         if (nacimiento) {
             p= this.obtenerPersona();
-            personas = daopersona.buscarPorNacimiento(fecha_nacimiento);
-            if (personas == null || personas.isEmpty()) {
-                personas = new ArrayList();
+            listaPersonasActual = daopersona.buscarPorNacimiento(fecha_nacimiento);
+            if (listaPersonasActual == null || listaPersonasActual.isEmpty()) {
+                listaPersonasActual = new ArrayList();
             }
-            mostrarTabla(personas);
+            return listaPersonasActual;
         }
-    }//GEN-LAST:event_btnBuscarActionPerformed
-
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-       this.dispose();
-    }//GEN-LAST:event_btnRegresarActionPerformed
-
+        return listaPersonasActual;
+               
+    }
+    
     private Persona obtenerPersona() {
         Persona p = new Persona();
         LocalDate fecha = calendario.getSelectedDate();
@@ -274,7 +352,7 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
     }
 
     private void mostrarTabla(List<Persona> lista) {
-        DefaultTableModel modelo = (DefaultTableModel) tablaPersonas.getModel();
+               DefaultTableModel modelo = (DefaultTableModel) tablaPersonas.getModel();
         modelo.setRowCount(0);
         for (Persona persona : lista) {
             Object[] datos = new Object[modelo.getColumnCount()];

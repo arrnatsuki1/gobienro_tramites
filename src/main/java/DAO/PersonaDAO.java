@@ -71,10 +71,9 @@ public class PersonaDAO implements IPersonaDAO {
         Encriptacion desencripta = new Encriptacion();
         try {
             em = getEntityManager();
-            TypedQuery<Persona> query = em
-                    .createQuery("SELECT p FROM Persona p WHERE p.RFC = :rfc",
-                            Persona.class);
-            query.setParameter("rfc", rfc);
+            TypedQuery<Persona> query = em.createQuery(
+                    "SELECT p FROM Persona p WHERE p.RFC LIKE :rfc", Persona.class);
+            query.setParameter("rfc", "%" + rfc + "%");
             Persona p = query.getSingleResult();
             p.setNombre(desencripta.desencriptar(p.getNombre()));
             p.setPrimerApellido(desencripta.desencriptar(p.getPrimerApellido()));
@@ -82,13 +81,31 @@ public class PersonaDAO implements IPersonaDAO {
             em.close();
             return p;
         } catch (Exception e) {
-
             if (em != null) {
                 em.close();
             }
             return null;
         }
-
+    }
+ @Override
+    public List<Persona> consultarRFClista(String rfc) {
+        EntityManager em = null;
+        Encriptacion desencripta = new Encriptacion();
+        try {
+            em = getEntityManager();
+            TypedQuery<Persona> query = em.createQuery(
+                    "SELECT p FROM Persona p WHERE p.RFC LIKE :rfc", Persona.class);
+            query.setParameter("rfc", "%" + rfc + "%");
+            List<Persona> p = query.getResultList();
+            p = desencripta.desencriptarLista(p);
+            em.close();
+            return p;
+        } catch (Exception e) {
+            if (em != null) {
+                em.close();
+            }
+            return null;
+        }
     }
 
     @Override
@@ -99,16 +116,20 @@ public class PersonaDAO implements IPersonaDAO {
     @Override
     public List<Persona> consultarTodos() {
         EntityManager em = null;
+        
         try {
             em = getEntityManager();
             List<Persona> personas = em
                     .createQuery("SELECT p FROM Persona p")
                     .getResultList();
             em.close();
+            Encriptacion desencripta = new Encriptacion();
+            personas = desencripta.desencriptarLista(personas);
             return personas;
         } catch (Exception e) {
             if (em != null) {
                 em.close();
+                
             }
             return null;
         }
