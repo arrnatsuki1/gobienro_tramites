@@ -128,7 +128,7 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
         background.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 100, -1));
 
         jLabel3.setText("Fecha de nacimiento :");
-        background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
+        background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
 
         jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
