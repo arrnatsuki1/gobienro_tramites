@@ -100,7 +100,7 @@ public class RecepcionDialog extends javax.swing.JDialog {
         
         IPlacaDAO daoplaca = new PlacaDAO();
         Placa placa = new Placa();
-        placa.setCodigo(txtCodigo.getText().trim());
+        placa.setCodigo(txtCodigo.getText().trim().toUpperCase());
         
         Placa nplaca = daoplaca.obtenerPlaca(placa);
         
@@ -117,7 +117,7 @@ public class RecepcionDialog extends javax.swing.JDialog {
         
         PlacaDAO daoplaca = new PlacaDAO();
         Placa placa = new Placa();
-        placa.setCodigo(txtCodigo.getText().trim());
+        placa.setCodigo(txtCodigo.getText().trim().toUpperCase());
         
         Placa nplaca = daoplaca.obtenerPlaca(placa);
         

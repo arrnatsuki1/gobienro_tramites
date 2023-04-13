@@ -221,12 +221,14 @@ public class IngresaSolicitante extends javax.swing.JFrame {
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
         
         //Verificar que los campos no esten nulos
-        if(txtFecha == null || txtMaterno.getText().isBlank() || 
+        if(txtFecha.getDate() == null || txtMaterno.getText().isBlank() || 
                 txtNombre.getText().isBlank() || txtPaterno.getText().isBlank() ||
                 txtRFC.getText().isBlank() || txtTelefono.getText().isBlank()) {
             return;
         }
+        
         byte discapacidad;
+        
         if(chxDiscapacidad.isSelected()){
             discapacidad = Estados.PERSONA_DISCAPACITADA;
         }else{
@@ -258,7 +260,7 @@ public class IngresaSolicitante extends javax.swing.JFrame {
 
     public void buscarPersonaRfc(){
         IPersonaDAO dao = new PersonaDAO();
-        persona = dao.consultarRFC(txtRFC.getText());
+        persona = dao.consultarRFC(txtRFC.getText().toUpperCase());
         if(persona == null){
             JOptionPane.showMessageDialog(this, "Persona no encontrada");
         }else{
