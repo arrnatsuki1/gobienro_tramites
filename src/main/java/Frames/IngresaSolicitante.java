@@ -225,6 +225,7 @@ public class IngresaSolicitante extends javax.swing.JFrame {
         if(txtFecha.getDate() == null || txtMaterno.getText().isBlank() || 
                 txtNombre.getText().isBlank() || txtPaterno.getText().isBlank() ||
                 txtRFC.getText().isBlank() || txtTelefono.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "NO DEBE DE HABER CAMPOS VACIOS", "ERROR!", JOptionPane.ERROR_MESSAGE);
             return;
         }
         

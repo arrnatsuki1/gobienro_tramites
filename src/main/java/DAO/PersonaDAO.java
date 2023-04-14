@@ -54,6 +54,7 @@ public class PersonaDAO implements IPersonaDAO {
         p.setNombre(encriptado);
         p.setPrimerApellido(encriptado3);
         p.setSegundoApellido(encriptado2);
+        
         try {
             em = getEntityManager();
 
@@ -62,6 +63,10 @@ public class PersonaDAO implements IPersonaDAO {
             em.getTransaction().commit();
             //Fin de la transaccion
             em.close();
+            
+            p.setNombre(encripta.desencriptar(p.getNombre()));
+            p.setPrimerApellido(encripta.desencriptar(p.getPrimerApellido()));
+            p.setSegundoApellido(encripta.desencriptar(p.getSegundoApellido()));
             
             return p;
         } catch (Exception e) {

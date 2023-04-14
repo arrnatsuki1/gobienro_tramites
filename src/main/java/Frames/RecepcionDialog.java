@@ -1,4 +1,3 @@
-
 package Frames;
 
 import DAO.IPlacaDAO;
@@ -94,47 +93,48 @@ public class RecepcionDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-       if(camposVacios()){
+        if (camposVacios()) {
+            JOptionPane.showMessageDialog(this, "NO DEBE DE HABER CAMPOS VACIOS", "ERROR!", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         IPlacaDAO daoplaca = new PlacaDAO();
         Placa placa = new Placa();
         placa.setCodigo(txtCodigo.getText().trim().toUpperCase());
-        
+
         Placa nplaca = daoplaca.obtenerPlaca(placa);
-        
-        if(nplaca != null) {
+
+        if (nplaca != null) {
             btnGenerar.setEnabled(true);
             llenarCampos(nplaca);
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActionPerformed
-        if(camposVacios()){
+        if (camposVacios()) {
             return;
         }
-        
+
         PlacaDAO daoplaca = new PlacaDAO();
         Placa placa = new Placa();
         placa.setCodigo(txtCodigo.getText().trim().toUpperCase());
-        
+
         Placa nplaca = daoplaca.obtenerPlaca(placa);
-        
-        if(nplaca == null) {
+
+        if (nplaca == null) {
             return;
         }
-        
+
         nplaca.setFechaRecepcion(new GregorianCalendar());
         placa = null;
         placa = daoplaca.actualizar(nplaca);
-        
-        if(placa==null){
+
+        if (placa == null) {
             JOptionPane.showMessageDialog(this, "SALIO MAL");
             return;
         }
-            JOptionPane.showMessageDialog(this, "SALIO BIEN");
-        
+        JOptionPane.showMessageDialog(this, "SALIO BIEN");
+
     }//GEN-LAST:event_btnGenerarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
@@ -142,14 +142,14 @@ public class RecepcionDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void llenarCampos(Placa p) {
-        Encriptacion encripta= new Encriptacion(); 
-        
-        lblPersona.setText("Persona: "+encripta.desencriptar(p.getPersona().getNombre()));
-        lblAuto.setText("codigo auto: "+p.getAuto().getNserie());
+        Encriptacion encripta = new Encriptacion();
+
+        lblPersona.setText("Persona: " + encripta.desencriptar(p.getPersona().getNombre()));
+        lblAuto.setText("codigo auto: " + p.getAuto().getNserie());
     }
-    
+
     private boolean camposVacios() {
-        if(txtCodigo.getText().isBlank()) {
+        if (txtCodigo.getText().isBlank()) {
             return true;
         }
         return false;

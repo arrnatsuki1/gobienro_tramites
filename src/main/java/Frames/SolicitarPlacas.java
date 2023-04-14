@@ -249,6 +249,9 @@ public class SolicitarPlacas extends javax.swing.JFrame {
     private boolean estanVacios() {
         if (txtColor.getText().isBlank() || txtLinea.getText().isBlank()
                 || txtMarca.getText().isBlank() || txtModelo.getText().isBlank()) {
+            
+            JOptionPane.showMessageDialog(this, "NO DEBE DE HABER CAMPOS VACIOS", "ERROR!", JOptionPane.ERROR_MESSAGE);
+            
             return true;
         }
         return false;
@@ -458,6 +461,7 @@ public class SolicitarPlacas extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         if (txtNumeroSeriePrincipal.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "NO DEBE DE HABER CAMPOS VACIOS", "ERROR!", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
