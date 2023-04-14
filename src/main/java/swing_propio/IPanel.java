@@ -35,12 +35,12 @@ public class IPanel extends JPanel{
         c.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         
         int panel_width = panel.getWidth(), panel_height = panel.getHeight();
-        int panelx = panel.getX(), panely = panel.getY();
+        int panelx = panel.getX() + 13, panely = panel.getY();
         
         int x1 = panelx, y1 = panely + panel_height;
         int x2 = botonReferencia.getX(), y2 = botonReferencia.getY();
         int x3 = botonReferencia.getX() + botonReferencia.getWidth(), y3 = botonReferencia.getY();
-        int x4 = panelx + panel_width, y4 = panely + panel_height;
+        int x4 = panelx + panel_width - 14, y4 = panely + panel_height;
         
         int[] xs = {x1, x2, x3, x4};
         int[] ys = {y1, y2, y3, y4};

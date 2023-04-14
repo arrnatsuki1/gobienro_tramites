@@ -105,6 +105,7 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Buscar persona");
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

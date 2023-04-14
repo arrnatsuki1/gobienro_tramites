@@ -11,6 +11,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.JOptionPane;
+import swing_propio.GobiernoButton;
 
 
 /**
@@ -31,10 +32,12 @@ public class Principal extends javax.swing.JFrame {
         if (logIn) {
             this.botonLicencia.setEnabled(true);
             this.botonPlaca.setEnabled(true);
+            this.botonSalir.setEnabled(true);
             this.setTitle(p.getNombre());
         } else {
             this.botonLicencia.setEnabled(false);
             this.botonPlaca.setEnabled(false);
+            this.botonSalir.setEnabled(false);
         }
     }
 
@@ -49,16 +52,16 @@ public class Principal extends javax.swing.JFrame {
 
         jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        botonLicencia = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        botonLicencia = new swing_propio.GobiernoButton();
+        baner = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         botonSalir = new javax.swing.JButton();
         botonSolicitante = new javax.swing.JButton();
-        btnGenerarRegistros = new javax.swing.JButton();
-        botonPlaca = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        btnRecepcion = new javax.swing.JButton();
-        BtnConsultas = new javax.swing.JButton();
+        botonPlaca = new swing_propio.GobiernoButton();
+        jButton7 = new swing_propio.GobiernoButton();
+        btnRecepcion = new swing_propio.GobiernoButton();
+        BtnConsultas = new swing_propio.GobiernoButton();
+        btnGenerarRegistros = new swing_propio.GobiernoButton();
 
         jButton2.setText("Licencia");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -68,21 +71,40 @@ public class Principal extends javax.swing.JFrame {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         botonLicencia.setText("Solicitar Licencia");
+        botonLicencia.setBackground(new java.awt.Color(255, 255, 255));
+        botonLicencia.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
+        botonLicencia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonLicencia.setFocusPainted(false);
+        botonLicencia.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        botonLicencia.setForeground(new java.awt.Color(0, 0, 0));
         botonLicencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonLicenciaActionPerformed(evt);
             }
         });
+        jPanel1.add(botonLicencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 160, 55));
 
-        jPanel2.setBackground(new java.awt.Color(153, 0, 51));
+        baner.setBackground(new java.awt.Color(16, 49, 43));
 
+        jLabel1.setText("Tramites");
         jLabel1.setFont(new java.awt.Font("Sitka Subheading", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Tramites");
 
         botonSalir.setText("Salir");
+        botonSalir.setBackground(new java.awt.Color(157, 36, 73));
+        botonSalir.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
+        botonSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonSalir.setEnabled(false);
+        botonSalir.setFocusPainted(false);
+        botonSalir.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        botonSalir.setForeground(new java.awt.Color(255, 255, 255));
+        botonSalir.setRequestFocusEnabled(false);
         botonSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonSalirActionPerformed(evt);
@@ -90,115 +112,120 @@ public class Principal extends javax.swing.JFrame {
         });
 
         botonSolicitante.setText("Ingresar solicitante");
+        botonSolicitante.setBackground(new java.awt.Color(188, 149, 92));
+        botonSolicitante.setBorder(null);
+        botonSolicitante.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonSolicitante.setFocusPainted(false);
+        botonSolicitante.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        botonSolicitante.setForeground(new java.awt.Color(0, 0, 0));
+        botonSolicitante.setPreferredSize(new java.awt.Dimension(35, 25));
         botonSolicitante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonSolicitanteActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout banerLayout = new javax.swing.GroupLayout(baner);
+        baner.setLayout(banerLayout);
+        banerLayout.setHorizontalGroup(
+            banerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(banerLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(botonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botonSolicitante, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                .addComponent(botonSolicitante, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonSalir)
-                    .addComponent(botonSolicitante)
-                    .addComponent(jLabel1))
-                .addGap(4, 4, 4))
+        banerLayout.setVerticalGroup(
+            banerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(banerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(banerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(banerLayout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel1)
+                        .addGap(4, 13, Short.MAX_VALUE))
+                    .addGroup(banerLayout.createSequentialGroup()
+                        .addGroup(banerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botonSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(botonSolicitante, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
 
-        btnGenerarRegistros.setText("Generar 20 registros ");
-        btnGenerarRegistros.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGenerarRegistrosActionPerformed(evt);
-            }
-        });
+        jPanel1.add(baner, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 541, -1));
 
-        botonPlaca.setText("Solicitar Nueva Placa");
+        botonPlaca.setText("Placas");
+        botonPlaca.setBackground(new java.awt.Color(255, 255, 255));
+        botonPlaca.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
+        botonPlaca.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonPlaca.setFocusPainted(false);
+        botonPlaca.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        botonPlaca.setForeground(new java.awt.Color(0, 0, 0));
         botonPlaca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonPlacaActionPerformed(evt);
             }
         });
+        jPanel1.add(botonPlaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 160, 55));
 
-        jButton7.setText("Ver Reporte de Tramites");
+        jButton7.setText("Reportes");
+        jButton7.setBackground(new java.awt.Color(255, 255, 255));
+        jButton7.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
+        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton7.setFocusPainted(false);
+        jButton7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(0, 0, 0));
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 180, 160, 55));
 
-        btnRecepcion.setText("Generar recepcion");
+        btnRecepcion.setText("Recepcion");
+        btnRecepcion.setBackground(new java.awt.Color(255, 255, 255));
+        btnRecepcion.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
+        btnRecepcion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRecepcion.setFocusPainted(false);
+        btnRecepcion.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnRecepcion.setForeground(new java.awt.Color(0, 0, 0));
         btnRecepcion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRecepcionActionPerformed(evt);
             }
         });
+        jPanel1.add(btnRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 160, 55));
 
         BtnConsultas.setText("Historial Persona");
+        BtnConsultas.setBackground(new java.awt.Color(255, 255, 255));
+        BtnConsultas.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
+        BtnConsultas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnConsultas.setFocusPainted(false);
+        BtnConsultas.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        BtnConsultas.setForeground(new java.awt.Color(0, 0, 0));
         BtnConsultas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnConsultasActionPerformed(evt);
             }
         });
+        jPanel1.add(BtnConsultas, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 160, 55));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnRecepcion, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(173, 173, 173)
-                        .addComponent(btnGenerarRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(botonLicencia, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(181, 181, 181)
-                                .addComponent(botonPlaca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(BtnConsultas, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
-                                .addGap(179, 179, 179)
-                                .addComponent(jButton7)
-                                .addGap(9, 9, 9)))
-                        .addGap(31, 31, 31))))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonLicencia, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRecepcion, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGenerarRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(61, 61, 61)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45))
-        );
+        btnGenerarRegistros.setText("20 registros");
+        btnGenerarRegistros.setBackground(new java.awt.Color(255, 255, 255));
+        btnGenerarRegistros.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
+        btnGenerarRegistros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGenerarRegistros.setFocusPainted(false);
+        btnGenerarRegistros.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnGenerarRegistros.setForeground(new java.awt.Color(0, 0, 0));
+        btnGenerarRegistros.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnGenerarRegistros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarRegistrosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnGenerarRegistros, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 280, 160, 55));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -208,9 +235,7 @@ public class Principal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
         );
 
         pack();
@@ -308,6 +333,7 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnConsultas;
+    private javax.swing.JPanel baner;
     private javax.swing.JButton botonLicencia;
     private javax.swing.JButton botonPlaca;
     private javax.swing.JButton botonSalir;
@@ -318,6 +344,5 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }
