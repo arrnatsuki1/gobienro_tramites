@@ -24,6 +24,8 @@ public class SolicitarPlacas extends javax.swing.JFrame {
 
     private boolean carronuevo;
     private Automovil autoEncontrado;
+    IAutomovilDAO dao = new AutomovilDAO();
+    
     /**
      * Creates new form AutomovilUsado
      */
@@ -115,7 +117,9 @@ public class SolicitarPlacas extends javax.swing.JFrame {
     }
 
     private void generarPlacaUsado(Automovil autoEncontrado) {
-
+        
+        autoEncontrado = dao.actualizarAutomovil(autoEncontrado);
+        
         boolean robado = false;
 
         //Encontrar si tiene una placa activa
@@ -147,7 +151,7 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         placa.setAuto(autoEncontrado);
         placa.setActiva(Estados.PLACA_ACTIVA);
 
-        IAutomovilDAO dao = new AutomovilDAO();
+        
 
         List<Placa> placas = autoEncontrado.getPlacas();
         placas.add(placa);
@@ -178,7 +182,7 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "fallo");
         }
-
+        
     }
 
     /**
@@ -459,7 +463,8 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         auto.setNserie(txtNumeroSeriePrincipal.getText());
         //Busca el automovil en la base de datos
         autoEncontrado = dao.obtenerAutomovil(auto);
-
+        autoEncontrado = dao.actualizarAutomovil(autoEncontrado);
+        
         //Si no encontro el carro, o este no tiene placas activas
         if (autoEncontrado == null) {
             generarAutoNuevo(txtNumeroSeriePrincipal.getText());

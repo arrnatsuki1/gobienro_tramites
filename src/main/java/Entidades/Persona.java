@@ -36,7 +36,7 @@ public class Persona implements Serializable {
     @Column(name = "telefono")
     private String telefono;
     @Basic
-    @Column(name = "RFC")
+    @Column(name = "RFC", unique = true)
     private String RFC;
     @Basic
     @Column(name = "discapacitado")
