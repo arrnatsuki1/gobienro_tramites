@@ -4,6 +4,7 @@ import DAO.Estados;
 import DAO.IPersonaDAO;
 import DAO.PersonaDAO;
 import Entidades.Persona;
+import Excepciones.RFCExistenteException;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -243,7 +244,14 @@ public class IngresaSolicitante extends javax.swing.JFrame {
                 txtPaterno.getText().toUpperCase(), txtMaterno.getText().toUpperCase(), fecha);
         IPersonaDAO dao = new PersonaDAO();
         
-        p = dao.agregarPersona(p);
+        try {
+            p = dao.agregarPersona(p);
+        } catch (RFCExistenteException e) {
+            JOptionPane.showMessageDialog(this, "ESTE RFC YA ESTA REGISTRADO", "ERROR!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        
         if(p != null) {
             Principal principal = new Principal(true, p);
             principal.setVisible(true);

@@ -6,6 +6,7 @@ package DAO;
 
 import Utilidades.Encriptacion;
 import Entidades.Persona;
+import Excepciones.RFCExistenteException;
 //import Utilidades.ChiperPersonas;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -36,8 +37,13 @@ public class PersonaDAO implements IPersonaDAO {
     }
 
     @Override
-    public Persona agregarPersona(Persona p) {
+    public Persona agregarPersona(Persona p) throws RFCExistenteException{
         EntityManager em = null;
+
+        if(consultarRFC(p.getRFC()) != null) {
+            throw new RFCExistenteException("este rfc ya existe");
+        }
+
         String nombre = p.getNombre();
         String apellidoP = p.getPrimerApellido();
         String apellidoM = p.getSegundoApellido();
@@ -56,6 +62,7 @@ public class PersonaDAO implements IPersonaDAO {
             em.getTransaction().commit();
             //Fin de la transaccion
             em.close();
+            
             return p;
         } catch (Exception e) {
             if (em != null) {
@@ -88,7 +95,8 @@ public class PersonaDAO implements IPersonaDAO {
             return null;
         }
     }
- @Override
+
+    @Override
     public List<Persona> consultarRFClista(String rfc) {
         EntityManager em = null;
         Encriptacion desencripta = new Encriptacion();
@@ -117,7 +125,7 @@ public class PersonaDAO implements IPersonaDAO {
     @Override
     public List<Persona> consultarTodos() {
         EntityManager em = null;
-        
+
         try {
             em = getEntityManager();
             List<Persona> personas = em
@@ -130,13 +138,12 @@ public class PersonaDAO implements IPersonaDAO {
         } catch (Exception e) {
             if (em != null) {
                 em.close();
-                
+
             }
             return null;
         }
     }
 
-    
     @Override
     public void refrescar(Persona p) {
         EntityManager em = null;
@@ -240,13 +247,13 @@ public class PersonaDAO implements IPersonaDAO {
                     .setParameter("fecha", persona.getFechaNacimiento());
 
             List<Persona> personas = query.getResultList();
-            
+
             if (personas.isEmpty()) {
                 return null;
             }
 
             personas = cipher.desencriptarLista(personas);
-            
+
             em.close();
             return personas;
         } catch (Exception e) {
@@ -258,7 +265,7 @@ public class PersonaDAO implements IPersonaDAO {
         }
     }
 
-    public List<Persona> agregar20Personas() {
+    public List<Persona> agregar20Personas() throws RFCExistenteException{
         try {
             List<Persona> personas = new ArrayList();
             personas.add(new Persona("6441906030", "ABC123", Estados.PERSONA_DISCAPACITADA, "JOSE", "ROSAS", "PANDURO", new GregorianCalendar(2000, 8, 24)));
@@ -281,40 +288,20 @@ public class PersonaDAO implements IPersonaDAO {
             personas.add(new Persona("6442095551", "JUKILO", Estados.PERSONA_DISCAPACITADA, "KAKYOIN", "NORIAKI", "VALENZUELA", new GregorianCalendar(2000, 9, 30)));
             personas.add(new Persona("6442099993", "MOTOMA", Estados.PERSONA_NO_DISCAPACITADA, "GIORNO", "BUCCARATI", "JOESTAR", new GregorianCalendar(1970, 5, 17)));
             personas.add(new Persona("6442098889", "ARCAGO", Estados.PERSONA_DISCAPACITADA, "JOSEPH", "PAREDES", "TORRES", new GregorianCalendar(2001, 11, 15)));
-            
-            for(Persona p : personas) {
+
+            for (Persona p : personas) {
                 this.agregarPersona(p);
             }
             Encriptacion en = new Encriptacion();
             personas = en.desencriptarNombresPersonas(personas);
-            
+
             return personas;
-            
+        }catch (RFCExistenteException rfce){
+            throw new RFCExistenteException("Ya existen estas personas");
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
         }
     }
-    
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

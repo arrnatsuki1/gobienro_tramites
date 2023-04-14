@@ -6,6 +6,7 @@ import DAO.LicenciaDAO;
 import DAO.PersonaDAO;
 import Entidades.Licencia;
 import Entidades.Persona;
+import Excepciones.RFCExistenteException;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -248,7 +249,14 @@ public class Principal extends javax.swing.JFrame {
 
     private void btnGenerarRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarRegistrosActionPerformed
         IPersonaDAO dao = new PersonaDAO();
-        List<Persona> personas = dao.agregar20Personas();
+        List<Persona> personas;
+        
+        try{
+            personas = dao.agregar20Personas();
+        } catch(RFCExistenteException e) {
+            JOptionPane.showMessageDialog(this, "estas personas ya estan agregadas");
+            return;
+        }
         
         JOptionPane.showMessageDialog(this, "Va a tener 20 mensajes seguidos mostrando la informacion de cada persona agregada");
         
