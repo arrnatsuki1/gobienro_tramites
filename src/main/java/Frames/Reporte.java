@@ -20,6 +20,7 @@ import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import swing_propio.GobiernoButton;
+import swing_propio.IButton;
 import swing_propio.IPanel;
 
 /*
@@ -109,6 +110,17 @@ public class Reporte extends javax.swing.JFrame {
             }
             
         });
+        this.btnPDF.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent evt) {
+                btnPDF.setBackground(new Color(188,149,92));
+            }
+            @Override
+            public void mouseExited(MouseEvent evt) {
+                btnPDF.setBackground(new Color(255,255,255));
+            }
+        });
+        
         
     }
     
@@ -228,15 +240,15 @@ public class Reporte extends javax.swing.JFrame {
     private void initComponents() {
 
         background = new javax.swing.JPanel();
-        btnPDF = new javax.swing.JButton();
+        btnPDF = new IButton();
         btnFecha = new GobiernoButton();
         btnBuscarporNombre = new GobiernoButton();
         btnCancelar = new javax.swing.JButton();
         txtNombre = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         btnPeriodo = new GobiernoButton();
-        btnSigPagina = new javax.swing.JButton();
-        btnAntPagina = new javax.swing.JButton();
+        btnSigPagina = new GobiernoButton();
+        btnAntPagina = new GobiernoButton();
         btnTipo = new GobiernoButton();
         panelFondo = new IPanel();
         panelOpcionesTipo = new JPanel();
@@ -259,16 +271,19 @@ public class Reporte extends javax.swing.JFrame {
         background.setBackground(new java.awt.Color(255, 255, 255));
         background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btnPDF.setBackground(new java.awt.Color(255, 255, 255));
         btnPDF.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnPDF.setForeground(new java.awt.Color(0, 0, 0));
         btnPDF.setText("Generar PDF");
+        btnPDF.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(188, 149, 92), 5, true));
+        btnPDF.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnPDF.setFocusPainted(false);
         btnPDF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPDFActionPerformed(evt);
             }
         });
-        background.add(btnPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 320, -1, -1));
+        background.add(btnPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 300, 100, 70));
 
         btnFecha.setBackground(new java.awt.Color(255, 255, 255));
         btnFecha.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -298,16 +313,19 @@ public class Reporte extends javax.swing.JFrame {
         });
         background.add(btnBuscarporNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 340, 100, 40));
 
+        btnCancelar.setBackground(new java.awt.Color(157, 36, 73));
         btnCancelar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnCancelar.setForeground(new java.awt.Color(0, 0, 0));
         btnCancelar.setText("Cancelar");
+        btnCancelar.setBorder(null);
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancelar.setFocusPainted(false);
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
             }
         });
-        background.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 430, -1, -1));
+        background.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 420, 110, 40));
         background.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 390, 160, -1));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -329,27 +347,33 @@ public class Reporte extends javax.swing.JFrame {
         });
         background.add(btnPeriodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 100, 40));
 
+        btnSigPagina.setBackground(new java.awt.Color(255, 255, 255));
         btnSigPagina.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSigPagina.setForeground(new java.awt.Color(0, 0, 0));
         btnSigPagina.setText(">");
+        btnSigPagina.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
+        btnSigPagina.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSigPagina.setFocusPainted(false);
         btnSigPagina.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSigPaginaActionPerformed(evt);
             }
         });
-        background.add(btnSigPagina, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, -1, -1));
+        background.add(btnSigPagina, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 280, 50, -1));
 
+        btnAntPagina.setBackground(new java.awt.Color(255, 255, 255));
         btnAntPagina.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnAntPagina.setForeground(new java.awt.Color(0, 0, 0));
         btnAntPagina.setText("<");
+        btnAntPagina.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
+        btnAntPagina.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAntPagina.setFocusPainted(false);
         btnAntPagina.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAntPaginaActionPerformed(evt);
             }
         });
-        background.add(btnAntPagina, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 280, -1, -1));
+        background.add(btnAntPagina, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 280, 50, -1));
 
         btnTipo.setBackground(new java.awt.Color(255, 255, 255));
         btnTipo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
