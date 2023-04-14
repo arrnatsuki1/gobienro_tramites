@@ -106,7 +106,7 @@ public class Reporte extends javax.swing.JFrame {
      */
     public void consultarPorNombre() {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        String nombre = txtNombre.getText().toLowerCase();
+//      String nombre = txtNombre.getText().toLowerCase();
 
         Persona p = new Persona();
         p.setNombre(txtNombre.getText().toUpperCase());
@@ -137,6 +137,33 @@ public class Reporte extends javax.swing.JFrame {
         }
     }
 
+//    public List<Tramite> listaTablaActual(){
+//        List<Tramite> listaTramiteActual = new ArrayList();   
+//        
+//       if(txtNombre.getText().equalsIgnoreCase("")){
+//          return daotramite.listaTramite(inicio, limite);
+//       }
+//       
+//       if (!txtNombre.getText().equalsIgnoreCase("")) {
+//             listaTramiteActual = daotramite.listaTramite(inicio, limite);
+//            
+//            listaTramiteActual = this.buscarporNombre(listaTramiteActual);
+//            return listaTramiteActual;
+//        }
+//    }
+//    
+//    private List<Persona> buscarporNombre(List<Persona> listapersona){
+//        List<Persona> listaAuxiliar = new ArrayList<Persona>();
+//        for (Persona persona: listapersona) {
+//                String nombreCompleto = persona.getNombre()+" "
+//                        + ""+persona.getPrimerApellido()+" "
+//                        + ""+persona.getSegundoApellido();
+//                if(nombreCompleto.toLowerCase().contains(txtNombre.getText().toLowerCase())){
+//                    listaAuxiliar.add(persona);
+//                }
+//        }
+//        return listaAuxiliar;
+//    }
     /**
      * Metodo para llenar la tabla con tramites
      *
@@ -214,7 +241,6 @@ public class Reporte extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(542, 520));
         setMinimumSize(new java.awt.Dimension(542, 520));
 
         background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -250,6 +276,12 @@ public class Reporte extends javax.swing.JFrame {
             }
         });
         background.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 400, -1, -1));
+
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNombreKeyReleased(evt);
+            }
+        });
         background.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 390, 160, -1));
 
         jLabel2.setText("Nombre:");
@@ -528,6 +560,10 @@ public class Reporte extends javax.swing.JFrame {
     private void panelOpcionesTipoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panelOpcionesTipoFocusLost
         desactivarPanelFondo();
     }//GEN-LAST:event_panelOpcionesTipoFocusLost
+
+    private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreKeyReleased
 
     private void activarPanelFondo() {
         this.panelFondo.setEnabled(true);
