@@ -1,21 +1,22 @@
 package Frames;
 
+import DAO.Estados;
 import DAO.ITramiteDAO;
 import DAO.TramiteDAO;
-import Entidades.Automovil;
 import Entidades.Licencia;
 import Entidades.Persona;
 import Entidades.Placa;
 import Entidades.Tramite;
-import Utilidades.Encriptacion;
+import java.awt.Color;
+import java.awt.Component;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import swing_propio.IPanel;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -64,17 +65,21 @@ public class Reporte extends javax.swing.JFrame {
             configurarTodosLosTramites();
         }
 
+        IPanel fondo1 = (IPanel) panelFondo;
+        fondo1.setBotonReferencia(this.btnTipo);
+        fondo1.setColor(new Color(35, 91, 78));
+        fondo1.setPanel(panelOpcionesTipo);
+        desactivarPanelFondo();
     }
-    
+
     /**
      * Configura todos los tramites de una persona guiados por el limite
      */
     private void configurarHistorialPersona() {
-        
- 
+
         txtNombre.setText(consultante.getNombre());
         obtenerTramitesPersonas();
-   
+
     }
 
     /**
@@ -102,12 +107,12 @@ public class Reporte extends javax.swing.JFrame {
     public void consultarPorNombre() {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         String nombre = txtNombre.getText().toLowerCase();
-        
+
         Persona p = new Persona();
         p.setNombre(txtNombre.getText().toUpperCase());
         p.setPrimerApellido(txtPrimerApellido.getText().toUpperCase());
         p.setSegundoApellido(txtSegundoApellido.getText().toUpperCase());
-        
+
         List<Tramite> listaTramite = daotramite.listaTramiteNombre(p, inicio, fin);
         System.out.println(listaTramite.size());
         DefaultTableModel def = (DefaultTableModel) tabla.getModel();
@@ -124,7 +129,7 @@ public class Reporte extends javax.swing.JFrame {
                 Licencia t = (Licencia) listaTramite.get(i);
                 datos[1] = t.getEstado();
             }
-            
+
             datos[2] = formato.format(listaTramite.get(i).getFechaEmision().getTime());
             datos[3] = listaTramite.get(i).getCosto();
             datos[4] = listaTramite.get(i).getPersona().getNombre();
@@ -167,8 +172,8 @@ public class Reporte extends javax.swing.JFrame {
             datos[2] = formato.format(listaAcortada.get(i).getFechaEmision().getTime());
             datos[3] = listaAcortada.get(i).getCosto();
             datos[4] = listaAcortada.get(i).getPersona().getNombre()
-                    +" "+listaAcortada.get(i).getPersona().getPrimerApellido()
-                    +" "+listaAcortada.get(i).getPersona().getSegundoApellido();
+                    + " " + listaAcortada.get(i).getPersona().getPrimerApellido()
+                    + " " + listaAcortada.get(i).getPersona().getSegundoApellido();
             def.addRow(datos);
         }
     }
@@ -183,13 +188,8 @@ public class Reporte extends javax.swing.JFrame {
     private void initComponents() {
 
         background = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tabla = new javax.swing.JTable();
         btnPDF = new javax.swing.JButton();
         btnFecha = new javax.swing.JButton();
-        btnTipo = new javax.swing.JButton();
         btnBuscarporNombre = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         txtNombre = new javax.swing.JTextField();
@@ -197,71 +197,27 @@ public class Reporte extends javax.swing.JFrame {
         btnPeriodo = new javax.swing.JButton();
         btnSigPagina = new javax.swing.JButton();
         btnAntPagina = new javax.swing.JButton();
+        btnTipo = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        panelFondo = new IPanel();
+        panelOpcionesTipo = new JPanel();
+        btnPlacas = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        btnLicencia = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
         txtPrimerApellido = new javax.swing.JTextField();
         txtSegundoApellido = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabla = new javax.swing.JTable();
+        baner = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(542, 520));
+        setMinimumSize(new java.awt.Dimension(542, 520));
 
         background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel2.setBackground(new java.awt.Color(153, 0, 51));
-
-        jLabel1.setFont(new java.awt.Font("Sitka Subheading", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Reporte de Tramites");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(109, 109, 109)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(20, 20, 20))
-        );
-
-        background.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 542, -1));
-
-        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-
-        tabla.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Tipo de Tramite", "Estado", "Fecha realizacion", "Costo", "Nombre Persona"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tabla);
-
-        background.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 540, 180));
 
         btnPDF.setText("Generar PDF");
         btnPDF.addActionListener(new java.awt.event.ActionListener() {
@@ -278,14 +234,6 @@ public class Reporte extends javax.swing.JFrame {
             }
         });
         background.add(btnFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, -1, -1));
-
-        btnTipo.setText("Buscar por Tipo de Tramite");
-        btnTipo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTipoActionPerformed(evt);
-            }
-        });
-        background.add(btnTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, 170, -1));
 
         btnBuscarporNombre.setText("Buscar por nombre");
         btnBuscarporNombre.addActionListener(new java.awt.event.ActionListener() {
@@ -331,13 +279,136 @@ public class Reporte extends javax.swing.JFrame {
         });
         background.add(btnAntPagina, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 280, -1, -1));
 
+        btnTipo.setText("Buscar por Tipo de Tramite");
+        btnTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTipoActionPerformed(evt);
+            }
+        });
+        background.add(btnTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 300, 180, 30));
+
         jLabel3.setText("Primer Apellido");
         background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, -1, -1));
 
         jLabel4.setText("Segundo Apellido");
         background.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, -1, -1));
+
+        panelFondo.setOpaque(false);
+        panelFondo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                panelFondoFocusLost(evt);
+            }
+        });
+        panelFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panelOpcionesTipo.setBackground(new java.awt.Color(35, 91, 78));
+        panelOpcionesTipo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                panelOpcionesTipoFocusLost(evt);
+            }
+        });
+        panelOpcionesTipo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnPlacas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPlacas.setOpaque(false);
+        btnPlacas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPlacasMouseClicked(evt);
+            }
+        });
+        btnPlacas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Placas");
+        jLabel5.setFocusCycleRoot(true);
+        jLabel5.setFocusTraversalPolicyProvider(true);
+        btnPlacas.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 130));
+
+        panelOpcionesTipo.add(btnPlacas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 130));
+
+        btnLicencia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLicencia.setOpaque(false);
+        btnLicencia.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLicenciaMouseClicked(evt);
+            }
+        });
+        btnLicencia.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Licencias");
+        jLabel6.setFocusCycleRoot(true);
+        jLabel6.setFocusTraversalPolicyProvider(true);
+        btnLicencia.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 130));
+
+        panelOpcionesTipo.add(btnLicencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 110, 130));
+
+        panelFondo.add(panelOpcionesTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 220, 130));
+
+        background.add(panelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 330));
         background.add(txtPrimerApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 420, 160, -1));
         background.add(txtSegundoApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 450, 160, -1));
+
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        tabla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Tipo de Tramite", "Estado", "Fecha realizacion", "Costo", "Nombre Persona"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tabla);
+
+        background.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 540, 180));
+
+        baner.setBackground(new java.awt.Color(153, 0, 51));
+
+        jLabel1.setFont(new java.awt.Font("Sitka Subheading", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Reporte de Tramites");
+
+        javax.swing.GroupLayout banerLayout = new javax.swing.GroupLayout(baner);
+        baner.setLayout(banerLayout);
+        banerLayout.setHorizontalGroup(
+            banerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(banerLayout.createSequentialGroup()
+                .addGap(109, 109, 109)
+                .addComponent(jLabel1)
+                .addContainerGap(208, Short.MAX_VALUE))
+        );
+        banerLayout.setVerticalGroup(
+            banerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, banerLayout.createSequentialGroup()
+                .addContainerGap(28, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(20, 20, 20))
+        );
+
+        background.add(baner, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 542, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -347,11 +418,10 @@ public class Reporte extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
+            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDFActionPerformed
@@ -397,8 +467,17 @@ public class Reporte extends javax.swing.JFrame {
         llenarTabla(tramites);
     }//GEN-LAST:event_btnAntPaginaActionPerformed
 
+    boolean opt = false;
     private void btnTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTipoActionPerformed
-        buscarPorTramite();
+//        buscarPorTramite();
+        if (opt) {
+            desactivarPanelFondo();
+            opt = false;
+        } else {
+            activarPanelFondo();
+            opt = true;
+        }
+
     }//GEN-LAST:event_btnTipoActionPerformed
 
     private void btnPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeriodoActionPerformed
@@ -410,6 +489,56 @@ public class Reporte extends javax.swing.JFrame {
         Calendar fecha = new GregorianCalendar();
         buscarPorFecha(fecha);
     }//GEN-LAST:event_btnFechaActionPerformed
+
+    private void panelFondoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panelFondoFocusLost
+        desactivarPanelFondo();
+    }//GEN-LAST:event_panelFondoFocusLost
+
+    private void btnLicenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLicenciaMouseClicked
+        StringBuffer respuesta = new StringBuffer();
+        respuesta.append(Estados.TIPO_LICENCIA);
+
+        if (this.consultante != null) {
+            buscarPorTipoTramiteConsultante(respuesta);
+        } else {
+            buscarPorTipoTramiteTodos(respuesta);
+        }
+
+        desactivarPanelFondo();
+
+        llenarTabla(tramites);
+    }//GEN-LAST:event_btnLicenciaMouseClicked
+
+    private void btnPlacasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPlacasMouseClicked
+        StringBuffer respuesta = new StringBuffer();
+        respuesta.append(Estados.TIPO_PLACA);
+
+        if (this.consultante != null) {
+            buscarPorTipoTramiteConsultante(respuesta);
+        } else {
+            buscarPorTipoTramiteTodos(respuesta);
+        }
+
+        desactivarPanelFondo();
+
+        llenarTabla(tramites);
+    }//GEN-LAST:event_btnPlacasMouseClicked
+
+    private void panelOpcionesTipoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panelOpcionesTipoFocusLost
+        desactivarPanelFondo();
+    }//GEN-LAST:event_panelOpcionesTipoFocusLost
+
+    private void activarPanelFondo() {
+        this.panelFondo.setEnabled(true);
+        this.panelFondo.setVisible(true);
+        opt = true;
+    }
+
+    private void desactivarPanelFondo() {
+        this.panelFondo.setEnabled(false);
+        this.panelFondo.setVisible(false);
+        opt = false;
+    }
 
     /*AQUI EMPIEZAN LOS METODOS PARA BUSCAR POR FECHA*/
     private void buscarPorFecha(Calendar fecha) {
@@ -434,7 +563,7 @@ public class Reporte extends javax.swing.JFrame {
 
     /*AQUI TERMINAN LOS METODOS PARA BUSCAR POR FECHA*/
 
-    /*AQUI EMPIZAN LOS METODOS PARA LA BUSQUEDA POR PERIODO*/
+ /*AQUI EMPIZAN LOS METODOS PARA LA BUSQUEDA POR PERIODO*/
     private void buscarPorPeriodo(Calendar f1, Calendar f2) {
         if (consultante != null) {
             buscarPorPeriodoConsultante(f1, f2);
@@ -454,8 +583,8 @@ public class Reporte extends javax.swing.JFrame {
         new SeleccionarPeriodo(this, true, f1, f2);
         tramites = daotramite.listaPeriodoTodos(f1, f2, inicio, limite);
     }
+
     /*AQUI TERMINAN LOS METODOS PARA LA BUSQUEDA POR PERIODO*/
-    
     private void buscarPorTramite() {
         StringBuffer respuesta = new StringBuffer();
         if (consultante != null) {
@@ -468,33 +597,35 @@ public class Reporte extends javax.swing.JFrame {
     }
 
     private void buscarPorTipoTramiteConsultante(StringBuffer respuesta) {
-        new TipoDeTramites(this, true, respuesta);
-        
         tramites = daotramite.listaPorTipoPersona(consultante, respuesta, inicio, limite);
-        
     }
 
     private void buscarPorTipoTramiteTodos(StringBuffer respuesta) {
-        new TipoDeTramites(this, true, respuesta);
         tramites = daotramite.listaPorTipoTodos(respuesta, inicio, limite);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
+    private javax.swing.JPanel baner;
     private javax.swing.JButton btnAntPagina;
     private javax.swing.JButton btnBuscarporNombre;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnFecha;
+    private javax.swing.JPanel btnLicencia;
     private javax.swing.JButton btnPDF;
     private javax.swing.JButton btnPeriodo;
+    private javax.swing.JPanel btnPlacas;
     private javax.swing.JButton btnSigPagina;
     private javax.swing.JButton btnTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel panelFondo;
+    private javax.swing.JPanel panelOpcionesTipo;
     private javax.swing.JTable tabla;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPrimerApellido;
