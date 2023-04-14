@@ -136,6 +136,7 @@ public class PersonaDAO implements IPersonaDAO {
         }
     }
 
+    
     @Override
     public void refrescar(Persona p) {
         EntityManager em = null;
