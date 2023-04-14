@@ -7,6 +7,8 @@ import DAO.PersonaDAO;
 import Entidades.Licencia;
 import Entidades.Persona;
 import Excepciones.RFCExistenteException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -216,6 +218,17 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLicenciaActionPerformed
+        
+        Calendar fechaActual = new GregorianCalendar();
+        long edad = persona.getFechaNacimiento().get(Calendar.YEAR) - fechaActual.get(Calendar.YEAR);
+        
+        if(edad < 18) {
+            JOptionPane.showMessageDialog(this,
+                    "UN MENOR DE EDAD NO PUEDE SACAR UNA LICENCIA(SI PUEDE PERO AQUI NO)",
+                    "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+            
         SolicitarLicencia sl = new SolicitarLicencia(persona);
         sl.setVisible(true);
         this.setVisible(false);

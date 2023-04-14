@@ -197,72 +197,96 @@ public class Reporte extends javax.swing.JFrame {
         btnPeriodo = new javax.swing.JButton();
         btnSigPagina = new javax.swing.JButton();
         btnAntPagina = new javax.swing.JButton();
-        btnTipo = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        panelFondo = new IPanel();
-        panelOpcionesTipo = new JPanel();
-        btnPlacas = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        btnLicencia = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
         txtPrimerApellido = new javax.swing.JTextField();
         txtSegundoApellido = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
         baner = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        btnTipo = new javax.swing.JButton();
+        panelFondo = new IPanel();
+        panelOpcionesTipo = new JPanel();
+        btnPlacas = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        btnLicencia = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(542, 520));
         setMinimumSize(new java.awt.Dimension(542, 520));
 
+        background.setBackground(new java.awt.Color(255, 255, 255));
         background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btnPDF.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnPDF.setForeground(new java.awt.Color(0, 0, 0));
         btnPDF.setText("Generar PDF");
         btnPDF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPDFActionPerformed(evt);
             }
         });
-        background.add(btnPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 400, -1, -1));
+        background.add(btnPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 320, -1, -1));
 
-        btnFecha.setText("Buscar por Fecha");
+        btnFecha.setBackground(new java.awt.Color(238, 238, 238));
+        btnFecha.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnFecha.setForeground(new java.awt.Color(0, 0, 0));
+        btnFecha.setText("Fecha");
+        btnFecha.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnFecha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFechaActionPerformed(evt);
             }
         });
-        background.add(btnFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, -1, -1));
+        background.add(btnFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 100, 40));
 
-        btnBuscarporNombre.setText("Buscar por nombre");
+        btnBuscarporNombre.setBackground(new java.awt.Color(238, 238, 238));
+        btnBuscarporNombre.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnBuscarporNombre.setForeground(new java.awt.Color(0, 0, 0));
+        btnBuscarporNombre.setText("Nombre");
+        btnBuscarporNombre.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnBuscarporNombre.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscarporNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarporNombreActionPerformed(evt);
             }
         });
-        background.add(btnBuscarporNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 350, 170, -1));
+        background.add(btnBuscarporNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 340, 100, 40));
 
+        btnCancelar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(0, 0, 0));
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
             }
         });
-        background.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 400, -1, -1));
-        background.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 390, 160, -1));
+        background.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 430, -1, -1));
+        background.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 390, 160, -1));
 
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Nombre:");
         background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, -1, -1));
 
+        btnPeriodo.setBackground(new java.awt.Color(238, 238, 238));
+        btnPeriodo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnPeriodo.setForeground(new java.awt.Color(0, 0, 0));
         btnPeriodo.setText("Periodo");
+        btnPeriodo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnPeriodo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnPeriodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPeriodoActionPerformed(evt);
             }
         });
-        background.add(btnPeriodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 120, -1));
+        background.add(btnPeriodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 100, 40));
 
+        btnSigPagina.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnSigPagina.setForeground(new java.awt.Color(0, 0, 0));
         btnSigPagina.setText(">");
         btnSigPagina.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -271,6 +295,8 @@ public class Reporte extends javax.swing.JFrame {
         });
         background.add(btnSigPagina, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, -1, -1));
 
+        btnAntPagina.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnAntPagina.setForeground(new java.awt.Color(0, 0, 0));
         btnAntPagina.setText("<");
         btnAntPagina.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -279,19 +305,73 @@ public class Reporte extends javax.swing.JFrame {
         });
         background.add(btnAntPagina, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 280, -1, -1));
 
-        btnTipo.setText("Buscar por Tipo de Tramite");
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Primer Apellido");
+        background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setText("Segundo Apellido");
+        background.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, -1, -1));
+        background.add(txtPrimerApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 420, 160, -1));
+        background.add(txtSegundoApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 450, 160, -1));
+
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        tabla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Tipo de Tramite", "Estado", "Fecha realizacion", "Costo", "Nombre Persona"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tabla);
+
+        background.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 542, 180));
+
+        baner.setBackground(new java.awt.Color(16, 49, 43));
+        baner.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Sitka Subheading", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Reporte de Tramites");
+        baner.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 80));
+
+        background.add(baner, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 542, 80));
+
+        btnTipo.setBackground(new java.awt.Color(238, 238, 238));
+        btnTipo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnTipo.setForeground(new java.awt.Color(0, 0, 0));
+        btnTipo.setText("Tipo");
+        btnTipo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnTipo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTipoActionPerformed(evt);
             }
         });
-        background.add(btnTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 300, 180, 30));
-
-        jLabel3.setText("Primer Apellido");
-        background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, -1, -1));
-
-        jLabel4.setText("Segundo Apellido");
-        background.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, -1, -1));
+        background.add(btnTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, 100, 40));
 
         panelFondo.setOpaque(false);
         panelFondo.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -347,78 +427,27 @@ public class Reporte extends javax.swing.JFrame {
 
         panelOpcionesTipo.add(btnLicencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 110, 130));
 
-        panelFondo.add(panelOpcionesTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 220, 130));
-
-        background.add(panelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 330));
-        background.add(txtPrimerApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 420, 160, -1));
-        background.add(txtSegundoApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 450, 160, -1));
-
-        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-
-        tabla.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Tipo de Tramite", "Estado", "Fecha realizacion", "Costo", "Nombre Persona"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tabla);
-
-        background.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 540, 180));
-
-        baner.setBackground(new java.awt.Color(153, 0, 51));
-
-        jLabel1.setFont(new java.awt.Font("Sitka Subheading", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Reporte de Tramites");
-
-        javax.swing.GroupLayout banerLayout = new javax.swing.GroupLayout(baner);
-        baner.setLayout(banerLayout);
-        banerLayout.setHorizontalGroup(
-            banerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(banerLayout.createSequentialGroup()
-                .addGap(109, 109, 109)
-                .addComponent(jLabel1)
-                .addContainerGap(208, Short.MAX_VALUE))
-        );
-        banerLayout.setVerticalGroup(
-            banerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, banerLayout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(20, 20, 20))
-        );
-
-        background.add(baner, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 542, -1));
+        panelFondo.add(panelOpcionesTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 220, 130));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(panelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(panelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pack();
