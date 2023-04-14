@@ -146,6 +146,9 @@ public class SolicitarPlacas extends javax.swing.JFrame {
             //poner la fecha de recepcion
             placa = new Placa(codigo, null, 0, new GregorianCalendar(),
                     new BigDecimal("1000"), autoEncontrado, persona);
+            
+            JOptionPane.showConfirmDialog(this, "Tendra que generar una recepcion a estas placas", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            
         }
 
         placa.setAuto(autoEncontrado);
@@ -458,7 +461,6 @@ public class SolicitarPlacas extends javax.swing.JFrame {
             return;
         }
 
-        IAutomovilDAO dao = new AutomovilDAO();
         Automovil auto = new Automovil();
         auto.setNserie(txtNumeroSeriePrincipal.getText());
         //Busca el automovil en la base de datos
