@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Frames;
 
@@ -12,7 +12,6 @@ import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.JTable;
@@ -22,22 +21,19 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Rosa Rodriguez y Jose Trista
  */
-public class SeleccionarPersonaDialog extends javax.swing.JDialog {
-
-    private final IPersonaDAO daopersona;
+public class SeleccionarPersona extends javax.swing.JFrame {
+     private final IPersonaDAO daopersona;
 
     private Persona personaSeleccionada;
-
     /**
-     * Creates new form SeleccionarPersonaDialog
+     * Creates new form SeleccionarPersona
+     * @param selectedPersona
      */
-    public SeleccionarPersonaDialog(java.awt.Frame parent, boolean modal, Persona selectedPersona) {
-        super(parent, modal);
+    public SeleccionarPersona( ) {
         initComponents();
-        
         daopersona = new PersonaDAO();
 
-        this.personaSeleccionada = selectedPersona;
+        this.personaSeleccionada = new Persona();
 
         tablaPersonas.addMouseListener(new MouseAdapter() {
             @Override
@@ -51,12 +47,9 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
 
         });
        mostrarTabla(listaTablaActual());
-        this.setLocationRelativeTo(parent);
-        
-        this.setVisible(true);
-  
+       this.setVisible(true);
     }
-
+    
     private void dobleClick(MouseEvent evt) {
         JTable tabla = (JTable) evt.getSource();
         int row = tabla.getSelectedRow();
@@ -77,11 +70,11 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
         if (personaSeleccionada == null) {
             System.out.println("ERROR DOBLE CLICK");
         }
-        
+        Reporte reporte = new Reporte(true,personaSeleccionada);
+        reporte.setVisible(true);
         this.dispose();
         
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -103,8 +96,7 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
         btnRegresar = new javax.swing.JButton();
         calendario = new com.github.lgooddatepicker.components.CalendarPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Buscar persona");
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -179,15 +171,6 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-      mostrarTabla(listaTablaActual());
-    }//GEN-LAST:event_btnBuscarActionPerformed
-
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        personaSeleccionada.setNombre("NULL");
-        this.dispose();
-    }//GEN-LAST:event_btnRegresarActionPerformed
-
     private void txtRfcKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRfcKeyReleased
         mostrarTabla(listaTablaActual());
     }//GEN-LAST:event_txtRfcKeyReleased
@@ -195,8 +178,18 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
     private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
         mostrarTabla(listaTablaActual());
     }//GEN-LAST:event_txtNombreKeyReleased
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        mostrarTabla(listaTablaActual());
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        Principal principal = new Principal(true, personaSeleccionada);
+        principal.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
     
-    public List<Persona> listaTablaActual(){
+     public List<Persona> listaTablaActual(){
         List<Persona> listaPersonasActual = new ArrayList();
         
 
@@ -253,24 +246,6 @@ public class SeleccionarPersonaDialog extends javax.swing.JDialog {
         return listaPersonasActual;
                
     }
-    
-//    private Persona obtenerPersona() {
-//        Persona p = new Persona();
-//        LocalDate fecha = calendario.getSelectedDate();
-//
-//        Calendar nacimiento = new GregorianCalendar();
-//
-//        if (fecha != null) {
-//            nacimiento.set(fecha.getYear(), fecha.getMonthValue() - 1, fecha.getDayOfMonth());
-//            p.setFechaNacimiento(nacimiento);
-//        }
-//        p.setPrimerApellido(txtPrimerApellido.getText());
-//        p.setSegundoApellido(txtSegundoApellido.getText());
-//        p.setNombre(txtNombre.getText());
-//        p.setRFC(txtRfc.getText());
-//        return p;
-//    }
-
     private Persona buscarPorRFC() {
 
         Persona p = daopersona.consultarRFC(txtRfc.getText().toUpperCase());

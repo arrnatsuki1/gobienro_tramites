@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -48,7 +50,7 @@ public class Reporte extends javax.swing.JFrame {
 
     private List<Tramite> tramites;
 
-    public Reporte(boolean p) {
+    public Reporte(boolean p, Persona consultante) {
         daotramite = new TramiteDAO();
         initComponents();
         if (p) {
@@ -56,27 +58,23 @@ public class Reporte extends javax.swing.JFrame {
             this.txtNombre.setEnabled(false);
             this.txtPrimerApellido.setEnabled(false);
             this.txtSegundoApellido.setEnabled(false);
+            this.consultante = consultante;
             configurarHistorialPersona();
         } else {
             configurarTodosLosTramites();
         }
 
     }
-
+    
     /**
      * Configura todos los tramites de una persona guiados por el limite
      */
     private void configurarHistorialPersona() {
-        this.consultante = new Persona();
-        SeleccionarPersonaDialog dialog = new SeleccionarPersonaDialog(null, true, consultante);
-
-        if (consultante == null) {
-            System.out.println("ERROR NO SE QUE PASO");
-            this.dispose();
-        }
-
+        
+ 
         txtNombre.setText(consultante.getNombre());
         obtenerTramitesPersonas();
+   
     }
 
     /**

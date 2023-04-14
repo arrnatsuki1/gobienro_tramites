@@ -229,7 +229,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_botonPlacaActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        Reporte rp = new Reporte(false);
+        Reporte rp = new Reporte(false,null);
         rp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton7ActionPerformed
@@ -269,8 +269,8 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRecepcionActionPerformed
 
     private void BtnConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConsultasActionPerformed
-        Reporte rp = new Reporte(true);
-        rp.setVisible(true);
+        SeleccionarPersona selecP = new SeleccionarPersona();
+        selecP.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BtnConsultasActionPerformed
     public void buscarLicenciasVigentes(Persona persona){
