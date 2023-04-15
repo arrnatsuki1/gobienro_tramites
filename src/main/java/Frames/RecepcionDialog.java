@@ -4,6 +4,9 @@ import DAO.IPlacaDAO;
 import DAO.PlacaDAO;
 import Entidades.Placa;
 import Utilidades.Encriptacion;
+import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 
@@ -19,9 +22,30 @@ public class RecepcionDialog extends javax.swing.JDialog {
     public RecepcionDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        inicializarBoton();
+        this.setTitle("Recepciones");
         this.setVisible(true);
     }
 
+    private void inicializarBoton() {
+        this.btnGenerar.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseEntered(MouseEvent evt) {
+                if(!btnGenerar.isEnabled()) {
+                    return;
+                }
+                btnGenerar.setBackground(new Color(188,149,92));
+            }
+            @Override
+            public void mouseExited(MouseEvent evt) {
+                if(!btnGenerar.isEnabled()) {
+                    return;
+                }
+                btnGenerar.setBackground(new Color(255,255,255));
+            }
+        });
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -37,53 +61,90 @@ public class RecepcionDialog extends javax.swing.JDialog {
         txtCodigo = new javax.swing.JTextField();
         lblPersona = new javax.swing.JLabel();
         lblAuto = new javax.swing.JLabel();
-        btnRegresar = new javax.swing.JButton();
-        btnBuscar = new javax.swing.JButton();
-        btnGenerar = new javax.swing.JButton();
+        btnRegresar = new swing_propio.GobiernoButton();
+        btnBuscar = new swing_propio.GobiernoButton();
+        btnGenerar = new swing_propio.IButton();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        background.setBackground(new java.awt.Color(255, 255, 255));
         background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        informacionPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Tramite recepcion"));
+        informacionPanel.setBackground(new java.awt.Color(255, 255, 255));
+        informacionPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tramite recepcion", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 18), new java.awt.Color(0, 0, 0))); // NOI18N
+        informacionPanel.setForeground(new java.awt.Color(0, 0, 0));
         informacionPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Codigo de la placa");
-        informacionPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
-        informacionPanel.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 140, -1));
+        informacionPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
+        txtCodigo.setBackground(new java.awt.Color(255, 255, 255));
+        txtCodigo.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        txtCodigo.setForeground(new java.awt.Color(0, 0, 0));
+        txtCodigo.setBorder(null);
+        txtCodigo.setSelectedTextColor(new java.awt.Color(102, 102, 255));
+        informacionPanel.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 350, 30));
+
+        lblPersona.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lblPersona.setForeground(new java.awt.Color(0, 0, 0));
         lblPersona.setText("Persona:");
-        informacionPanel.add(lblPersona, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
+        informacionPanel.add(lblPersona, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
 
+        lblAuto.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lblAuto.setForeground(new java.awt.Color(0, 0, 0));
         lblAuto.setText("numero serie auto:");
-        informacionPanel.add(lblAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
+        informacionPanel.add(lblAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
 
+        btnRegresar.setBackground(new java.awt.Color(255, 255, 255));
+        btnRegresar.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        btnRegresar.setForeground(new java.awt.Color(0, 0, 0));
         btnRegresar.setText("Regresar");
+        btnRegresar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
+        btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegresar.setFocusPainted(false);
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegresarActionPerformed(evt);
             }
         });
-        informacionPanel.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 240, -1, -1));
+        informacionPanel.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, 80, 30));
 
+        btnBuscar.setBackground(new java.awt.Color(255, 255, 255));
+        btnBuscar.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        btnBuscar.setForeground(new java.awt.Color(0, 0, 0));
         btnBuscar.setText("Buscar placa");
+        btnBuscar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
+        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscar.setFocusPainted(false);
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
             }
         });
-        informacionPanel.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, -1, -1));
+        informacionPanel.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 240, 100, 30));
 
+        btnGenerar.setBackground(new java.awt.Color(255, 255, 255));
+        btnGenerar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        btnGenerar.setForeground(new java.awt.Color(0, 0, 0));
         btnGenerar.setText("Generar recepcion");
+        btnGenerar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(188, 149, 92), 3, true));
+        btnGenerar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGenerar.setEnabled(false);
+        btnGenerar.setFocusPainted(false);
         btnGenerar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGenerarActionPerformed(evt);
             }
         });
-        informacionPanel.add(btnGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, -1, -1));
+        informacionPanel.add(btnGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, 130, 40));
+
+        jSeparator1.setBackground(new java.awt.Color(0, 0, 0));
+        informacionPanel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 350, 20));
 
         background.add(informacionPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 380, 280));
 
@@ -163,6 +224,7 @@ public class RecepcionDialog extends javax.swing.JDialog {
     private javax.swing.JButton btnRegresar;
     private javax.swing.JPanel informacionPanel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblAuto;
     private javax.swing.JLabel lblPersona;
     private javax.swing.JTextField txtCodigo;
