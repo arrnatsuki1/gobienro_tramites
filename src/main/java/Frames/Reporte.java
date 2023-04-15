@@ -95,68 +95,85 @@ public class Reporte extends javax.swing.JFrame {
         fondo1.setPanel(panelOpcionesTipo);
         desactivarPanelFondo();
         mostrarPanelOpcionesPeriodo(false);
-        
-        inicializarBotones();    
+        mostrarPanelFecha(false);
+        inicializarBotones();
     }
 
-    
     private void inicializarBotones() {
-        
+
         this.btnLicencia.addMouseListener(new MouseAdapter() {
-            
+
             @Override
             public void mouseEntered(MouseEvent evt) {
-                
-                btnLicencia.setBackground(new Color(16,49,43));
-                
+
+                btnLicencia.setBackground(new Color(16, 49, 43));
+
             }
+
             @Override
             public void mouseExited(MouseEvent evt) {
-                btnLicencia.setBackground(new Color(35,91,78));
+                btnLicencia.setBackground(new Color(35, 91, 78));
             }
-            
+
         });
         this.btnPlaca.addMouseListener(new MouseAdapter() {
-            
+
             @Override
             public void mouseEntered(MouseEvent evt) {
-                
-                btnPlaca.setBackground(new Color(16,49,43));
-                
+
+                btnPlaca.setBackground(new Color(16, 49, 43));
+
             }
+
             @Override
             public void mouseExited(MouseEvent evt) {
-                btnPlaca.setBackground(new Color(35,91,78));
+                btnPlaca.setBackground(new Color(35, 91, 78));
             }
-            
+
         });
         this.btnPDF.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent evt) {
-                btnPDF.setBackground(new Color(188,149,92));
+                btnPDF.setBackground(new Color(188, 149, 92));
             }
+
             @Override
             public void mouseExited(MouseEvent evt) {
-                btnPDF.setBackground(new Color(255,255,255));
+                btnPDF.setBackground(new Color(255, 255, 255));
             }
         });
         this.btnBuscar.addMouseListener(new MouseAdapter() {
-            
+
             @Override
             public void mouseEntered(MouseEvent evt) {
-                
-                btnBuscar.setBackground(new Color(16,49,43));
-                
+
+                btnBuscar.setBackground(new Color(16, 49, 43));
+
             }
+
             @Override
             public void mouseExited(MouseEvent evt) {
-                btnBuscar.setBackground(new Color(35,91,78));
+                btnBuscar.setBackground(new Color(35, 91, 78));
             }
-            
+
         });
-        
+        this.btnBuscarFecha.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseEntered(MouseEvent evt) {
+
+                btnBuscarFecha.setBackground(new Color(16, 49, 43));
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent evt) {
+                btnBuscarFecha.setBackground(new Color(35, 91, 78));
+            }
+
+        });
     }
-    
+
     /**
      * Configura todos los tramites de una persona guiados por el limite
      */
@@ -189,35 +206,35 @@ public class Reporte extends javax.swing.JFrame {
      * para llenar la tabla, no hay que hacer consultas en metodos con nombres
      * genericos
      */
-    
-    public List<Tramite> listaTablaActual(){
-        List<Tramite> listaTramiteActual = new ArrayList();   
-        
-       if(txtNombre.getText().equalsIgnoreCase("")){
-          return daotramite.listaTramite(inicio, limite);
-       }
-       
-       if (!txtNombre.getText().equalsIgnoreCase("")) {
-             listaTramiteActual = daotramite.listaTramite(inicio, limite);
-            
+    public List<Tramite> listaTablaActual() {
+        List<Tramite> listaTramiteActual = new ArrayList();
+
+        if (txtNombre.getText().equalsIgnoreCase("")) {
+            return daotramite.listaTramite(inicio, limite);
+        }
+
+        if (!txtNombre.getText().equalsIgnoreCase("")) {
+            listaTramiteActual = daotramite.listaTramite(inicio, limite);
+
             listaTramiteActual = this.buscarporNombre(listaTramiteActual);
             return listaTramiteActual;
         }
-       return listaTramiteActual;
+        return listaTramiteActual;
     }
-    
-    private List<Tramite> buscarporNombre(List<Tramite> listaTramite){
+
+    private List<Tramite> buscarporNombre(List<Tramite> listaTramite) {
         List<Tramite> listaAuxiliar = new ArrayList<Tramite>();
-        for (Tramite tramite: listaTramite) {
-                String nombreCompleto = tramite.getPersona().getNombre()+" "
-                        + ""+tramite.getPersona().getPrimerApellido()+" "
-                        + ""+tramite.getPersona().getSegundoApellido();
-                if(nombreCompleto.toLowerCase().contains(txtNombre.getText().toLowerCase())){
-                    listaAuxiliar.add(tramite);
-                }
+        for (Tramite tramite : listaTramite) {
+            String nombreCompleto = tramite.getPersona().getNombre() + " "
+                    + "" + tramite.getPersona().getPrimerApellido() + " "
+                    + "" + tramite.getPersona().getSegundoApellido();
+            if (nombreCompleto.toLowerCase().contains(txtNombre.getText().toLowerCase())) {
+                listaAuxiliar.add(tramite);
+            }
         }
         return listaAuxiliar;
     }
+
     /**
      * Metodo para llenar la tabla con tramites
      *
@@ -270,6 +287,9 @@ public class Reporte extends javax.swing.JFrame {
     private void initComponents() {
 
         background = new javax.swing.JPanel();
+        panelFecha = new javax.swing.JPanel();
+        calendario = new com.github.lgooddatepicker.components.CalendarPanel();
+        btnBuscarFecha = new javax.swing.JButton();
         btnPDF = new IButton();
         btnFecha = new GobiernoButton();
         btnCancelar = new javax.swing.JButton();
@@ -302,6 +322,27 @@ public class Reporte extends javax.swing.JFrame {
         background.setBackground(new java.awt.Color(255, 255, 255));
         background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        panelFecha.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        calendario.setForeground(new java.awt.Color(0, 0, 0));
+        panelFecha.add(calendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        btnBuscarFecha.setBackground(new java.awt.Color(35, 91, 78));
+        btnBuscarFecha.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnBuscarFecha.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscarFecha.setText("Buscar");
+        btnBuscarFecha.setBorder(null);
+        btnBuscarFecha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscarFecha.setFocusPainted(false);
+        btnBuscarFecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarFechaActionPerformed(evt);
+            }
+        });
+        panelFecha.add(btnBuscarFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 110, 200));
+
+        background.add(panelFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 340, 200));
+
         btnPDF.setBackground(new java.awt.Color(255, 255, 255));
         btnPDF.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnPDF.setText("Generar PDF");
@@ -330,6 +371,7 @@ public class Reporte extends javax.swing.JFrame {
 
         btnCancelar.setBackground(new java.awt.Color(157, 36, 73));
         btnCancelar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelar.setText("Cancelar");
         btnCancelar.setBorder(null);
         btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -562,41 +604,41 @@ public class Reporte extends javax.swing.JFrame {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         if (opcion == JOptionPane.YES_OPTION) {
             List<PdfReporte> reportePDf = new ArrayList<PdfReporte>();
-            if(listaTabla.isEmpty()){
+            if (listaTabla.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Tabla vacia");
                 return;
             }
-                
+
             for (Tramite tramite : listaTabla) {
                 PdfReporte reporte = new PdfReporte();
                 Persona persona = tramite.getPersona();
-                String nombreCompleto = persona.getNombre()+" "
-                        + " "+persona.getPrimerApellido()+" "
-                        + " "+persona.getSegundoApellido();
-                
+                String nombreCompleto = persona.getNombre() + " "
+                        + " " + persona.getPrimerApellido() + " "
+                        + " " + persona.getSegundoApellido();
+
                 reporte.setNombrePersona(nombreCompleto);
-                if(tramite instanceof Placa){
+                if (tramite instanceof Placa) {
                     reporte.setTipoTramite("Expedicion de Placa");
                     reporte.setEstado(((Placa) tramite).getActiva());
                 }
-                if(tramite instanceof Licencia){
+                if (tramite instanceof Licencia) {
                     reporte.setTipoTramite("Expedicion de Licencia");
                     reporte.setEstado(((Licencia) tramite).getEstado());
                 }
-                
+
                 reporte.setCosto(String.valueOf(tramite.getCosto()));
-                
+
                 reporte.setFecha(formato.format(tramite.getFechaEmision().getTime()));
                 reportePDf.add(reporte);
             }
-            try{
+            try {
                 Map parametro = new HashMap();
                 LocalDateTime fechaHoraActual = LocalDateTime.now();
                 DateTimeFormatter formatEscrito = DateTimeFormatter.ofPattern("dd 'de' MMMM 'de' yyyy, hh:mm a");
                 String fechaHoraEscrita = fechaHoraActual.format(formatEscrito);
-                parametro.put("fechaReporte",fechaHoraEscrita);
+                parametro.put("fechaReporte", fechaHoraEscrita);
                 parametro.put("historial", "Reporte General");
-               
+
                 JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(reportePDf);
 
                 // Cargar el archivo JRXML del reporte
@@ -606,11 +648,11 @@ public class Reporte extends javax.swing.JFrame {
                 // Llenar el reporte con los datos
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametro, beanColDataSource);
 
-                JasperViewer.viewReport(jasperPrint,false);
-                
+                JasperViewer.viewReport(jasperPrint, false);
+
                 // Visualizar el reporte
 //                JasperExportManager.exportReportToPdfFile(jasperPrint, "./ReporteTramites.pdf");
-            }catch(Exception e){
+            } catch (Exception e) {
                 System.out.println(e);
             }
         }
@@ -670,37 +712,50 @@ public class Reporte extends javax.swing.JFrame {
         String[] lista = {"tipo", "fecha"};
         apagarBotones(lista);
         boolean opcion = !panelOpcionesPeriodo.isEnabled();
-        
+
         mostrarPanelOpcionesPeriodo(opcion);
 
     }//GEN-LAST:event_btnPeriodoActionPerformed
 
     private void mostrarPanelOpcionesPeriodo(boolean opt) {
-        if(opt) {
+        if (opt) {
             panelOpcionesPeriodo.setEnabled(true);
             panelOpcionesPeriodo.setVisible(true);
-        } else if(opt == false) {
+        } else if (opt == false) {
             panelOpcionesPeriodo.setEnabled(false);
             panelOpcionesPeriodo.setVisible(false);
         }
     }
-    
+
     private void apagarBotones(String[] cuales) {
-        for(String boton : cuales) {
-            if(boton.equalsIgnoreCase("periodo")) {
+        for (String boton : cuales) {
+            if (boton.equalsIgnoreCase("periodo")) {
                 mostrarPanelOpcionesPeriodo(false);
-            } else if(boton.equalsIgnoreCase("fecha")) {
-                //algo
-            } else if(boton.equalsIgnoreCase("tipo")) {
+            } else if (boton.equalsIgnoreCase("fecha")) {
+                mostrarPanelFecha(false);
+            } else if (boton.equalsIgnoreCase("tipo")) {
                 desactivarPanelFondo();
             }
         }
     }
-    
+
     private void btnFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFechaActionPerformed
-        Calendar fecha = new GregorianCalendar();
-        buscarPorFecha(fecha);
+//        Calendar fecha = new GregorianCalendar();
+//        buscarPorFecha(fecha);
+        String[] lista = {"tipo", "periodo"};
+        apagarBotones(lista);
+        mostrarPanelFecha(!panelFecha.isEnabled());
     }//GEN-LAST:event_btnFechaActionPerformed
+
+    private void mostrarPanelFecha(boolean opt) {
+        if (opt == false) {
+            panelFecha.setEnabled(false);
+            panelFecha.setVisible(false);
+        } else if (opt == true) {
+            panelFecha.setEnabled(true);
+            panelFecha.setVisible(true);
+        }
+    }
 
     private void panelFondoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panelFondoFocusLost
         desactivarPanelFondo();
@@ -745,7 +800,7 @@ public class Reporte extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLicenciaActionPerformed
 
     private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
-       llenarTabla(listaTablaActual());
+        llenarTabla(listaTablaActual());
     }//GEN-LAST:event_txtNombreKeyReleased
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -756,22 +811,34 @@ public class Reporte extends javax.swing.JFrame {
             LocalDate hasta = calendario2.getDate();
             fecha1.set(desde.getYear(), desde.getMonthValue() - 1, desde.getDayOfMonth());
             fecha2.set(hasta.getYear(), hasta.getMonthValue() - 1, hasta.getDayOfMonth());
-            
-            if(desde.isAfter(hasta)){
+
+            if (desde.isAfter(hasta)) {
                 throw new FechaDisparejaException("Las fecha hasta esta antes de la fecha desde");
             }
-            
+
             buscarPorPeriodo(fecha1, fecha2);
-            
+
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(this, "Desde o Hasta esta vacio", "ERROR", JOptionPane.ERROR_MESSAGE);
-        } catch(FechaDisparejaException fde) {
+        } catch (FechaDisparejaException fde) {
             JOptionPane.showMessageDialog(this, fde.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-        
+
         mostrarPanelOpcionesPeriodo(false);
-        
+
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnBuscarFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarFechaActionPerformed
+        Calendar fecha = new GregorianCalendar();
+        try {
+            LocalDate fseleccionada = calendario.getSelectedDate();
+            fecha.set(fseleccionada.getYear(), fseleccionada.getMonthValue() - 1, fseleccionada.getDayOfMonth());
+            mostrarPanelFecha(false);
+            buscarPorFecha(fecha);
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(this, "NO SELECCIONASTE NINGUNA FECHA", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnBuscarFechaActionPerformed
 
     private void activarPanelFondo() {
         this.panelFondo.setEnabled(true);
@@ -795,12 +862,12 @@ public class Reporte extends javax.swing.JFrame {
     }
 
     private void buscarPorFechaTodos(Calendar c) {
-        new SeleccionarFecha(this, true, c);
+//        new SeleccionarFecha(this, true, c);
         tramites = daotramite.listaTramiteFechaTodos(c, inicio, limite);
     }
 
     private void buscarPorFechaConsultante(Calendar c) {
-        new SeleccionarFecha(this, true, c);
+//        new SeleccionarFecha(this, true, c);
         tramites = daotramite.listaTramitePersonaNacimiento(consultante, c, inicio, limite);
     }
 
@@ -852,6 +919,7 @@ public class Reporte extends javax.swing.JFrame {
     private javax.swing.JPanel baner;
     private javax.swing.JButton btnAntPagina;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnBuscarFecha;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnFecha;
     private javax.swing.JButton btnLicencia;
@@ -860,6 +928,7 @@ public class Reporte extends javax.swing.JFrame {
     private javax.swing.JButton btnPlaca;
     private javax.swing.JButton btnSigPagina;
     private javax.swing.JButton btnTipo;
+    private com.github.lgooddatepicker.components.CalendarPanel calendario;
     private com.github.lgooddatepicker.components.DatePicker calendario1;
     private com.github.lgooddatepicker.components.DatePicker calendario2;
     private javax.swing.JLabel jLabel1;
@@ -868,6 +937,7 @@ public class Reporte extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel panelFecha;
     private javax.swing.JPanel panelFondo;
     private javax.swing.JPanel panelOpcionesPeriodo;
     private javax.swing.JPanel panelOpcionesTipo;
