@@ -137,33 +137,7 @@ public class Reporte extends javax.swing.JFrame {
         }
     }
 
-//    public List<Tramite> listaTablaActual(){
-//        List<Tramite> listaTramiteActual = new ArrayList();   
-//        
-//       if(txtNombre.getText().equalsIgnoreCase("")){
-//          return daotramite.listaTramite(inicio, limite);
-//       }
-//       
-//       if (!txtNombre.getText().equalsIgnoreCase("")) {
-//             listaTramiteActual = daotramite.listaTramite(inicio, limite);
-//            
-//            listaTramiteActual = this.buscarporNombre(listaTramiteActual);
-//            return listaTramiteActual;
-//        }
-//    }
-//    
-//    private List<Persona> buscarporNombre(List<Persona> listapersona){
-//        List<Persona> listaAuxiliar = new ArrayList<Persona>();
-//        for (Persona persona: listapersona) {
-//                String nombreCompleto = persona.getNombre()+" "
-//                        + ""+persona.getPrimerApellido()+" "
-//                        + ""+persona.getSegundoApellido();
-//                if(nombreCompleto.toLowerCase().contains(txtNombre.getText().toLowerCase())){
-//                    listaAuxiliar.add(persona);
-//                }
-//        }
-//        return listaAuxiliar;
-//    }
+//   
     /**
      * Metodo para llenar la tabla con tramites
      *
