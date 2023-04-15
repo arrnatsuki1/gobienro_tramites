@@ -38,10 +38,6 @@ public class SolicitarLicencia extends javax.swing.JFrame {
         initComponents();
         daopersona = new PersonaDAO();
         daopersona.refrescar(persona);
-        if(persona.tieneLicenciaActiva()) {
-            mostrarMensaje("ERROR", "SI SIGUE CON EL PROCESO SE CANCELARA\n"
-                    + "LA LICENCIA ANTERIOR", JOptionPane.ERROR_MESSAGE);
-        }
     }
 
     /**
@@ -216,15 +212,12 @@ public class SolicitarLicencia extends javax.swing.JFrame {
         fechaLimite.set( Calendar.YEAR, (fechaLimite.get(Calendar.YEAR) + cboAños.getSelectedIndex() + 1) );
         
         
-        
         if(persona.tieneLicenciaActiva()){
             mostrarMensaje("ADVERTENCIA", "SE CANCELARA\n"
                     + "LA LICENCIA ANTERIOR", JOptionPane.WARNING_MESSAGE);
             cancelarLicenciaActiva(daolicencia);
         }
-        
-        
-        
+
         Licencia lic = new Licencia(fechaLimite, 0, new GregorianCalendar(), new BigDecimal(txtMonto.getText()), persona, Estados.LICENCIA_VIGENTE);
         
         List<Tramite> tramites = persona.getTramites();

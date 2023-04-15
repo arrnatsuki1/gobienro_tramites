@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5d62315d-7335-4f7e-abcb-9d450c3ebcab">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fechaReporte" class="java.lang.String"/>
+	<field name="tipoTramite" class="java.lang.String"/>
+	<field name="costo" class="java.lang.String"/>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="estado" class="java.lang.String"/>
+	<field name="nombrePersona" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="192" y="25" width="174" height="20" uuid="9e62f76e-d8fd-4522-a63b-d6c87cd5f3b5"/>
+				<textElement>
+					<font fontName="Dialog" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE TRAMITES]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="16" y="15" width="192" height="20" uuid="5b560378-8da3-4bc8-9fcb-fc7b7018b731"/>
+				<textFieldExpression><![CDATA[$P{fechaReporte}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<rectangle>
+				<reportElement x="8" y="41" width="130" height="20" uuid="2a134d41-0a31-4e5f-92eb-05b9740726eb"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="138" y="41" width="70" height="20" uuid="ee59c25b-40ba-4bcd-b9dc-0ae0b6361776"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="208" y="41" width="100" height="20" uuid="f5f3b11e-b053-454d-ab9e-b3b67c70c3fe"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="308" y="41" width="136" height="20" uuid="da3ed543-9eba-47f4-86f5-b2f1ddfd741e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="444" y="41" width="100" height="20" uuid="2328a422-1348-4a47-9b1c-93f6104269b3"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="8" y="41" width="130" height="20" uuid="43645c64-627e-458d-99e9-8a40d0e855a9"/>
+				<text><![CDATA[Nombre de Persona]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="138" y="41" width="70" height="20" uuid="89082148-91b1-4615-894a-63444c40952f"/>
+				<text><![CDATA[Costo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="208" y="41" width="100" height="20" uuid="91c691b0-9924-4f7a-83d6-e3d1975134a6"/>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="308" y="41" width="136" height="20" uuid="8844f2a7-6acc-4d49-adf7-faeab366b55d"/>
+				<text><![CDATA[Tipo de Tramite]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="41" width="100" height="20" uuid="486a67c2-6c61-4384-91d6-ff348a07d921"/>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<rectangle>
+				<reportElement x="8" y="0" width="130" height="20" uuid="ba9325f2-fec1-4ead-b32d-a045b10eb81b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="138" y="0" width="70" height="20" uuid="3f1e78ec-124b-4e29-b10b-d06201aee743"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="208" y="0" width="100" height="20" uuid="c9661159-c01f-429c-9963-3098cbbf32d3"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="308" y="0" width="136" height="20" uuid="ea871f1e-1ee6-4881-931a-2411693362d7"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="444" y="0" width="100" height="20" uuid="30d5c258-008b-4bcb-b753-49083d972d95"/>
+			</rectangle>
+			<textField>
+				<reportElement x="308" y="0" width="136" height="20" uuid="2947f45c-7d9d-4ecc-9111-568c81ee4271"/>
+				<textFieldExpression><![CDATA[$F{tipoTramite}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="138" y="0" width="70" height="20" uuid="5fb39260-4785-4aa6-8e04-bd60b30d3216"/>
+				<textFieldExpression><![CDATA[$F{costo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="208" y="0" width="100" height="20" uuid="b898f35a-8830-4a2f-9b8f-151510990163"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="444" y="0" width="100" height="20" uuid="aa9a0352-14b5-416b-ad20-638d5eabb0b1"/>
+				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="8" y="0" width="130" height="20" uuid="49a6bf07-c667-4734-a89b-8a3fe493804c"/>
+				<textFieldExpression><![CDATA[$F{nombrePersona}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="397" y="34" width="158" height="20" uuid="e9f02c71-e2a9-4e01-8b0b-6309d3594385"/>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

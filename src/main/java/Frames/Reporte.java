@@ -7,18 +7,34 @@ import Entidades.Licencia;
 import Entidades.Persona;
 import Entidades.Placa;
 import Entidades.Tramite;
+import PDF.PdfReporte;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import static net.sf.jasperreports.engine.JasperExportManager.exportReportToPdfFile;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 import swing_propio.GobiernoButton;
 import swing_propio.IButton;
 import swing_propio.IPanel;
@@ -46,7 +62,7 @@ public class Reporte extends javax.swing.JFrame {
      */
     private Persona consultante;
     private final ITramiteDAO daotramite;
-
+    private List<Tramite> listaTabla;
     /**
      * inicio es desde que valor a va a iniciar la consulta fin donde va a
      * terminar la toma de datos limit el limite de cuantos registros nos vamos
@@ -59,10 +75,12 @@ public class Reporte extends javax.swing.JFrame {
     public Reporte(boolean p, Persona consultante) {
         daotramite = new TramiteDAO();
         initComponents();
+        this.listaTabla = new ArrayList<Tramite>();
         if (p) {
 //            this.btnBuscarporNombre.setEnabled(false);
             this.txtNombre.setEnabled(false);
-            
+//            this.txtPrimerApellido.setEnabled(false);
+//            this.txtSegundoApellido.setEnabled(false);
             this.consultante = consultante;
             configurarHistorialPersona();
         } else {
@@ -75,10 +93,10 @@ public class Reporte extends javax.swing.JFrame {
         fondo1.setPanel(panelOpcionesTipo);
         desactivarPanelFondo();
         
-        inicializarBotones();
-        
+        inicializarBotones();    
     }
 
+    
     private void inicializarBotones() {
         
         this.btnLicencia.addMouseListener(new MouseAdapter() {
@@ -155,40 +173,11 @@ public class Reporte extends javax.swing.JFrame {
      * para llenar la tabla, no hay que hacer consultas en metodos con nombres
      * genericos
      */
-//    public void consultarPorNombre() {
-//        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-////      String nombre = txtNombre.getText().toLowerCase();
-//
-//        Persona p = new Persona();
-//        p.setNombre(txtNombre.getText().toUpperCase());
-//        
-//
-//        List<Tramite> listaTramite = daotramite.listaTramiteNombre(p, inicio, fin);
-//        System.out.println(listaTramite.size());
-//        DefaultTableModel def = (DefaultTableModel) tabla.getModel();
-//        def.setRowCount(0);
-//        for (int i = 0; i < listaTramite.size(); i++) {
-//            Object[] datos = new Object[def.getColumnCount()];
-//            if (listaTramite.get(i) instanceof Placa) {
-//                datos[0] = "Expedicion de Placa";
-//                Placa t = (Placa) listaTramite.get(i);
-//                datos[1] = t.getActiva();
-//            }
-//            if (listaTramite.get(i) instanceof Licencia) {
-//                datos[0] = "Expedicion de Licencia";
-//                Licencia t = (Licencia) listaTramite.get(i);
-//                datos[1] = t.getEstado();
-//            }
-//
-//            datos[2] = formato.format(listaTramite.get(i).getFechaEmision().getTime());
-//            datos[3] = listaTramite.get(i).getCosto();
-//            datos[4] = listaTramite.get(i).getPersona().getNombre();
-//            def.addRow(datos);
-//        }
-//    }
+    
 
-     public List<Tramite> listaTablaActual(){
-        List<Tramite> listaTramiteActual = new ArrayList();          
+    public List<Tramite> listaTablaActual(){
+        List<Tramite> listaTramiteActual = new ArrayList();   
+        
        if(txtNombre.getText().equalsIgnoreCase("")){
           return daotramite.listaTramite(inicio, limite);
        }
@@ -199,7 +188,6 @@ public class Reporte extends javax.swing.JFrame {
             listaTramiteActual = this.buscarporNombre(listaTramiteActual);
             return listaTramiteActual;
         }
-       
        return listaTramiteActual;
     }
     
@@ -254,6 +242,7 @@ public class Reporte extends javax.swing.JFrame {
                     + " " + listaAcortada.get(i).getPersona().getSegundoApellido();
             def.addRow(datos);
         }
+        listaTabla = listaAcortada;
     }
 
     /**
@@ -336,11 +325,11 @@ public class Reporte extends javax.swing.JFrame {
                 txtNombreKeyReleased(evt);
             }
         });
-        background.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 420, 160, -1));
+        background.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 430, 160, -1));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setText("Nombre:");
-        background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, -1, -1));
+        background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, -1, -1));
 
         btnPeriodo.setBackground(new java.awt.Color(255, 255, 255));
         btnPeriodo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -510,7 +499,62 @@ public class Reporte extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDFActionPerformed
-        // TODO add your handling code here:
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de ejecutar este comando?", "Confirmar", JOptionPane.YES_NO_OPTION);
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        if (opcion == JOptionPane.YES_OPTION) {
+            List<PdfReporte> reportePDf = new ArrayList<PdfReporte>();
+            if(listaTabla.isEmpty()){
+                JOptionPane.showMessageDialog(this, "Tabla vacia");
+                return;
+            }
+                
+            for (Tramite tramite : listaTabla) {
+                PdfReporte reporte = new PdfReporte();
+                Persona persona = tramite.getPersona();
+                String nombreCompleto = persona.getNombre()+" "
+                        + " "+persona.getPrimerApellido()+" "
+                        + " "+persona.getSegundoApellido();
+                
+                reporte.setNombrePersona(nombreCompleto);
+                if(tramite instanceof Placa){
+                    reporte.setTipoTramite("Expedicion de Placa");
+                    reporte.setEstado(((Placa) tramite).getActiva());
+                }
+                if(tramite instanceof Licencia){
+                    reporte.setTipoTramite("Expedicion de Licencia");
+                    reporte.setEstado(((Licencia) tramite).getEstado());
+                }
+                
+                reporte.setCosto(String.valueOf(tramite.getCosto()));
+                
+                reporte.setFecha(formato.format(tramite.getFechaEmision().getTime()));
+                reportePDf.add(reporte);
+            }
+            try{
+                Map parametro = new HashMap();
+                LocalDateTime fechaHoraActual = LocalDateTime.now();
+                DateTimeFormatter formatEscrito = DateTimeFormatter.ofPattern("dd 'de' MMMM 'de' yyyy, hh:mm a");
+                String fechaHoraEscrita = fechaHoraActual.format(formatEscrito);
+                parametro.put("fechaReporte",fechaHoraEscrita);
+                parametro.put("historial", "Reporte General");
+               
+                JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(reportePDf);
+
+                // Cargar el archivo JRXML del reporte
+                InputStream reportFile = getClass().getResourceAsStream("/reportePDF.jrxml");
+                JasperReport jasperReport = JasperCompileManager.compileReport(reportFile);
+
+                // Llenar el reporte con los datos
+                JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametro, beanColDataSource);
+
+                JasperViewer.viewReport(jasperPrint,false);
+                
+                // Visualizar el reporte
+//                JasperExportManager.exportReportToPdfFile(jasperPrint, "./ReporteTramites.pdf");
+            }catch(Exception e){
+                System.out.println(e);
+            }
+        }
     }//GEN-LAST:event_btnPDFActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -614,7 +658,7 @@ public class Reporte extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLicenciaActionPerformed
 
     private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
-        llenarTabla(listaTablaActual());
+       llenarTabla(listaTablaActual());
     }//GEN-LAST:event_txtNombreKeyReleased
 
     private void activarPanelFondo() {
@@ -707,7 +751,6 @@ public class Reporte extends javax.swing.JFrame {
     private javax.swing.JButton btnTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelFondo;
     private javax.swing.JPanel panelOpcionesTipo;
