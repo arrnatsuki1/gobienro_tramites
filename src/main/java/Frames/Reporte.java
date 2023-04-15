@@ -7,6 +7,7 @@ import Entidades.Licencia;
 import Entidades.Persona;
 import Entidades.Placa;
 import Entidades.Tramite;
+import Excepciones.FechaDisparejaException;
 import PDF.PdfReporte;
 import java.awt.Color;
 import java.awt.Component;
@@ -15,6 +16,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -92,6 +94,7 @@ public class Reporte extends javax.swing.JFrame {
         fondo1.setColor(new Color(35, 91, 78));
         fondo1.setPanel(panelOpcionesTipo);
         desactivarPanelFondo();
+        mostrarPanelOpcionesPeriodo(false);
         
         inicializarBotones();    
     }
@@ -137,7 +140,20 @@ public class Reporte extends javax.swing.JFrame {
                 btnPDF.setBackground(new Color(255,255,255));
             }
         });
-        
+        this.btnBuscar.addMouseListener(new MouseAdapter() {
+            
+            @Override
+            public void mouseEntered(MouseEvent evt) {
+                
+                btnBuscar.setBackground(new Color(16,49,43));
+                
+            }
+            @Override
+            public void mouseExited(MouseEvent evt) {
+                btnBuscar.setBackground(new Color(35,91,78));
+            }
+            
+        });
         
     }
     
@@ -174,7 +190,6 @@ public class Reporte extends javax.swing.JFrame {
      * genericos
      */
     
-
     public List<Tramite> listaTablaActual(){
         List<Tramite> listaTramiteActual = new ArrayList();   
         
@@ -264,6 +279,12 @@ public class Reporte extends javax.swing.JFrame {
         btnSigPagina = new GobiernoButton();
         btnAntPagina = new GobiernoButton();
         btnTipo = new GobiernoButton();
+        panelOpcionesPeriodo = new javax.swing.JPanel();
+        calendario1 = new com.github.lgooddatepicker.components.DatePicker();
+        calendario2 = new com.github.lgooddatepicker.components.DatePicker();
+        btnBuscar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         panelFondo = new IPanel();
         panelOpcionesTipo = new JPanel();
         btnLicencia = new javax.swing.JButton();
@@ -383,6 +404,37 @@ public class Reporte extends javax.swing.JFrame {
         });
         background.add(btnTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, 100, 40));
 
+        panelOpcionesPeriodo.setBackground(new java.awt.Color(35, 91, 78));
+        panelOpcionesPeriodo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        panelOpcionesPeriodo.add(calendario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 190, -1));
+        panelOpcionesPeriodo.add(calendario2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 190, -1));
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.setBackground(new java.awt.Color(35, 91, 78));
+        btnBuscar.setBorder(null);
+        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscar.setFocusPainted(false);
+        btnBuscar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+        panelOpcionesPeriodo.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 220, 40));
+
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Fecha de comienzo");
+        panelOpcionesPeriodo.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Fecha de terminacion");
+        panelOpcionesPeriodo.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
+
+        background.add(panelOpcionesPeriodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 220, 190));
+
         panelFondo.setOpaque(false);
         panelFondo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -438,6 +490,9 @@ public class Reporte extends javax.swing.JFrame {
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        jScrollPane1.setFocusable(false);
+        jScrollPane1.setRequestFocusEnabled(false);
+        jScrollPane1.setVerifyInputWhenFocusTarget(false);
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -464,6 +519,10 @@ public class Reporte extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tabla.setEnabled(false);
+        tabla.setFocusable(false);
+        tabla.setRequestFocusEnabled(false);
+        tabla.setVerifyInputWhenFocusTarget(false);
         jScrollPane1.setViewportView(tabla);
 
         background.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 542, 180));
@@ -592,24 +651,52 @@ public class Reporte extends javax.swing.JFrame {
         llenarTabla(tramites);
     }//GEN-LAST:event_btnAntPaginaActionPerformed
 
-    boolean opt = false;
     private void btnTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTipoActionPerformed
 //        buscarPorTramite();
-        if (opt) {
+        String[] lista = {"periodo", "fecha"};
+        apagarBotones(lista);
+
+        if (panelFondo.isEnabled()) {
             desactivarPanelFondo();
-            opt = false;
         } else {
             activarPanelFondo();
-            opt = true;
         }
 
     }//GEN-LAST:event_btnTipoActionPerformed
 
     private void btnPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeriodoActionPerformed
-        Calendar fecha1 = new GregorianCalendar(), fecha2 = new GregorianCalendar();
-        buscarPorPeriodo(fecha1, fecha2);
+//        Calendar fecha1 = new GregorianCalendar(), fecha2 = new GregorianCalendar();
+//        buscarPorPeriodo(fecha1, fecha2);
+        String[] lista = {"tipo", "fecha"};
+        apagarBotones(lista);
+        boolean opcion = !panelOpcionesPeriodo.isEnabled();
+        
+        mostrarPanelOpcionesPeriodo(opcion);
+
     }//GEN-LAST:event_btnPeriodoActionPerformed
 
+    private void mostrarPanelOpcionesPeriodo(boolean opt) {
+        if(opt) {
+            panelOpcionesPeriodo.setEnabled(true);
+            panelOpcionesPeriodo.setVisible(true);
+        } else if(opt == false) {
+            panelOpcionesPeriodo.setEnabled(false);
+            panelOpcionesPeriodo.setVisible(false);
+        }
+    }
+    
+    private void apagarBotones(String[] cuales) {
+        for(String boton : cuales) {
+            if(boton.equalsIgnoreCase("periodo")) {
+                mostrarPanelOpcionesPeriodo(false);
+            } else if(boton.equalsIgnoreCase("fecha")) {
+                //algo
+            } else if(boton.equalsIgnoreCase("tipo")) {
+                desactivarPanelFondo();
+            }
+        }
+    }
+    
     private void btnFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFechaActionPerformed
         Calendar fecha = new GregorianCalendar();
         buscarPorFecha(fecha);
@@ -661,16 +748,39 @@ public class Reporte extends javax.swing.JFrame {
        llenarTabla(listaTablaActual());
     }//GEN-LAST:event_txtNombreKeyReleased
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        Calendar fecha1 = new GregorianCalendar();
+        Calendar fecha2 = new GregorianCalendar();
+        try {
+            LocalDate desde = calendario1.getDate();
+            LocalDate hasta = calendario2.getDate();
+            fecha1.set(desde.getYear(), desde.getMonthValue() - 1, desde.getDayOfMonth());
+            fecha2.set(hasta.getYear(), hasta.getMonthValue() - 1, hasta.getDayOfMonth());
+            
+            if(desde.isAfter(hasta)){
+                throw new FechaDisparejaException("Las fecha hasta esta antes de la fecha desde");
+            }
+            
+            buscarPorPeriodo(fecha1, fecha2);
+            
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(this, "Desde o Hasta esta vacio", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } catch(FechaDisparejaException fde) {
+            JOptionPane.showMessageDialog(this, fde.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        mostrarPanelOpcionesPeriodo(false);
+        
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
     private void activarPanelFondo() {
         this.panelFondo.setEnabled(true);
         this.panelFondo.setVisible(true);
-        opt = true;
     }
 
     private void desactivarPanelFondo() {
         this.panelFondo.setEnabled(false);
         this.panelFondo.setVisible(false);
-        opt = false;
     }
 
     /*AQUI EMPIEZAN LOS METODOS PARA BUSCAR POR FECHA*/
@@ -708,12 +818,12 @@ public class Reporte extends javax.swing.JFrame {
     }
 
     private void buscarPorPeriodoConsultante(Calendar f1, Calendar f2) {
-        new SeleccionarPeriodo(this, true, f1, f2);
+//        new SeleccionarPeriodo(this, true, f1, f2);
         tramites = daotramite.listaPeriodoPersona(consultante, f1, f2, inicio, limite);
     }
 
     private void buscarPorPeriodoTodos(Calendar f1, Calendar f2) {
-        new SeleccionarPeriodo(this, true, f1, f2);
+//        new SeleccionarPeriodo(this, true, f1, f2);
         tramites = daotramite.listaPeriodoTodos(f1, f2, inicio, limite);
     }
 
@@ -741,6 +851,7 @@ public class Reporte extends javax.swing.JFrame {
     private javax.swing.JPanel background;
     private javax.swing.JPanel baner;
     private javax.swing.JButton btnAntPagina;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnFecha;
     private javax.swing.JButton btnLicencia;
@@ -749,11 +860,16 @@ public class Reporte extends javax.swing.JFrame {
     private javax.swing.JButton btnPlaca;
     private javax.swing.JButton btnSigPagina;
     private javax.swing.JButton btnTipo;
+    private com.github.lgooddatepicker.components.DatePicker calendario1;
+    private com.github.lgooddatepicker.components.DatePicker calendario2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelFondo;
+    private javax.swing.JPanel panelOpcionesPeriodo;
     private javax.swing.JPanel panelOpcionesTipo;
     private javax.swing.JTable tabla;
     private javax.swing.JTextField txtNombre;
