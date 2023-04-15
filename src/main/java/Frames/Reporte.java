@@ -29,10 +29,12 @@ import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
+import static net.sf.jasperreports.engine.JasperExportManager.exportReportToPdfFile;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 import swing_propio.GobiernoButton;
 import swing_propio.IButton;
 import swing_propio.IPanel;
@@ -540,8 +542,10 @@ public class Reporte extends javax.swing.JFrame {
                 // Llenar el reporte con los datos
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametro, beanColDataSource);
 
+                JasperViewer.viewReport(jasperPrint);
+                
                 // Visualizar el reporte
-                JasperExportManager.exportReportToPdfFile(jasperPrint, "./ReporteTramites.pdf");
+//                JasperExportManager.exportReportToPdfFile(jasperPrint, "./ReporteTramites.pdf");
             }catch(Exception e){
                 System.out.println(e);
             }
