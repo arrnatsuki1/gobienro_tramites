@@ -97,6 +97,7 @@ public class SeleccionarPersona extends javax.swing.JFrame {
         calendario = new com.github.lgooddatepicker.components.CalendarPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

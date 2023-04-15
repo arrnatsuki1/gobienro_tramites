@@ -45,6 +45,7 @@ public class SeleccionarFecha extends javax.swing.JDialog {
         setMaximumSize(new java.awt.Dimension(250, 300));
         setMinimumSize(new java.awt.Dimension(250, 300));
         setPreferredSize(new java.awt.Dimension(250, 300));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         background.setMaximumSize(new java.awt.Dimension(227, 248));

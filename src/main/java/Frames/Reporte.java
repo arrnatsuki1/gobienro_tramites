@@ -9,6 +9,9 @@ import Entidades.Placa;
 import Entidades.Tramite;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,6 +19,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import swing_propio.GobiernoButton;
+import swing_propio.IButton;
 import swing_propio.IPanel;
 
 /*
@@ -70,8 +75,55 @@ public class Reporte extends javax.swing.JFrame {
         fondo1.setColor(new Color(35, 91, 78));
         fondo1.setPanel(panelOpcionesTipo);
         desactivarPanelFondo();
+        
+        inicializarBotones();
+        
     }
 
+    private void inicializarBotones() {
+        
+        this.btnLicencia.addMouseListener(new MouseAdapter() {
+            
+            @Override
+            public void mouseEntered(MouseEvent evt) {
+                
+                btnLicencia.setBackground(new Color(16,49,43));
+                
+            }
+            @Override
+            public void mouseExited(MouseEvent evt) {
+                btnLicencia.setBackground(new Color(35,91,78));
+            }
+            
+        });
+        this.btnPlaca.addMouseListener(new MouseAdapter() {
+            
+            @Override
+            public void mouseEntered(MouseEvent evt) {
+                
+                btnPlaca.setBackground(new Color(16,49,43));
+                
+            }
+            @Override
+            public void mouseExited(MouseEvent evt) {
+                btnPlaca.setBackground(new Color(35,91,78));
+            }
+            
+        });
+        this.btnPDF.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent evt) {
+                btnPDF.setBackground(new Color(188,149,92));
+            }
+            @Override
+            public void mouseExited(MouseEvent evt) {
+                btnPDF.setBackground(new Color(255,255,255));
+            }
+        });
+        
+        
+    }
+    
     /**
      * Configura todos los tramites de una persona guiados por el limite
      */
@@ -189,24 +241,22 @@ public class Reporte extends javax.swing.JFrame {
     private void initComponents() {
 
         background = new javax.swing.JPanel();
-        btnPDF = new javax.swing.JButton();
-        btnFecha = new javax.swing.JButton();
-        btnBuscarporNombre = new javax.swing.JButton();
+        btnPDF = new IButton();
+        btnFecha = new GobiernoButton();
+        btnBuscarporNombre = new GobiernoButton();
         btnCancelar = new javax.swing.JButton();
         txtNombre = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        btnPeriodo = new javax.swing.JButton();
-        btnSigPagina = new javax.swing.JButton();
-        btnAntPagina = new javax.swing.JButton();
-        btnTipo = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        btnPeriodo = new GobiernoButton();
+        btnSigPagina = new GobiernoButton();
+        btnAntPagina = new GobiernoButton();
+        btnTipo = new GobiernoButton();
         panelFondo = new IPanel();
         panelOpcionesTipo = new JPanel();
-        btnPlacas = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        btnLicencia = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
+        btnLicencia = new javax.swing.JButton();
+        btnPlaca = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         txtPrimerApellido = new javax.swing.JTextField();
         txtSegundoApellido = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -216,88 +266,128 @@ public class Reporte extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(542, 520));
+        setResizable(false);
 
+        background.setBackground(new java.awt.Color(255, 255, 255));
         background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btnPDF.setBackground(new java.awt.Color(255, 255, 255));
+        btnPDF.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnPDF.setForeground(new java.awt.Color(0, 0, 0));
         btnPDF.setText("Generar PDF");
+        btnPDF.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(188, 149, 92), 5, true));
+        btnPDF.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPDF.setFocusPainted(false);
         btnPDF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPDFActionPerformed(evt);
             }
         });
-        background.add(btnPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 400, -1, -1));
+        background.add(btnPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 300, 100, 70));
 
-        btnFecha.setText("Buscar por Fecha");
+        btnFecha.setBackground(new java.awt.Color(255, 255, 255));
+        btnFecha.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnFecha.setForeground(new java.awt.Color(0, 0, 0));
+        btnFecha.setText("Fecha");
+        btnFecha.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
+        btnFecha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnFecha.setFocusPainted(false);
         btnFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFechaActionPerformed(evt);
             }
         });
-        background.add(btnFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, -1, -1));
+        background.add(btnFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 100, 40));
 
-        btnBuscarporNombre.setText("Buscar por nombre");
+        btnBuscarporNombre.setBackground(new java.awt.Color(255, 255, 255));
+        btnBuscarporNombre.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnBuscarporNombre.setForeground(new java.awt.Color(0, 0, 0));
+        btnBuscarporNombre.setText("Nombre");
+        btnBuscarporNombre.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
+        btnBuscarporNombre.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscarporNombre.setFocusPainted(false);
         btnBuscarporNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarporNombreActionPerformed(evt);
             }
         });
-        background.add(btnBuscarporNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 350, 170, -1));
+        background.add(btnBuscarporNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 340, 100, 40));
 
+        btnCancelar.setBackground(new java.awt.Color(157, 36, 73));
+        btnCancelar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(0, 0, 0));
         btnCancelar.setText("Cancelar");
+        btnCancelar.setBorder(null);
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar.setFocusPainted(false);
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
             }
         });
-        background.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 400, -1, -1));
+        background.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 420, 110, 40));
+        background.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 390, 160, -1));
 
-        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtNombreKeyReleased(evt);
-            }
-        });
-        background.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 390, 160, -1));
-
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Nombre:");
         background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, -1, -1));
 
+        btnPeriodo.setBackground(new java.awt.Color(255, 255, 255));
+        btnPeriodo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnPeriodo.setForeground(new java.awt.Color(0, 0, 0));
         btnPeriodo.setText("Periodo");
+        btnPeriodo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
+        btnPeriodo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPeriodo.setFocusPainted(false);
         btnPeriodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPeriodoActionPerformed(evt);
             }
         });
-        background.add(btnPeriodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 120, -1));
+        background.add(btnPeriodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 100, 40));
 
+        btnSigPagina.setBackground(new java.awt.Color(255, 255, 255));
+        btnSigPagina.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnSigPagina.setForeground(new java.awt.Color(0, 0, 0));
         btnSigPagina.setText(">");
+        btnSigPagina.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
+        btnSigPagina.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSigPagina.setFocusPainted(false);
         btnSigPagina.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSigPaginaActionPerformed(evt);
             }
         });
-        background.add(btnSigPagina, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, -1, -1));
+        background.add(btnSigPagina, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 280, 50, -1));
 
+        btnAntPagina.setBackground(new java.awt.Color(255, 255, 255));
+        btnAntPagina.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnAntPagina.setForeground(new java.awt.Color(0, 0, 0));
         btnAntPagina.setText("<");
+        btnAntPagina.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
+        btnAntPagina.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAntPagina.setFocusPainted(false);
         btnAntPagina.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAntPaginaActionPerformed(evt);
             }
         });
-        background.add(btnAntPagina, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 280, -1, -1));
+        background.add(btnAntPagina, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 280, 50, -1));
 
-        btnTipo.setText("Buscar por Tipo de Tramite");
+        btnTipo.setBackground(new java.awt.Color(255, 255, 255));
+        btnTipo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnTipo.setForeground(new java.awt.Color(0, 0, 0));
+        btnTipo.setText("Tipo");
+        btnTipo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
+        btnTipo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnTipo.setFocusPainted(false);
         btnTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTipoActionPerformed(evt);
             }
         });
-        background.add(btnTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 300, 180, 30));
-
-        jLabel3.setText("Primer Apellido");
-        background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, -1, -1));
-
-        jLabel4.setText("Segundo Apellido");
-        background.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, -1, -1));
+        background.add(btnTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, 100, 40));
 
         panelFondo.setOpaque(false);
         panelFondo.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -315,49 +405,54 @@ public class Reporte extends javax.swing.JFrame {
         });
         panelOpcionesTipo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnPlacas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnPlacas.setOpaque(false);
-        btnPlacas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnPlacasMouseClicked(evt);
-            }
-        });
-        btnPlacas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Placas");
-        jLabel5.setFocusCycleRoot(true);
-        jLabel5.setFocusTraversalPolicyProvider(true);
-        btnPlacas.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 130));
-
-        panelOpcionesTipo.add(btnPlacas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 130));
-
+        btnLicencia.setBackground(new java.awt.Color(35, 91, 78));
+        btnLicencia.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnLicencia.setForeground(new java.awt.Color(255, 255, 255));
+        btnLicencia.setText("Licencias");
+        btnLicencia.setBorder(null);
         btnLicencia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnLicencia.setOpaque(false);
-        btnLicencia.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnLicenciaMouseClicked(evt);
+        btnLicencia.setFocusPainted(false);
+        btnLicencia.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                btnLicenciaComponentResized(evt);
             }
         });
-        btnLicencia.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Licencias");
-        jLabel6.setFocusCycleRoot(true);
-        jLabel6.setFocusTraversalPolicyProvider(true);
-        btnLicencia.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 130));
-
+        btnLicencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLicenciaActionPerformed(evt);
+            }
+        });
         panelOpcionesTipo.add(btnLicencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 110, 130));
 
-        panelFondo.add(panelOpcionesTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 220, 130));
+        btnPlaca.setBackground(new java.awt.Color(35, 91, 78));
+        btnPlaca.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnPlaca.setForeground(new java.awt.Color(255, 255, 255));
+        btnPlaca.setText("Placas");
+        btnPlaca.setBorder(null);
+        btnPlaca.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPlaca.setFocusPainted(false);
+        btnPlaca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlacaActionPerformed(evt);
+            }
+        });
+        panelOpcionesTipo.add(btnPlaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 130));
 
-        background.add(panelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 330));
-        background.add(txtPrimerApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 420, 160, -1));
-        background.add(txtSegundoApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 450, 160, -1));
+        panelFondo.add(panelOpcionesTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 220, 130));
+
+        background.add(panelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 290, 330));
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Primer Apellido");
+        background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setText("Segundo Apellido");
+        background.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, -1, -1));
+        background.add(txtPrimerApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 420, 160, -1));
+        background.add(txtSegundoApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 450, 160, -1));
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
@@ -389,32 +484,18 @@ public class Reporte extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabla);
 
-        background.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 540, 180));
+        background.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 542, 180));
 
-        baner.setBackground(new java.awt.Color(153, 0, 51));
+        baner.setBackground(new java.awt.Color(16, 49, 43));
+        baner.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Sitka Subheading", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Reporte de Tramites");
+        baner.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 80));
 
-        javax.swing.GroupLayout banerLayout = new javax.swing.GroupLayout(baner);
-        baner.setLayout(banerLayout);
-        banerLayout.setHorizontalGroup(
-            banerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(banerLayout.createSequentialGroup()
-                .addGap(109, 109, 109)
-                .addComponent(jLabel1)
-                .addContainerGap(208, Short.MAX_VALUE))
-        );
-        banerLayout.setVerticalGroup(
-            banerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, banerLayout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(20, 20, 20))
-        );
-
-        background.add(baner, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 542, -1));
+        background.add(baner, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 542, 80));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -501,22 +582,15 @@ public class Reporte extends javax.swing.JFrame {
         desactivarPanelFondo();
     }//GEN-LAST:event_panelFondoFocusLost
 
-    private void btnLicenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLicenciaMouseClicked
-        StringBuffer respuesta = new StringBuffer();
-        respuesta.append(Estados.TIPO_LICENCIA);
-
-        if (this.consultante != null) {
-            buscarPorTipoTramiteConsultante(respuesta);
-        } else {
-            buscarPorTipoTramiteTodos(respuesta);
-        }
-
+    private void panelOpcionesTipoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panelOpcionesTipoFocusLost
         desactivarPanelFondo();
+    }//GEN-LAST:event_panelOpcionesTipoFocusLost
 
-        llenarTabla(tramites);
-    }//GEN-LAST:event_btnLicenciaMouseClicked
+    private void btnLicenciaComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_btnLicenciaComponentResized
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLicenciaComponentResized
 
-    private void btnPlacasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPlacasMouseClicked
+    private void btnPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlacaActionPerformed
         StringBuffer respuesta = new StringBuffer();
         respuesta.append(Estados.TIPO_PLACA);
 
@@ -529,15 +603,22 @@ public class Reporte extends javax.swing.JFrame {
         desactivarPanelFondo();
 
         llenarTabla(tramites);
-    }//GEN-LAST:event_btnPlacasMouseClicked
+    }//GEN-LAST:event_btnPlacaActionPerformed
 
-    private void panelOpcionesTipoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panelOpcionesTipoFocusLost
+    private void btnLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLicenciaActionPerformed
+        StringBuffer respuesta = new StringBuffer();
+        respuesta.append(Estados.TIPO_LICENCIA);
+
+        if (this.consultante != null) {
+            buscarPorTipoTramiteConsultante(respuesta);
+        } else {
+            buscarPorTipoTramiteTodos(respuesta);
+        }
+
         desactivarPanelFondo();
-    }//GEN-LAST:event_panelOpcionesTipoFocusLost
 
-    private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreKeyReleased
+        llenarTabla(tramites);
+    }//GEN-LAST:event_btnLicenciaActionPerformed
 
     private void activarPanelFondo() {
         this.panelFondo.setEnabled(true);
@@ -622,18 +703,16 @@ public class Reporte extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscarporNombre;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnFecha;
-    private javax.swing.JPanel btnLicencia;
+    private javax.swing.JButton btnLicencia;
     private javax.swing.JButton btnPDF;
     private javax.swing.JButton btnPeriodo;
-    private javax.swing.JPanel btnPlacas;
+    private javax.swing.JButton btnPlaca;
     private javax.swing.JButton btnSigPagina;
     private javax.swing.JButton btnTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelFondo;
     private javax.swing.JPanel panelOpcionesTipo;

@@ -64,6 +64,7 @@ public class SolicitarLicencia extends javax.swing.JFrame {
         txtMonto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel2.setBackground(new java.awt.Color(153, 0, 51));
 
