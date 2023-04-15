@@ -11,7 +11,7 @@ import javax.swing.JButton;
 
 /**
  *
- * @author Alan Rodriguez
+ * @author Rosa Rodriguez
  */
 public class IButton extends JButton {
     

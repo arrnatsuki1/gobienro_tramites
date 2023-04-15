@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author Alan Rodriguez
+ * @author Rosa Rodriguez
  */
 @Entity
 @Table(name = "Automoviles")

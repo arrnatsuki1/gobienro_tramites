@@ -15,7 +15,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 /**
  * Clase Encriptacion
- * @author Alan Rodriguez y Jose Carlos Trista Rosales
+ * @author Rosa Rodriguez y Jose Carlos Trista Rosales
  */
 public class Encriptacion {
     /**

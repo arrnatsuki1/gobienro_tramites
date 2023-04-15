@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Alan Rodriguez
+ * @author Rosa Rodriguez
  */
 public class SeleccionarPeriodo extends javax.swing.JDialog {
 

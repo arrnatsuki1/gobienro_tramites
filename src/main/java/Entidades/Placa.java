@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author Alan Rodriguez
+ * @author Rosa Rodriguez
  */
 @Entity
 @Table(name="placas")

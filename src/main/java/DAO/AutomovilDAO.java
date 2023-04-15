@@ -7,7 +7,7 @@ import javax.persistence.Persistence;
 
 /**
  *
- * @author Alan Rodriguez
+ * @author Rosa Rodriguez
  */
 public class AutomovilDAO implements IAutomovilDAO {
 

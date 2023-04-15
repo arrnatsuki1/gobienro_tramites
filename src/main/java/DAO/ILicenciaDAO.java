@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 
 /**
  *
- * @author Alan Rodriguez
+ * @author Rosa Rodriguez
  */
 public interface ILicenciaDAO {
     public EntityManager getEntityManager();

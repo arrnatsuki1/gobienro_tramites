@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author Alan Rodriguez
+ * @author Rosa Rodriguez
  */
 public class IPanel extends JPanel{
     public JButton botonReferencia;

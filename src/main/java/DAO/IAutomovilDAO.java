@@ -4,7 +4,7 @@ import Entidades.Automovil;
 
 /**
  *
- * @author Alan Rodriguez
+ * @author Rosa Rodriguez
  */
 public interface IAutomovilDAO {
     public Automovil insertarAutomovil(Automovil auto);

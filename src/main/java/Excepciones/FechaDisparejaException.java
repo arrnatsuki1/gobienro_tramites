@@ -6,7 +6,7 @@ package Excepciones;
 
 /**
  *
- * @author Alan Rodriguez
+ * @author Rosa Rodriguez
  */
 public class FechaDisparejaException extends Exception {
     public FechaDisparejaException() {

@@ -15,7 +15,7 @@ import javax.swing.JButton;
 
 /**
  *
- * @author Alan Rodriguez
+ * @author Rosa Rodriguez
  */
 public class GobiernoButton extends JButton {
     
