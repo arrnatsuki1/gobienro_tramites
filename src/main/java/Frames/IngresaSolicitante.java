@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
+import swing_propio.GobiernoButton;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -52,11 +53,11 @@ public class IngresaSolicitante extends javax.swing.JFrame {
         txtPaterno = new javax.swing.JTextField();
         txtMaterno = new javax.swing.JTextField();
         txtTelefono = new javax.swing.JTextField();
-        botonAgregar = new javax.swing.JButton();
-        BtnBuscar = new javax.swing.JButton();
+        botonAgregar = new GobiernoButton();
+        BtnBuscar = new GobiernoButton();
         chxDiscapacidad = new javax.swing.JCheckBox();
         txtFecha = new com.github.lgooddatepicker.components.DatePicker();
-        btnCancelar = new javax.swing.JButton();
+        btnCancelar = new GobiernoButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -113,6 +114,10 @@ public class IngresaSolicitante extends javax.swing.JFrame {
         background.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 230, -1));
 
         botonAgregar.setText("Agregar");
+        botonAgregar.setBackground(new java.awt.Color(255, 255, 255));
+        botonAgregar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
+        botonAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonAgregar.setFocusPainted(false);
         botonAgregar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         botonAgregar.setForeground(new java.awt.Color(0, 0, 0));
         botonAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -120,9 +125,13 @@ public class IngresaSolicitante extends javax.swing.JFrame {
                 botonAgregarActionPerformed(evt);
             }
         });
-        background.add(botonAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 270, -1, -1));
+        background.add(botonAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 280, 90, 30));
 
         BtnBuscar.setText("Buscar");
+        BtnBuscar.setBackground(new java.awt.Color(255, 255, 255));
+        BtnBuscar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
+        BtnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnBuscar.setFocusPainted(false);
         BtnBuscar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         BtnBuscar.setForeground(new java.awt.Color(0, 0, 0));
         BtnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -130,13 +139,17 @@ public class IngresaSolicitante extends javax.swing.JFrame {
                 BtnBuscarActionPerformed(evt);
             }
         });
-        background.add(BtnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 270, -1, -1));
+        background.add(BtnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 80, 30));
 
         chxDiscapacidad.setText("¿ Es discapacitado ?");
         background.add(chxDiscapacidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, 221, -1));
         background.add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 130, 220, -1));
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.setBackground(new java.awt.Color(255, 255, 255));
+        btnCancelar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar.setFocusPainted(false);
         btnCancelar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnCancelar.setForeground(new java.awt.Color(0, 0, 0));
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -144,7 +157,7 @@ public class IngresaSolicitante extends javax.swing.JFrame {
                 btnCancelarActionPerformed(evt);
             }
         });
-        background.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, -1, -1));
+        background.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 90, 30));
 
         jPanel1.add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 410, 330));
 
