@@ -48,6 +48,7 @@ public class SeleccionarPeriodo extends javax.swing.JDialog {
         btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
