@@ -15,7 +15,9 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.JTable;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
+import swing_propio.GobiernoButton;
 
 /**
  *
@@ -92,38 +94,58 @@ public class SeleccionarPersona extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaPersonas = new javax.swing.JTable();
-        btnBuscar = new javax.swing.JButton();
-        btnRegresar = new javax.swing.JButton();
+        btnBuscar = new GobiernoButton();
+        btnRegresar = new GobiernoButton();
         calendario = new com.github.lgooddatepicker.components.CalendarPanel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        background.setBackground(new java.awt.Color(255, 255, 255));
         background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("RFC Persona");
-        background.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 14, -1, -1));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("RFC");
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        background.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 80, -1));
 
+        txtRfc.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        txtRfc.setBackground(new java.awt.Color(255, 255, 255));
+        txtRfc.setBorder(null);
+        txtRfc.setCaretColor(new java.awt.Color(0, 0, 0));
+        txtRfc.setForeground(new java.awt.Color(51, 51, 51));
         txtRfc.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtRfcKeyReleased(evt);
             }
         });
-        background.add(txtRfc, new org.netbeans.lib.awtextra.AbsoluteConstraints(87, 12, 160, -1));
+        background.add(txtRfc, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 160, 20));
 
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Nombre");
-        background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 60, 70, -1));
 
+        txtNombre.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        txtNombre.setBackground(new java.awt.Color(255, 255, 255));
+        txtNombre.setBorder(null);
+        txtNombre.setCaretColor(new java.awt.Color(0, 0, 0));
+        txtNombre.setForeground(new java.awt.Color(51, 51, 51));
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNombreKeyReleased(evt);
             }
         });
-        background.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 100, -1));
+        background.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 160, 20));
 
         jLabel3.setText("Fecha de nacimiento :");
-        background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
 
         jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -150,21 +172,34 @@ public class SeleccionarPersona extends javax.swing.JFrame {
         background.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 360, 370));
 
         btnBuscar.setText("Buscar");
+        btnBuscar.setBackground(new java.awt.Color(255, 255, 255));
+        btnBuscar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
+        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscar.setForeground(new java.awt.Color(0, 0, 0));
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
             }
         });
-        background.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 360, -1, -1));
+        background.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 340, 70, 30));
 
         btnRegresar.setText("Regresar");
+        btnRegresar.setBackground(new java.awt.Color(255, 255, 255));
+        btnRegresar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
+        btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegresar.setForeground(new java.awt.Color(0, 0, 0));
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegresarActionPerformed(evt);
             }
         });
-        background.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, -1, -1));
-        background.add(calendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, -1, -1));
+        background.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 80, 30));
+
+        calendario.setBackground(new java.awt.Color(255, 255, 255));
+        calendario.setForeground(new java.awt.Color(0, 0, 0));
+        background.add(calendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
+        background.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 160, -1));
+        background.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 160, 10));
 
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 390));
 
@@ -293,6 +328,8 @@ public class SeleccionarPersona extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable tablaPersonas;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtRfc;
