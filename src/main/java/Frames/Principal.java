@@ -245,7 +245,7 @@ public class Principal extends javax.swing.JFrame {
     private void botonLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLicenciaActionPerformed
         
         Calendar fechaActual = new GregorianCalendar();
-        long edad = persona.getFechaNacimiento().get(Calendar.YEAR) - fechaActual.get(Calendar.YEAR);
+        long edad = fechaActual.get(Calendar.YEAR)-persona.getFechaNacimiento().get(Calendar.YEAR) ;
         
         if(edad < 18) {
             JOptionPane.showMessageDialog(this,
