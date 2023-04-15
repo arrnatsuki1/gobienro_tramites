@@ -253,10 +253,21 @@ public class Principal extends javax.swing.JFrame {
                     "Informacion", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-            
-        SolicitarLicencia sl = new SolicitarLicencia(persona);
-        sl.setVisible(true);
-        this.setVisible(false);
+        if (persona.tieneLicenciaActiva()) {
+            int opcion = JOptionPane.showConfirmDialog(null, "SI SIGUE CON EL PROCESO SE CANCELARA\n"
+                    + "LA LICENCIA ANTERIOR", "Confirmar", JOptionPane.YES_NO_OPTION);
+
+            if (opcion == JOptionPane.YES_OPTION) {
+                SolicitarLicencia sl = new SolicitarLicencia(persona);
+                sl.setVisible(true);
+                this.setVisible(false);
+            }
+        }else{
+            SolicitarLicencia sl = new SolicitarLicencia(persona);
+            sl.setVisible(true);
+            this.setVisible(false);
+        }
+        
     }//GEN-LAST:event_botonLicenciaActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

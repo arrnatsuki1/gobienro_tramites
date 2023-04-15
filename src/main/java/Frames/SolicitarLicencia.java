@@ -38,10 +38,6 @@ public class SolicitarLicencia extends javax.swing.JFrame {
         initComponents();
         daopersona = new PersonaDAO();
         daopersona.refrescar(persona);
-        if(persona.tieneLicenciaActiva()) {
-            mostrarMensaje("ADVERTENCIA", "SI SIGUE CON EL PROCESO SE CANCELARA\n"
-                    + "LA LICENCIA ANTERIOR", JOptionPane.WARNING_MESSAGE);
-        }
     }
 
     /**
