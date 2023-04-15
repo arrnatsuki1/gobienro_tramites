@@ -38,6 +38,11 @@ public class SolicitarLicencia extends javax.swing.JFrame {
         initComponents();
         daopersona = new PersonaDAO();
         daopersona.refrescar(persona);
+        if(persona.getDiscapacitado() == Estados.PERSONA_DISCAPACITADA) {
+            txtMonto.setText("200");
+        } else {
+            txtMonto.setText("600");
+        }
     }
 
     /**
@@ -50,44 +55,48 @@ public class SolicitarLicencia extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        baner = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         cboAños = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        botonAceptar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
+        botonAceptar = new swing_propio.GobiernoButton();
+        btnCancelar = new swing_propio.GobiernoButton();
         txtMonto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jPanel2.setBackground(new java.awt.Color(153, 0, 51));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        baner.setBackground(new java.awt.Color(16, 49, 43));
 
         jLabel1.setFont(new java.awt.Font("Sitka Subheading", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Solicitud Licencia");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout banerLayout = new javax.swing.GroupLayout(baner);
+        baner.setLayout(banerLayout);
+        banerLayout.setHorizontalGroup(
+            banerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(banerLayout.createSequentialGroup()
                 .addGap(98, 98, 98)
                 .addComponent(jLabel1)
                 .addContainerGap(105, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+        banerLayout.setVerticalGroup(
+            banerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, banerLayout.createSequentialGroup()
                 .addContainerGap(22, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(22, 22, 22))
         );
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Vigencia (Años) :");
 
+        cboAños.setForeground(new java.awt.Color(0, 0, 0));
         cboAños.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
         cboAños.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,27 +105,40 @@ public class SolicitarLicencia extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Monto a Pagar:");
 
+        botonAceptar.setBackground(new java.awt.Color(255, 255, 255));
+        botonAceptar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        botonAceptar.setForeground(new java.awt.Color(0, 0, 0));
         botonAceptar.setText("Aceptar");
+        botonAceptar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
+        botonAceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonAceptarActionPerformed(evt);
             }
         });
 
+        btnCancelar.setBackground(new java.awt.Color(255, 255, 255));
+        btnCancelar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(0, 0, 0));
         btnCancelar.setText("Cancelar");
+        btnCancelar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
             }
         });
 
+        txtMonto.setForeground(new java.awt.Color(0, 0, 0));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(baner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(48, 48, 48)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,27 +152,27 @@ public class SolicitarLicencia extends javax.swing.JFrame {
                             .addComponent(txtMonto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(botonAceptar)
+                        .addComponent(botonAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCancelar)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(44, 44, 44))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(baner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cboAños, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtMonto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtMonto))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonAceptar)
-                    .addComponent(btnCancelar))
+                    .addComponent(botonAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(43, 43, 43))
         );
 
@@ -172,8 +194,9 @@ public class SolicitarLicencia extends javax.swing.JFrame {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         Principal pl = new Principal(true, persona);
         pl.setVisible(true);
-        this.setVisible(false);
         
+        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void mostrarMensaje(String title, String message, int option) {
@@ -181,7 +204,7 @@ public class SolicitarLicencia extends javax.swing.JFrame {
     }
     
     private void cboAñosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboAñosActionPerformed
-        if(persona.getDiscapacitado() == 0){
+        if(persona.getDiscapacitado() == Estados.PERSONA_NO_DISCAPACITADA){
             String opcion = (String) cboAños.getSelectedItem();
             switch (opcion) {
                 case "1" -> txtMonto.setText("600");
@@ -246,6 +269,7 @@ public class SolicitarLicencia extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel baner;
     private javax.swing.JButton botonAceptar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JComboBox<String> cboAños;
@@ -253,7 +277,6 @@ public class SolicitarLicencia extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel txtMonto;
     // End of variables declaration//GEN-END:variables
 }

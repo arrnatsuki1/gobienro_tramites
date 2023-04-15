@@ -8,6 +8,9 @@ import DAO.PlacaDAO;
 import Entidades.Automovil;
 import Entidades.Persona;
 import Entidades.Placa;
+import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,6 +39,19 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         initComponents();
         this.panelDatosCarro.setVisible(false);
         this.panelDatosCarro.setEnabled(false);
+        
+        this.btnGenerar.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent evt) {
+                btnGenerar.setBackground(new Color(188,149,92));
+            }
+            @Override
+            public void mouseExited(MouseEvent evt) {
+                btnGenerar.setBackground(new Color(255,255,255));
+            }
+        });
+        
+        
     }
 
     private String generarNumeroPlaca() {
@@ -219,6 +235,10 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         txtModelo.setText("");
     }
     private void generarAutoNuevo(String serie) {
+        txtColor.setEnabled(true);
+        txtLinea.setEnabled(true);
+        txtMarca.setEnabled(true);
+        txtModelo.setEnabled(true);
         activarPanelDatosCarro();
         txtNumeroSerie.setText(serie);
     }
@@ -229,6 +249,11 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         txtMarca.setText(autoEncontrado.getMarca());
         txtModelo.setText(autoEncontrado.getModelo());
         txtNumeroSerie.setText(txtNumeroSeriePrincipal.getText());
+        txtColor.setEnabled(false);
+        txtLinea.setEnabled(false);
+        txtMarca.setEnabled(false);
+        txtModelo.setEnabled(false);
+        
         activarPanelDatosCarro();
     }
 
@@ -266,13 +291,6 @@ public class SolicitarPlacas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        background = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        txtNumeroSeriePrincipal = new javax.swing.JTextField();
-        btnRegresarPrincipal = new javax.swing.JButton();
-        btnBuscar = new javax.swing.JButton();
         panelDatosCarro = new javax.swing.JPanel();
         datosCarro = new javax.swing.JPanel();
         txtColor = new javax.swing.JTextField();
@@ -285,19 +303,136 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         txtLinea = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         txtModelo = new javax.swing.JTextField();
-        btnGenerar = new javax.swing.JButton();
-        btnRegresarNuevo = new javax.swing.JButton();
+        btnRegresarNuevo = new swing_propio.GobiernoButton();
+        btnGenerar = new swing_propio.IButton();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
+        jSeparator4 = new javax.swing.JSeparator();
+        jSeparator5 = new javax.swing.JSeparator();
+        background = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtNumeroSeriePrincipal = new javax.swing.JTextField();
+        btnRegresarPrincipal = new swing_propio.GobiernoButton();
+        btnBuscar = new swing_propio.GobiernoButton();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setMaximumSize(new java.awt.Dimension(450, 290));
+        setMinimumSize(new java.awt.Dimension(450, 290));
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        panelDatosCarro.setBackground(new java.awt.Color(255, 255, 255));
+        panelDatosCarro.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        datosCarro.setBackground(new java.awt.Color(255, 255, 255));
+        datosCarro.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos Automovil", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(0, 0, 0))); // NOI18N
+        datosCarro.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtColor.setBackground(new java.awt.Color(255, 255, 255));
+        txtColor.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        txtColor.setForeground(new java.awt.Color(0, 0, 0));
+        txtColor.setBorder(null);
+        txtColor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtColorActionPerformed(evt);
+            }
+        });
+        datosCarro.add(txtColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 210, 20));
+
+        jLabel5.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setText("Color");
+        datosCarro.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
+
+        txtMarca.setBackground(new java.awt.Color(255, 255, 255));
+        txtMarca.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        txtMarca.setForeground(new java.awt.Color(0, 0, 0));
+        txtMarca.setBorder(null);
+        datosCarro.add(txtMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 210, 20));
+
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel6.setText("Marca");
+        datosCarro.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setText("Numero de serie");
+        datosCarro.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
+
+        txtNumeroSerie.setEditable(false);
+        datosCarro.add(txtNumeroSerie, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 210, -1));
+
+        jLabel8.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel8.setText("Linea");
+        datosCarro.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, -1, -1));
+
+        txtLinea.setBackground(new java.awt.Color(255, 255, 255));
+        txtLinea.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        txtLinea.setForeground(new java.awt.Color(0, 0, 0));
+        txtLinea.setBorder(null);
+        datosCarro.add(txtLinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, 160, 20));
+
+        jLabel9.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("Modelo");
+        datosCarro.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, -1, -1));
+
+        txtModelo.setBackground(new java.awt.Color(255, 255, 255));
+        txtModelo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        txtModelo.setForeground(new java.awt.Color(0, 0, 0));
+        txtModelo.setBorder(null);
+        datosCarro.add(txtModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, 160, 20));
+
+        btnRegresarNuevo.setBackground(new java.awt.Color(255, 255, 255));
+        btnRegresarNuevo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        btnRegresarNuevo.setForeground(new java.awt.Color(0, 0, 0));
+        btnRegresarNuevo.setText("Regresar");
+        btnRegresarNuevo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
+        btnRegresarNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegresarNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarNuevoActionPerformed(evt);
+            }
+        });
+        datosCarro.add(btnRegresarNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, 80, 30));
+
+        btnGenerar.setBackground(new java.awt.Color(255, 255, 255));
+        btnGenerar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        btnGenerar.setForeground(new java.awt.Color(0, 0, 0));
+        btnGenerar.setText("Generar");
+        btnGenerar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(188, 149, 92), 2, true));
+        btnGenerar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGenerar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarActionPerformed(evt);
+            }
+        });
+        datosCarro.add(btnGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 230, 80, 30));
+        datosCarro.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 210, 10));
+        datosCarro.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, 160, -1));
+        datosCarro.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 210, -1));
+        datosCarro.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, 160, 20));
+
+        panelDatosCarro.add(datosCarro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 410, 270));
+
+        getContentPane().add(panelDatosCarro, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 290));
+
+        background.setBackground(new java.awt.Color(255, 255, 255));
+        background.setPreferredSize(new java.awt.Dimension(450, 290));
         background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(153, 0, 51));
+        jPanel2.setBackground(new java.awt.Color(16, 49, 43));
 
-        jLabel1.setText("Solicitud Placas");
         jLabel1.setFont(new java.awt.Font("Sitka Subheading", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Solicitud Placas");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -318,117 +453,45 @@ public class SolicitarPlacas extends javax.swing.JFrame {
 
         background.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, -1));
 
-        jLabel2.setText("Numero de serie del vehiculo:");
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
-        background.add(txtNumeroSeriePrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 170, -1));
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("Numero de serie del vehiculo:");
+        background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
 
+        txtNumeroSeriePrincipal.setBackground(new java.awt.Color(255, 255, 255));
+        txtNumeroSeriePrincipal.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        txtNumeroSeriePrincipal.setForeground(new java.awt.Color(0, 0, 0));
+        txtNumeroSeriePrincipal.setBorder(null);
+        background.add(txtNumeroSeriePrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 400, 30));
+
+        btnRegresarPrincipal.setBackground(new java.awt.Color(255, 255, 255));
+        btnRegresarPrincipal.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnRegresarPrincipal.setForeground(new java.awt.Color(0, 0, 0));
         btnRegresarPrincipal.setText("Regresar");
+        btnRegresarPrincipal.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
+        btnRegresarPrincipal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRegresarPrincipal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegresarPrincipalActionPerformed(evt);
             }
         });
-        background.add(btnRegresarPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, -1, -1));
+        background.add(btnRegresarPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 90, 40));
 
+        btnBuscar.setBackground(new java.awt.Color(255, 255, 255));
+        btnBuscar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnBuscar.setForeground(new java.awt.Color(0, 0, 0));
         btnBuscar.setText("Buscar");
+        btnBuscar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
+        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
             }
         });
-        background.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, -1, -1));
+        background.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 220, 90, 40));
+        background.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 400, 20));
 
-        datosCarro.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Automovil"));
-        datosCarro.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        txtColor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtColorActionPerformed(evt);
-            }
-        });
-        datosCarro.add(txtColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 210, -1));
-
-        jLabel5.setText("Color");
-        datosCarro.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
-        datosCarro.add(txtMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 210, -1));
-
-        jLabel6.setText("Marca");
-        datosCarro.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
-
-        jLabel7.setText("Numero de serie");
-        datosCarro.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
-
-        txtNumeroSerie.setEditable(false);
-        datosCarro.add(txtNumeroSerie, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 210, -1));
-
-        jLabel8.setText("Linea");
-        datosCarro.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, -1));
-        datosCarro.add(txtLinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 210, -1));
-
-        jLabel9.setText("Modelo");
-        datosCarro.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, -1, -1));
-        datosCarro.add(txtModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 210, -1));
-
-        btnGenerar.setText("Generar");
-        btnGenerar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGenerarActionPerformed(evt);
-            }
-        });
-
-        btnRegresarNuevo.setText("Regresar");
-        btnRegresarNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarNuevoActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelDatosCarroLayout = new javax.swing.GroupLayout(panelDatosCarro);
-        panelDatosCarro.setLayout(panelDatosCarroLayout);
-        panelDatosCarroLayout.setHorizontalGroup(
-            panelDatosCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelDatosCarroLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(datosCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(btnRegresarNuevo)
-                .addGap(18, 18, 18)
-                .addComponent(btnGenerar)
-                .addContainerGap())
-        );
-        panelDatosCarroLayout.setVerticalGroup(
-            panelDatosCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelDatosCarroLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(datosCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(panelDatosCarroLayout.createSequentialGroup()
-                .addGap(250, 250, 250)
-                .addGroup(panelDatosCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRegresarNuevo)
-                    .addComponent(btnGenerar)))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(panelDatosCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(panelDatosCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -512,6 +575,11 @@ public class SolicitarPlacas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JPanel panelDatosCarro;
     private javax.swing.JTextField txtColor;
     private javax.swing.JTextField txtLinea;
