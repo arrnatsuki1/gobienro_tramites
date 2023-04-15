@@ -542,7 +542,7 @@ public class Reporte extends javax.swing.JFrame {
                 // Llenar el reporte con los datos
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametro, beanColDataSource);
 
-                JasperViewer.viewReport(jasperPrint);
+                JasperViewer.viewReport(jasperPrint,false);
                 
                 // Visualizar el reporte
 //                JasperExportManager.exportReportToPdfFile(jasperPrint, "./ReporteTramites.pdf");
