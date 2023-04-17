@@ -77,11 +77,7 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         return sb.toString();
     }
 
-    /**
-     * Esto se tiene que cambiar y hacer un metodo espesifico para generar el
-     * numero de las placas
-     */
-    private void generarPlaca() {
+        private void generarPlaca() {
 
         //Generamos el automovil que vamos a guardar
         //Al ser un generar de un auto que no esta registrado
@@ -330,12 +326,10 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         panelDatosCarro.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         datosCarro.setBackground(new java.awt.Color(255, 255, 255));
-        datosCarro.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos Automovil", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(0, 0, 0))); // NOI18N
+        datosCarro.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos Automovil", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
         datosCarro.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtColor.setBackground(new java.awt.Color(255, 255, 255));
         txtColor.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        txtColor.setForeground(new java.awt.Color(0, 0, 0));
         txtColor.setBorder(null);
         txtColor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -345,23 +339,18 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         datosCarro.add(txtColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 210, 20));
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Color");
         datosCarro.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
-        txtMarca.setBackground(new java.awt.Color(255, 255, 255));
         txtMarca.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        txtMarca.setForeground(new java.awt.Color(0, 0, 0));
         txtMarca.setBorder(null);
         datosCarro.add(txtMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 210, 20));
 
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Marca");
         datosCarro.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Numero de serie");
         datosCarro.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
 
@@ -369,30 +358,23 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         datosCarro.add(txtNumeroSerie, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 210, -1));
 
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Linea");
         datosCarro.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, -1, -1));
 
-        txtLinea.setBackground(new java.awt.Color(255, 255, 255));
         txtLinea.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        txtLinea.setForeground(new java.awt.Color(0, 0, 0));
         txtLinea.setBorder(null);
         datosCarro.add(txtLinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, 160, 20));
 
         jLabel9.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Modelo");
         datosCarro.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, -1, -1));
 
-        txtModelo.setBackground(new java.awt.Color(255, 255, 255));
         txtModelo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        txtModelo.setForeground(new java.awt.Color(0, 0, 0));
         txtModelo.setBorder(null);
         datosCarro.add(txtModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, 160, 20));
 
         btnRegresarNuevo.setBackground(new java.awt.Color(255, 255, 255));
         btnRegresarNuevo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        btnRegresarNuevo.setForeground(new java.awt.Color(0, 0, 0));
         btnRegresarNuevo.setText("Regresar");
         btnRegresarNuevo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
         btnRegresarNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -405,7 +387,6 @@ public class SolicitarPlacas extends javax.swing.JFrame {
 
         btnGenerar.setBackground(new java.awt.Color(255, 255, 255));
         btnGenerar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        btnGenerar.setForeground(new java.awt.Color(0, 0, 0));
         btnGenerar.setText("Generar");
         btnGenerar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(188, 149, 92), 2, true));
         btnGenerar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -454,19 +435,15 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         background.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Numero de serie del vehiculo:");
         background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
 
-        txtNumeroSeriePrincipal.setBackground(new java.awt.Color(255, 255, 255));
         txtNumeroSeriePrincipal.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
-        txtNumeroSeriePrincipal.setForeground(new java.awt.Color(0, 0, 0));
         txtNumeroSeriePrincipal.setBorder(null);
         background.add(txtNumeroSeriePrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 400, 30));
 
         btnRegresarPrincipal.setBackground(new java.awt.Color(255, 255, 255));
         btnRegresarPrincipal.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        btnRegresarPrincipal.setForeground(new java.awt.Color(0, 0, 0));
         btnRegresarPrincipal.setText("Regresar");
         btnRegresarPrincipal.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
         btnRegresarPrincipal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -479,7 +456,6 @@ public class SolicitarPlacas extends javax.swing.JFrame {
 
         btnBuscar.setBackground(new java.awt.Color(255, 255, 255));
         btnBuscar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        btnBuscar.setForeground(new java.awt.Color(0, 0, 0));
         btnBuscar.setText("Buscar");
         btnBuscar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
         btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));

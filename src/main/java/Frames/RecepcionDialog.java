@@ -74,35 +74,28 @@ public class RecepcionDialog extends javax.swing.JDialog {
         background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         informacionPanel.setBackground(new java.awt.Color(255, 255, 255));
-        informacionPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tramite recepcion", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 18), new java.awt.Color(0, 0, 0))); // NOI18N
-        informacionPanel.setForeground(new java.awt.Color(0, 0, 0));
+        informacionPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tramite recepcion", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 18))); // NOI18N
         informacionPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Codigo de la placa");
         informacionPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
-        txtCodigo.setBackground(new java.awt.Color(255, 255, 255));
         txtCodigo.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
-        txtCodigo.setForeground(new java.awt.Color(0, 0, 0));
         txtCodigo.setBorder(null);
         txtCodigo.setSelectedTextColor(new java.awt.Color(102, 102, 255));
         informacionPanel.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 350, 30));
 
         lblPersona.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        lblPersona.setForeground(new java.awt.Color(0, 0, 0));
         lblPersona.setText("Persona:");
         informacionPanel.add(lblPersona, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
 
         lblAuto.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        lblAuto.setForeground(new java.awt.Color(0, 0, 0));
         lblAuto.setText("numero serie auto:");
         informacionPanel.add(lblAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
 
         btnRegresar.setBackground(new java.awt.Color(255, 255, 255));
         btnRegresar.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        btnRegresar.setForeground(new java.awt.Color(0, 0, 0));
         btnRegresar.setText("Regresar");
         btnRegresar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
         btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -116,7 +109,6 @@ public class RecepcionDialog extends javax.swing.JDialog {
 
         btnBuscar.setBackground(new java.awt.Color(255, 255, 255));
         btnBuscar.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        btnBuscar.setForeground(new java.awt.Color(0, 0, 0));
         btnBuscar.setText("Buscar placa");
         btnBuscar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
         btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -130,7 +122,6 @@ public class RecepcionDialog extends javax.swing.JDialog {
 
         btnGenerar.setBackground(new java.awt.Color(255, 255, 255));
         btnGenerar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        btnGenerar.setForeground(new java.awt.Color(0, 0, 0));
         btnGenerar.setText("Generar recepcion");
         btnGenerar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(188, 149, 92), 3, true));
         btnGenerar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));

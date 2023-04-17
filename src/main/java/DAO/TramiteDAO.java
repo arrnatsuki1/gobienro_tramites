@@ -18,7 +18,7 @@ import javax.persistence.TypedQuery;
 
 /**
  *
- * @author jctri
+ * @author Rosa Rodriguez y Jose Trista
  */
 public class TramiteDAO implements ITramiteDAO {
 

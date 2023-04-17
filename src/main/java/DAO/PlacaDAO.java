@@ -15,7 +15,7 @@ import javax.persistence.Persistence;
 
 /**
  *
- * @author Rosa Rodriguez
+ * @author Rosa Rodriguez y Jose Trista
  */
 public class PlacaDAO implements IPlacaDAO{
 

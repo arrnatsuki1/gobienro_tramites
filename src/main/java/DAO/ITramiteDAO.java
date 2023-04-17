@@ -12,7 +12,7 @@ import javax.persistence.EntityManager;
 
 /**
  *
- * @author jctri
+ * @author Rosa Rodriguez y Jose Trista
  */
 public interface ITramiteDAO {
     public EntityManager getEntityManager();

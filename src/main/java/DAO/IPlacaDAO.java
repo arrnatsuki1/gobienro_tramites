@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  *
- * @author Rosa Rodriguez
+ * @author Rosa Rodriguez y Jose Trista
  */
 public interface IPlacaDAO {
     //Sujeto a cambio en lo que veo donde genero la placa

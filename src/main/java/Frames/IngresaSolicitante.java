@@ -80,46 +80,69 @@ public class IngresaSolicitante extends javax.swing.JFrame {
 
         jLabel2.setText("RFC: ");
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, -1, -1));
 
         jLabel3.setText("Nombres:");
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, -1, -1));
 
         jLabel4.setText("Apellido Paterno:");
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         background.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
 
         jLabel5.setText("Apellido Materno:");
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         background.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 130, -1));
 
         jLabel6.setText("Fecha de Nacimiento:");
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         background.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
 
         jLabel7.setText("Telefono:");
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         background.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, -1, -1));
+
+        txtRFC.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRFCKeyTyped(evt);
+            }
+        });
         background.add(txtRFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 230, -1));
+
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
         background.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 230, -1));
+
+        txtPaterno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPaternoKeyTyped(evt);
+            }
+        });
         background.add(txtPaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 230, -1));
+
+        txtMaterno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMaternoKeyTyped(evt);
+            }
+        });
         background.add(txtMaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 230, -1));
+
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyTyped(evt);
+            }
+        });
         background.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 230, -1));
 
-        botonAgregar.setText("Agregar");
         botonAgregar.setBackground(new java.awt.Color(255, 255, 255));
+        botonAgregar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        botonAgregar.setText("Agregar");
         botonAgregar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
         botonAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         botonAgregar.setFocusPainted(false);
-        botonAgregar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        botonAgregar.setForeground(new java.awt.Color(0, 0, 0));
         botonAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonAgregarActionPerformed(evt);
@@ -127,13 +150,12 @@ public class IngresaSolicitante extends javax.swing.JFrame {
         });
         background.add(botonAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 280, 90, 30));
 
-        BtnBuscar.setText("Buscar");
         BtnBuscar.setBackground(new java.awt.Color(255, 255, 255));
+        BtnBuscar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        BtnBuscar.setText("Buscar");
         BtnBuscar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
         BtnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnBuscar.setFocusPainted(false);
-        BtnBuscar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        BtnBuscar.setForeground(new java.awt.Color(0, 0, 0));
         BtnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnBuscarActionPerformed(evt);
@@ -151,7 +173,6 @@ public class IngresaSolicitante extends javax.swing.JFrame {
         btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancelar.setFocusPainted(false);
         btnCancelar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        btnCancelar.setForeground(new java.awt.Color(0, 0, 0));
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -233,6 +254,45 @@ public class IngresaSolicitante extends javax.swing.JFrame {
         p.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void txtRFCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRFCKeyTyped
+        char caracter = evt.getKeyChar();
+        int codigoTecla = evt.getKeyCode();
+        if (!Character.isLetterOrDigit(caracter) && codigoTecla != java.awt.event.KeyEvent.VK_BACK_SPACE) {
+            evt.consume(); 
+        }
+    }//GEN-LAST:event_txtRFCKeyTyped
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        char caracter = evt.getKeyChar();
+        int codigoTecla = evt.getKeyCode();
+        if (!Character.isLetter(caracter) && !Character.isSpaceChar(caracter) && codigoTecla != java.awt.event.KeyEvent.VK_BACK_SPACE) {
+            evt.consume(); 
+        }
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtPaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPaternoKeyTyped
+       char caracter = evt.getKeyChar();
+        int codigoTecla = evt.getKeyCode();
+        if (!Character.isLetter(caracter) && codigoTecla != java.awt.event.KeyEvent.VK_BACK_SPACE) {
+            evt.consume(); 
+        }
+    }//GEN-LAST:event_txtPaternoKeyTyped
+
+    private void txtMaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaternoKeyTyped
+        char caracter = evt.getKeyChar();
+        int codigoTecla = evt.getKeyCode();
+        if (!Character.isLetter(caracter) && codigoTecla != java.awt.event.KeyEvent.VK_BACK_SPACE) {
+            evt.consume(); 
+        }
+    }//GEN-LAST:event_txtMaternoKeyTyped
+
+    private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
+        char c = evt.getKeyChar();
+
+        if (c < '0' || c > '9')
+            evt.consume();
+    }//GEN-LAST:event_txtTelefonoKeyTyped
 
     public void buscarPersonaRfc(){
         IPersonaDAO dao = new PersonaDAO();

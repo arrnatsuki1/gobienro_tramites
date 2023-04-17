@@ -8,8 +8,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 /**
- *
- * @author Rosa Rodriguez
+ * Interfaz que contiene los metodos que se utilizaran en la clase 
+ * PersonaDAO
+ * @author Rosa Rodriguez y Jose Trista
  */
 public interface IPersonaDAO {
     public EntityManager getEntityManager();
