@@ -67,7 +67,12 @@ public class Encriptacion {
         }
         return null;
     }
-    
+    /**
+     * Metodo para desencriptar los nombres de una lista de personas
+     * @param lista List<Persona>
+     * @return regresa una lista con todas los nombres de todas las personas
+     * desencriptados
+     */
     public List<Persona> desencriptarLista(List<Persona> lista) {
         List<Persona> lista_desencriptada = new ArrayList();
         
@@ -81,7 +86,13 @@ public class Encriptacion {
         }
         return lista_desencriptada;
     }
-    
+    /**
+     * Metodo para desencriptar todos los nombres de todas las personas
+     * que vienen en los tramites
+     * @param lista lista de los tramites
+     * @return regresa List<Tramite> con el nombre de las personas que lo hicieron
+     * desencriptado
+     */
     public List<Tramite> desencriptarListaTramite(List<Tramite> lista) {
         List<Persona> personasDesencriptadas = new ArrayList<>(); // crea una lista auxiliar de personas
         List<Tramite> lista_tramitePersona = new ArrayList<>(); // crea una lista de trámites
@@ -100,14 +111,25 @@ public class Encriptacion {
 
         return lista_tramitePersona;
     }
-
+    /**
+     * Metodo para encriptar el nombre de una persona
+     * @param persona recibe un objeto de tipo Persona con los nombres texto plano
+     * para encriptarlos
+     * @return regresa un objeto de tipo Persona con el nombre, primerApellido y
+     * segundoApellido encriptados
+     */
     public Persona encriptarNombrePersona(Persona persona) {
         persona.setNombre(encriptar(persona.getNombre()));
         persona.setPrimerApellido(encriptar(persona.getPrimerApellido()));
         persona.setSegundoApellido(encriptar(persona.getSegundoApellido()));
         return persona;
     }
-    
+    /**
+     * Metodo para desencriptar el nombre de todas las personas en una lista
+     * @param lista List<Persona> con nombres encriptados
+     * @return regresa una lista con todas las personas pero con el nombre, primerApellido y
+     * segundoApellido desencriptados
+     */
     public List<Persona> desencriptarNombresPersonas(List<Persona> lista) {
         for(Persona p : lista) {
             p.setNombre(desencriptar(p.getNombre()));

@@ -11,19 +11,18 @@ import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 import swing_propio.GobiernoButton;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-
 /**
- *
+ * Form para mostrar el ingresar a un solicitante donde se puede o bien
+ * ingresar a uno nuevo o buscar a un por el RFC dado
  * @author jctri
  */
 public class IngresaSolicitante extends javax.swing.JFrame {
+    /**
+     * Objeto persona que sera la buscada/encontrada
+     */
     private Persona persona;
     /**
-     * Creates new form Registro
+     * Metodo Constructor por defecto
      */
     public IngresaSolicitante() {
         initComponents();
@@ -196,7 +195,15 @@ public class IngresaSolicitante extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Este metodo que deveria de estar separado pero se nos olvido, 
+     * verifica los campos de texto, en caso de que alguno este vacio no hace
+     * nada, en caso contrario, toma todos los datos para crear un objeto de tipo
+     * persona y la ingresa en la base de datos, en caso de que sea un exito
+     * nos mandara a la pantalla principal con la sesion iniciada del cliente
+     * que acabamos de ingresar
+     * @param evt 
+     */
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
         
         //Verificar que los campos no esten nulos
@@ -240,7 +247,12 @@ public class IngresaSolicitante extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_botonAgregarActionPerformed
-
+    /**
+     * Este metodo busca en la base de datos con los campos llenados una persona
+     * por su rfc, en caso de encontrarlo mostrara un mensaje de encontrado
+     * y volveremos a la pantalla principal
+     * @param evt 
+     */
     private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
         if(txtRFC.getText().isBlank()) {
             JOptionPane.showConfirmDialog(this, "No se puede buscar sin el rfc de la persona", "Informacion", JOptionPane.INFORMATION_MESSAGE);
@@ -248,13 +260,20 @@ public class IngresaSolicitante extends javax.swing.JFrame {
         }
         buscarPersonaRfc();
     }//GEN-LAST:event_BtnBuscarActionPerformed
-
+    /**
+     * Si se da al boton cancelar, este metodo crea un objeto de Principal para
+     * volver a la pantalla principal
+     * @param evt 
+     */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         Principal p = new Principal(false, null);
         p.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
-
+    /**
+     * Si en el txtRFC hay un caracter que no es una letra o un digito lo borra
+     * @param evt 
+     */
     private void txtRFCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRFCKeyTyped
         char caracter = evt.getKeyChar();
         int codigoTecla = evt.getKeyCode();
@@ -262,7 +281,10 @@ public class IngresaSolicitante extends javax.swing.JFrame {
             evt.consume(); 
         }
     }//GEN-LAST:event_txtRFCKeyTyped
-
+    /**
+     * Si en el txtApellido hay un caracter que no es una letra lo borra
+     * @param evt 
+     */
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         char caracter = evt.getKeyChar();
         int codigoTecla = evt.getKeyCode();
@@ -270,7 +292,10 @@ public class IngresaSolicitante extends javax.swing.JFrame {
             evt.consume(); 
         }
     }//GEN-LAST:event_txtNombreKeyTyped
-
+    /**
+     * Si en el txtApellido hay un caracter que no es una letra lo borra
+     * @param evt 
+     */
     private void txtPaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPaternoKeyTyped
        char caracter = evt.getKeyChar();
         int codigoTecla = evt.getKeyCode();
@@ -278,7 +303,10 @@ public class IngresaSolicitante extends javax.swing.JFrame {
             evt.consume(); 
         }
     }//GEN-LAST:event_txtPaternoKeyTyped
-
+    /**
+     * Si en el txtApellido hay un caracter que no es una letra lo borra
+     * @param evt 
+     */
     private void txtMaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaternoKeyTyped
         char caracter = evt.getKeyChar();
         int codigoTecla = evt.getKeyCode();
@@ -286,14 +314,21 @@ public class IngresaSolicitante extends javax.swing.JFrame {
             evt.consume(); 
         }
     }//GEN-LAST:event_txtMaternoKeyTyped
-
+    /**
+     * Si en el telefono hay un dato que no sea numerico lo quita
+     * @param evt 
+     */
     private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
         char c = evt.getKeyChar();
 
         if (c < '0' || c > '9')
             evt.consume();
     }//GEN-LAST:event_txtTelefonoKeyTyped
-
+    /**
+     * Metodo que busca a una persona por su RFC dentro de la base de datos
+     * En caso de encontrarlo muestra mensaje de encontrado y nos regresa a la 
+     * pantalla principal, en caso contrario muestra un mensaje de no encontrado
+     */
     public void buscarPersonaRfc(){
         IPersonaDAO dao = new PersonaDAO();
         persona = dao.consultarRFC(txtRFC.getText().toUpperCase());

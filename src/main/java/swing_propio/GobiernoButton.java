@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package swing_propio;
 
 import java.awt.Color;
@@ -14,25 +10,37 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 
 /**
- *
+ *  Clase BotonGobierno, esto nomas esta clase es para poder hacer botones
+ *  iguales con atributos identicos
  * @author Rosa Rodriguez
  */
 public class GobiernoButton extends JButton {
-    
+    /**
+     * Los colores que tendra el boton en caso de que se dispare la accion
+     * exited
+     */
     public Color colorDefault = new Color(255, 255, 255);
     public Color defaultText = new Color(0, 0, 0);
-    
+    /**
+     * Los colores que tendra el boton en caso de que se dispare la 
+     * accion hover/entered
+     */
     public Color colorEntered = new Color(157, 36, 73);
     public Color enteredText = new Color(255, 255, 255);
     
-    
+    /**
+     * Metodo constructor por defecto del boton con caracteristicas del
+     * gobierno(si lo copiamos de la pagina del gobierno)
+     */
     public GobiernoButton() {
         super();
         
         agregarHover();
         
     }
-    
+    /**
+     * Metodo para agregar oyentes a los botones
+     */
     private void agregarHover() {
         
         this.addMouseListener(new MouseAdapter() {
@@ -48,7 +56,10 @@ public class GobiernoButton extends JButton {
         });
         
     }
-    
+    /**
+     * Metodo para cambiar el color del fondo del boton en caso del hover
+     * @param entro booleano, en caso de entrar true, en caso de salir false
+     */
     private void cambiarColor(boolean entro) {
         if(entro) {
             if(!this.isEnabled()) {
@@ -62,7 +73,10 @@ public class GobiernoButton extends JButton {
         }
         
     }
-    
+    /**
+     * Metodo para dibujar el boton con antialiasing
+     * @param g componente a pintar
+     */
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;

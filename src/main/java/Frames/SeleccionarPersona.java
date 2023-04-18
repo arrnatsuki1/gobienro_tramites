@@ -15,23 +15,29 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.JTable;
-import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import swing_propio.GobiernoButton;
 
 /**
- *
+ * Clase para poder seleccionar a una persona dentro de una lista y poder
+ * ver sus tramites
  * @author Rosa Rodriguez y Jose Trista
  */
 public class SeleccionarPersona extends javax.swing.JFrame {
-     private final IPersonaDAO daopersona;
-
-    private Persona personaSeleccionada;
     /**
-     * Creates new form SeleccionarPersona
-     * @param selectedPersona
+     * Conexion con la base para poder obtener a todas las personas deseadas
      */
-    public SeleccionarPersona( ) {
+    private final IPersonaDAO daopersona;
+    /**
+     * Persona seleccionada de la lista de personas
+     */
+    private Persona personaSeleccionada;
+
+    /**
+     * Metodo constructor que incia los componentes basicos y crea una conexion
+     * con la base de datos para mostrar a todas las personas registradas
+     */
+    public SeleccionarPersona() {
         initComponents();
         daopersona = new PersonaDAO();
 
@@ -48,16 +54,27 @@ public class SeleccionarPersona extends javax.swing.JFrame {
             }
 
         });
-       mostrarTabla(listaTablaActual());
-       this.setVisible(true);
+        mostrarTabla(listaTablaActual());
+        this.setVisible(true);
     }
-    
+
+    /**
+     * Metodo para seleccionar una fila con doble click y poder pasar al Frame
+     * de reportes
+     *
+     * @param evt
+     */
     private void dobleClick(MouseEvent evt) {
         JTable tabla = (JTable) evt.getSource();
-        int row = tabla.getSelectedRow();
-
-        Persona dummy = daopersona.consultarRFC((String) tabla.getValueAt(row, 3));
         
+        //por si selecciona más de una fila
+        if(tabla.getSelectedRowCount() > 1) {
+            return;
+        }
+        
+        int row = tabla.getSelectedRow();
+        Persona dummy = daopersona.consultarRFC((String) tabla.getValueAt(row, 3));
+
         personaSeleccionada.setId(dummy.getId());
         personaSeleccionada.setDiscapacitado(dummy.getDiscapacitado());
         personaSeleccionada.setFechaNacimiento(dummy.getFechaNacimiento());
@@ -68,15 +85,16 @@ public class SeleccionarPersona extends javax.swing.JFrame {
         personaSeleccionada.setTelefono(dummy.getTelefono());
         personaSeleccionada.setTramites(dummy.getTramites());
         personaSeleccionada.setVehiculos(dummy.getVehiculos());
-        
+
         if (personaSeleccionada == null) {
             System.out.println("ERROR DOBLE CLICK");
         }
-        Reporte reporte = new Reporte(true,personaSeleccionada);
+        Reporte reporte = new Reporte(true, personaSeleccionada);
         reporte.setVisible(true);
         this.dispose();
-        
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -206,28 +224,55 @@ public class SeleccionarPersona extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Cada vez que se escribe un rfc, busca gente que tenga ese mismo rfc
+     *
+     * @param evt
+     */
     private void txtRfcKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRfcKeyReleased
         mostrarTabla(listaTablaActual());
     }//GEN-LAST:event_txtRfcKeyReleased
-
+    /**
+     * Cada vez que se escribe un nombre busca en la base de datos gente con ese
+     * mismo nombre
+     *
+     * @param evt
+     */
     private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
         mostrarTabla(listaTablaActual());
     }//GEN-LAST:event_txtNombreKeyReleased
-
+    /**
+     * comienza la busqueda dentro de la base de datos
+     *
+     * @param evt
+     */
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         mostrarTabla(listaTablaActual());
     }//GEN-LAST:event_btnBuscarActionPerformed
-
+    /**
+     * Cierra la ventana de SeleccionarPersona y regresa al menu principal
+     *
+     * @param evt
+     */
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         Principal principal = new Principal(false, null);
         principal.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
-    
-     public List<Persona> listaTablaActual(){
+
+    /**
+     * Metodo para obteber a todas las personas segun parametros, en caso de que
+     * el RFC no este llenado va a buscar personas con un RFC similar en caso de
+     * que el nombre y la fecha no esten vacios va a buscar a personas que hayan
+     * nacido el mismo dia y compartan el mismo nombre, y en caso de que solo el
+     * anio de nacimiento no este vacio va a buscar a todas las personas que
+     * hayan nacido ese dia
+     *
+     * @return List<Persona> con todas las personas que concuerdan con las
+     * caracteristicas anteriores
+     */
+    public List<Persona> listaTablaActual() {
         List<Persona> listaPersonasActual = new ArrayList();
-        
 
         if (txtNombre.getText().equals("") && txtRfc.getText().equals("")
                 && calendario.getSelectedDate() == null) {
@@ -235,11 +280,11 @@ public class SeleccionarPersona extends javax.swing.JFrame {
         }
 
         boolean nombre = false, nacimiento = false;
-        
+
         if (!txtRfc.getText().equals("")) {
 
             listaPersonasActual = daopersona.consultarRFClista(txtRfc.getText());
-          
+
             return listaPersonasActual;
         }
 
@@ -256,23 +301,23 @@ public class SeleccionarPersona extends javax.swing.JFrame {
         }
 
         if (nombre && nacimiento) {
-            
-           listaPersonasActual = daopersona.buscarPorNacimiento(fecha_nacimiento);
-           listaPersonasActual = this.buscarporNombre(listaPersonasActual);
-            
+
+            listaPersonasActual = daopersona.buscarPorNacimiento(fecha_nacimiento);
+            listaPersonasActual = this.buscarporNombre(listaPersonasActual);
+
             return listaPersonasActual;
         }
 
         if (nombre) {
-            
+
             listaPersonasActual = daopersona.consultarTodos();
-            
+
             listaPersonasActual = this.buscarporNombre(listaPersonasActual);
             return listaPersonasActual;
         }
 
         if (nacimiento) {
-            
+
             listaPersonasActual = daopersona.buscarPorNacimiento(fecha_nacimiento);
             if (listaPersonasActual == null || listaPersonasActual.isEmpty()) {
                 listaPersonasActual = new ArrayList();
@@ -280,8 +325,15 @@ public class SeleccionarPersona extends javax.swing.JFrame {
             return listaPersonasActual;
         }
         return listaPersonasActual;
-               
+
     }
+
+    /**
+     * Metodo para buscar a una persona por su RFC
+     *
+     * @return Persona que concuerda con ese RFC null en caso de algun error o
+     * de no encontrarla
+     */
     private Persona buscarPorRFC() {
 
         Persona p = daopersona.consultarRFC(txtRfc.getText().toUpperCase());
@@ -292,22 +344,35 @@ public class SeleccionarPersona extends javax.swing.JFrame {
 
         return p;
     }
-    
-    private List<Persona> buscarporNombre(List<Persona> listapersona){
+
+    /**
+     * Metodo para obtener una lista con todas las personas que coincidan con un
+     * nombre/texto
+     *
+     * @param listapersona List<Persona> todas las personas de la base de datos
+     * @return List<Persona> con todas las personas que coinciden en un texto
+     * dentro de su nombre
+     */
+    private List<Persona> buscarporNombre(List<Persona> listapersona) {
         List<Persona> listaAuxiliar = new ArrayList<Persona>();
-        for (Persona persona: listapersona) {
-                String nombreCompleto = persona.getNombre()+" "
-                        + ""+persona.getPrimerApellido()+" "
-                        + ""+persona.getSegundoApellido();
-                if(nombreCompleto.toLowerCase().contains(txtNombre.getText().toLowerCase())){
-                    listaAuxiliar.add(persona);
-                }
+        for (Persona persona : listapersona) {
+            String nombreCompleto = persona.getNombre() + " "
+                    + "" + persona.getPrimerApellido() + " "
+                    + "" + persona.getSegundoApellido();
+            if (nombreCompleto.toLowerCase().contains(txtNombre.getText().toLowerCase())) {
+                listaAuxiliar.add(persona);
+            }
         }
         return listaAuxiliar;
     }
 
+    /**
+     * Metodo para mostar en la tabla una lista de personas
+     *
+     * @param lista List<Persona> con las personas a mostrar
+     */
     private void mostrarTabla(List<Persona> lista) {
-               DefaultTableModel modelo = (DefaultTableModel) tablaPersonas.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) tablaPersonas.getModel();
         modelo.setRowCount(0);
         for (Persona persona : lista) {
             Object[] datos = new Object[modelo.getColumnCount()];

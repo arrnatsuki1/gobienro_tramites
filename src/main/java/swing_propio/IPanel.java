@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package swing_propio;
 
 import java.awt.BasicStroke;
@@ -14,18 +10,33 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /**
- *
+ * Clase para crear botones con antialiasing
  * @author Rosa Rodriguez
  */
 public class IPanel extends JPanel{
+    /**
+     * Boton al cual se quiere llegar con el dibujo
+     */
     public JButton botonReferencia;
+    /**
+     * Color de la figura entre el panel y el boton
+     */
     public Color color;
+    /**
+     * Panel del cual sale el dibujo
+     */
     public JPanel panel;
-    
+    /**
+     * Metodo constructor por defecto
+     */
     public IPanel() {
         super();
     }
-    
+    /**
+     * Este metodo pinta debajo de un panel un un recuadro para dar un efecto
+     * que sale de un boton en espesifico
+     * @param g 
+     */
     @Override
     protected void paintComponent(Graphics g) {        
         super.paintComponent(g);
@@ -51,27 +62,47 @@ public class IPanel extends JPanel{
         c.fill(p);
         
     }
-
+    /**
+     * Metodo para obtener el boton de referencia
+     * @return JButton de referencia
+     */
     public JButton getBotonReferencia() {
         return botonReferencia;
     }
-
+    /**
+     * Metodo para setear el boton de referencia
+     * @param botonReferencia JButton
+     */
     public void setBotonReferencia(JButton botonReferencia) {
         this.botonReferencia = botonReferencia;
     }
-
+    /**
+     * Metodo para obtener el color del recuadro que se dibuja entre el
+     * panel y el botton
+     * @return Color
+     */
     public Color getColor() {
         return color;
     }
-
+    /**
+     * Metodo para setear el Color de la figura que se dibujara entre el panel
+     * y el boton
+     * @param color Color
+     */
     public void setColor(Color color) {
         this.color = color;
     }
-
+    /**
+     * Metodo para obtener el panel de referencia
+     * @return JPanel
+     */
     public JPanel getPanel() {
         return panel;
     }
-
+    /**
+     * Metodo para setear el panl de referencia
+     * @param panel JPanel
+     */
     public void setPanel(JPanel panel) {
         this.panel = panel;
     }

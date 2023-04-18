@@ -11,13 +11,16 @@ import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * Clase para crear un dialog con el cual podremos generar recepciones de placas
  * @author Rosa Rodriguez
  */
 public class RecepcionDialog extends javax.swing.JDialog {
 
     /**
-     * Creates new form RecepcionDialog
+     * Metodo constructor del dialog que recibe como parametros el padre
+     * desde el cual es llamado y un modal
+     * @param parent JFrame
+     * @param modal boolean
      */
     public RecepcionDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -26,7 +29,9 @@ public class RecepcionDialog extends javax.swing.JDialog {
         this.setTitle("Recepciones");
         this.setVisible(true);
     }
-
+    /**
+     * Metodo para agregar oyentes a los botones del Dialog
+     */
     private void inicializarBoton() {
         this.btnGenerar.addMouseListener(new MouseAdapter(){
             @Override
@@ -144,7 +149,11 @@ public class RecepcionDialog extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Metodo para buscar la placa en la base de datos con el codigo del
+     * txtCodigo
+     * @param evt 
+     */
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         if (camposVacios()) {
             JOptionPane.showMessageDialog(this, "NO DEBE DE HABER CAMPOS VACIOS", "ERROR!", JOptionPane.ERROR_MESSAGE);
@@ -162,7 +171,13 @@ public class RecepcionDialog extends javax.swing.JDialog {
             llenarCampos(nplaca);
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
-
+    /**
+     * Este metodo genera la recepcion de la placa que se paso como parametro
+     * dentro del lblCodigo, en caso de que se genere la recepcion muestra
+     * un cuadro de dialogo con la confirmacion, en caso de que haya pasado 
+     * algun error muestra que no se pudo generar la recepcion
+     * @param evt 
+     */
     private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActionPerformed
         if (camposVacios()) {
             return;
@@ -183,24 +198,38 @@ public class RecepcionDialog extends javax.swing.JDialog {
         placa = daoplaca.actualizar(nplaca);
 
         if (placa == null) {
-            JOptionPane.showMessageDialog(this, "SALIO MAL");
+            JOptionPane.showMessageDialog(this, "NO SE"
+                    + " SE PUDO GENERAR\n LA RECEPCION DE LA PLACA");
             return;
         }
-        JOptionPane.showMessageDialog(this, "SALIO BIEN");
+        JOptionPane.showMessageDialog(this, "SE GENERO LA RECEPCION \n"
+                + "DE LA PLACA");
 
     }//GEN-LAST:event_btnGenerarActionPerformed
-
+    /**
+     * Cierra el dialog y nos regresa a la pantalla principal
+     * @param evt 
+     */
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
-
+    /**
+     * Este metodo se usa para llenar los campos lblPersona y lblAuto donde
+     * va la informacion de la persona que solicito el tramite y del auto
+     * al que pertencen las placas
+     * @param p Placa
+     */
     private void llenarCampos(Placa p) {
         Encriptacion encripta = new Encriptacion();
 
         lblPersona.setText("Persona: " + encripta.desencriptar(p.getPersona().getNombre()));
         lblAuto.setText("codigo auto: " + p.getAuto().getNserie());
     }
-
+    /**
+     * Metodo para verificar si el campo de la txtCodigo esta vacio,
+     * en caso de estarlo regresa true, caso contrario false
+     * @return boolean
+     */
     private boolean camposVacios() {
         if (txtCodigo.getText().isBlank()) {
             return true;

@@ -13,9 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Random;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -24,36 +22,50 @@ import javax.swing.JOptionPane;
  * @author jctri
  */
 public class SolicitarPlacas extends javax.swing.JFrame {
-
-    private boolean carronuevo;
-    private Automovil autoEncontrado;
-    IAutomovilDAO dao = new AutomovilDAO();
     
     /**
-     * Creates new form AutomovilUsado
+     * Varaible donde se guarda el auto encontrado, null en caso de que 
+     * el auto no este registrado
+     */
+    private Automovil autoEncontrado;
+    /**
+     * Conexion con la base de datos
+     */
+    private IAutomovilDAO dao = new AutomovilDAO();
+
+    /**
+     * Persona que estarealizando el tramite
      */
     private Persona persona;
-
+    /**
+     * Metodo constructor que recibe como parametro a la persona que va a 
+     * realizar el tramite
+     * @param persona Persona
+     */
     public SolicitarPlacas(Persona persona) {
         this.persona = persona;
         initComponents();
         this.panelDatosCarro.setVisible(false);
         this.panelDatosCarro.setEnabled(false);
-        
+
         this.btnGenerar.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent evt) {
-                btnGenerar.setBackground(new Color(188,149,92));
+                btnGenerar.setBackground(new Color(188, 149, 92));
             }
+
             @Override
             public void mouseExited(MouseEvent evt) {
-                btnGenerar.setBackground(new Color(255,255,255));
+                btnGenerar.setBackground(new Color(255, 255, 255));
             }
         });
-        
-        
-    }
 
+    }
+    /**
+     * Metodo para generar un numero de placa con 3 letas y tres numeros
+     * separados por un guion
+     * @return String numero
+     */
     private String generarNumeroPlaca() {
         String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String numeros = "0123456789";
@@ -76,8 +88,10 @@ public class SolicitarPlacas extends javax.swing.JFrame {
 
         return sb.toString();
     }
-
-        private void generarPlaca() {
+    /**
+     * Metodo para generar placas a un auto que no esta registrado
+     */
+    private void generarPlaca() {
 
         //Generamos el automovil que vamos a guardar
         //Al ser un generar de un auto que no esta registrado
@@ -95,8 +109,6 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         //de generar el codigo de las placas
         String codigo = generarNumeroPlaca();
 
-        
-        
         Placa placa = new Placa(codigo, new GregorianCalendar(), 0, new GregorianCalendar(),
                 new BigDecimal("1500"), auto, persona);
 
@@ -127,11 +139,14 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         }
 
     }
-
+    /**
+     * metodo para generar placas a un auto usado/que ya tiene placas viejas
+     * @param autoEncontrado 
+     */
     private void generarPlacaUsado(Automovil autoEncontrado) {
-        
+
         autoEncontrado = dao.actualizarAutomovil(autoEncontrado);
-        
+
         boolean robado = false;
 
         //Encontrar si tiene una placa activa
@@ -158,15 +173,13 @@ public class SolicitarPlacas extends javax.swing.JFrame {
             //poner la fecha de recepcion
             placa = new Placa(codigo, null, 0, new GregorianCalendar(),
                     new BigDecimal("1000"), autoEncontrado, persona);
-            
+
             JOptionPane.showConfirmDialog(this, "Tendra que generar una recepcion a estas placas", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-            
+
         }
 
         placa.setAuto(autoEncontrado);
         placa.setActiva(Estados.PLACA_ACTIVA);
-
-        
 
         List<Placa> placas = autoEncontrado.getPlacas();
         placas.add(placa);
@@ -197,7 +210,7 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "fallo");
         }
-        
+
     }
 
     /**
@@ -218,18 +231,31 @@ public class SolicitarPlacas extends javax.swing.JFrame {
 
         return true;
     }
-
+    /**
+     * Metodo para mostrar mensajes dentro del JFrame
+     * @param titutlo String titulo del mensaje
+     * @param mensaje String mensaje
+     * @param tipo int tipo del mensaje
+     */
     private void generarMensaje(String titutlo, String mensaje, int tipo) {
 
         JOptionPane.showMessageDialog(this, mensaje, titutlo, tipo);
 
     }
+
+    /**
+     * Limpia los campos de texto
+     */
     private void limpiarTXT() {
-       txtColor.setText("");
+        txtColor.setText("");
         txtLinea.setText("");
         txtMarca.setText("");
         txtModelo.setText("");
     }
+    /**
+     * Habilita los campos de texto para ingresar los datos del auto
+     * @param serie String la serie del auto
+     */
     private void generarAutoNuevo(String serie) {
         txtColor.setEnabled(true);
         txtLinea.setEnabled(true);
@@ -238,7 +264,9 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         activarPanelDatosCarro();
         txtNumeroSerie.setText(serie);
     }
-
+    /**
+     * Setea en los campos de texto todos los datos del auto antiguo
+     */
     private void mostrarAutoViejo() {
         txtColor.setText(autoEncontrado.getColor());
         txtLinea.setText(autoEncontrado.getLinea());
@@ -249,40 +277,48 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         txtLinea.setEnabled(false);
         txtMarca.setEnabled(false);
         txtModelo.setEnabled(false);
-        
+
         activarPanelDatosCarro();
     }
-
+    /**
+     * Activa el panel para buscar el auto, desactiva el panel para generar
+     * placas
+     */
     private void activarBackground() {
         this.background.setVisible(true);
         this.background.setEnabled(true);
         this.panelDatosCarro.setVisible(false);
         this.panelDatosCarro.setEnabled(false);
     }
-
+    /**
+     * Activa el panel de los datos del automovil y desactiva el panel para 
+     * buscar el auto
+     */
     private void activarPanelDatosCarro() {
         this.background.setVisible(false);
         this.background.setEnabled(false);
         panelDatosCarro.setVisible(true);
         panelDatosCarro.setEnabled(true);
     }
-
+    /**
+     * Comprueba si los campos de texto estan vacios
+     * @return verdadero en caso de que al menos uno este vacio, falso en caso
+     * contrario
+     */
     private boolean estanVacios() {
         if (txtColor.getText().isBlank() || txtLinea.getText().isBlank()
                 || txtMarca.getText().isBlank() || txtModelo.getText().isBlank()) {
-            
+
             JOptionPane.showMessageDialog(this, "NO DEBE DE HABER CAMPOS VACIOS", "ERROR!", JOptionPane.ERROR_MESSAGE);
-            
+
             return true;
         }
         return false;
     }
-    
-    
+
     /**
      * De aqui para abajo no escribir nuevos metodos
      */
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -331,11 +367,6 @@ public class SolicitarPlacas extends javax.swing.JFrame {
 
         txtColor.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         txtColor.setBorder(null);
-        txtColor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtColorActionPerformed(evt);
-            }
-        });
         datosCarro.add(txtColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 210, 20));
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -373,11 +404,11 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         txtModelo.setBorder(null);
         datosCarro.add(txtModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, 160, 20));
 
-        btnRegresarNuevo.setBackground(new java.awt.Color(255, 255, 255));
-        btnRegresarNuevo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnRegresarNuevo.setText("Regresar");
+        btnRegresarNuevo.setBackground(new java.awt.Color(255, 255, 255));
         btnRegresarNuevo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
         btnRegresarNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegresarNuevo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnRegresarNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegresarNuevoActionPerformed(evt);
@@ -385,11 +416,11 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         });
         datosCarro.add(btnRegresarNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, 80, 30));
 
-        btnGenerar.setBackground(new java.awt.Color(255, 255, 255));
-        btnGenerar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnGenerar.setText("Generar");
+        btnGenerar.setBackground(new java.awt.Color(255, 255, 255));
         btnGenerar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(188, 149, 92), 2, true));
         btnGenerar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGenerar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnGenerar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGenerarActionPerformed(evt);
@@ -411,9 +442,9 @@ public class SolicitarPlacas extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(16, 49, 43));
 
+        jLabel1.setText("Solicitud Placas");
         jLabel1.setFont(new java.awt.Font("Sitka Subheading", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Solicitud Placas");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -442,11 +473,11 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         txtNumeroSeriePrincipal.setBorder(null);
         background.add(txtNumeroSeriePrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 400, 30));
 
-        btnRegresarPrincipal.setBackground(new java.awt.Color(255, 255, 255));
-        btnRegresarPrincipal.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnRegresarPrincipal.setText("Regresar");
+        btnRegresarPrincipal.setBackground(new java.awt.Color(255, 255, 255));
         btnRegresarPrincipal.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
         btnRegresarPrincipal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegresarPrincipal.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnRegresarPrincipal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegresarPrincipalActionPerformed(evt);
@@ -454,11 +485,11 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         });
         background.add(btnRegresarPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 90, 40));
 
-        btnBuscar.setBackground(new java.awt.Color(255, 255, 255));
-        btnBuscar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnBuscar.setText("Buscar");
+        btnBuscar.setBackground(new java.awt.Color(255, 255, 255));
         btnBuscar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
         btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
@@ -472,19 +503,29 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Metodo para regresar a la pantalla principal
+     * @param evt 
+     */
     private void btnRegresarPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarPrincipalActionPerformed
         Principal pl = new Principal(true, persona);
         pl.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarPrincipalActionPerformed
-
+    /**
+     * Metodo para regresar a la pantalla de busquedaDeAuto
+     * @param evt 
+     */
     private void btnRegresarNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarNuevoActionPerformed
         activarBackground();
         autoEncontrado = null;
         limpiarTXT();
     }//GEN-LAST:event_btnRegresarNuevoActionPerformed
-
+    /**
+     * Comienza el proceso para generar placas, con el auto precargado
+     * Verifica si tiene placas activas o no para cancelar las anteriores
+     * @param evt 
+     */
     private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActionPerformed
         if (estanVacios()) {
             return;
@@ -498,7 +539,12 @@ public class SolicitarPlacas extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnGenerarActionPerformed
-
+    /**
+     * Busca en la base de datos un auto con el numero de serie del automovil,
+     * si lo encuentra, rellena todos los campos de texto con los datos de este,
+     * sino los deja en blanco para generar un registro de auto
+     * @param evt 
+     */
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         if (txtNumeroSeriePrincipal.getText().isBlank()) {
             JOptionPane.showMessageDialog(this, "NO DEBE DE HABER CAMPOS VACIOS", "ERROR!", JOptionPane.ERROR_MESSAGE);
@@ -510,7 +556,7 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         //Busca el automovil en la base de datos
         autoEncontrado = dao.obtenerAutomovil(auto);
         autoEncontrado = dao.actualizarAutomovil(autoEncontrado);
-        
+
         //Si no encontro el carro, o este no tiene placas activas
         if (autoEncontrado == null) {
             generarAutoNuevo(txtNumeroSeriePrincipal.getText());
@@ -531,10 +577,6 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnBuscarActionPerformed
-
-    private void txtColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtColorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtColorActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;

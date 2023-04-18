@@ -10,7 +10,6 @@ import Entidades.Persona;
 import Entidades.Tramite;
 import java.math.BigDecimal;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -21,18 +20,21 @@ import javax.swing.JOptionPane;
  */
 
 /**
- *
+ *  Clase para poder realizar el tramite de licencias
  * @author jctri
  */
 public class SolicitarLicencia extends javax.swing.JFrame {
 
-    /**
-     * Creates new form SolicitarLicencia
-     */
     private Persona persona;
-    
+    /**
+     * IPersonaDAO para poder conectarnos a la base de datos
+     */
     private IPersonaDAO daopersona;
-    
+    /**
+     * Metodo constructor que recibe a una persona de referencia 
+     * para realizar tramites con ella
+     * @param persona 
+     */
     public SolicitarLicencia(Persona persona) {
         this.persona = persona;
         initComponents();
@@ -190,7 +192,10 @@ public class SolicitarLicencia extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Cierra la ventana de SolicitarLicencia y nos regresa al frame Principal
+     * @param evt 
+     */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         Principal pl = new Principal(true, persona);
         pl.setVisible(true);
@@ -198,7 +203,12 @@ public class SolicitarLicencia extends javax.swing.JFrame {
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
-
+    /**
+     * Metodo para mostrar mensajes dentro del JFrame
+     * @param title String titulo
+     * @param message String mensaje
+     * @param option int tipo de mensaje 
+     */
     private void mostrarMensaje(String title, String message, int option) {
         JOptionPane.showMessageDialog(this, message, title, option);
     }
@@ -224,7 +234,11 @@ public class SolicitarLicencia extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_cboAñosActionPerformed
-
+    /**
+     * Comienza el proceso para generar una licencia nueva, en caso de que ya se
+     * cuente con una vieja esta se cancelara y creara una nueva
+     * @param evt 
+     */
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         if(txtMonto.getText().isBlank()) {
             return;
@@ -261,7 +275,10 @@ public class SolicitarLicencia extends javax.swing.JFrame {
         }
         daopersona.refrescar(persona);
     }//GEN-LAST:event_botonAceptarActionPerformed
-
+    /**
+     * Cancela la licencia activa de la persona precargada
+     * @param dao ILicenciaDAO para poder acceder a la base de datos
+     */
     private void cancelarLicenciaActiva(ILicenciaDAO dao) {
         Licencia lic = persona.obtenerLicenciaVigente();
         lic.setEstado(Estados.LICENCIA_NO_VIGENTE);

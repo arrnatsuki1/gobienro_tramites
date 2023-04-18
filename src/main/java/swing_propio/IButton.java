@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package swing_propio;
 
 import java.awt.Graphics;
@@ -10,15 +6,21 @@ import java.awt.RenderingHints;
 import javax.swing.JButton;
 
 /**
- *
+ * Este esta clase boton es para instanciar botones que tengan la propiedad
+ * del antialiasing
  * @author Rosa Rodriguez
  */
 public class IButton extends JButton {
-    
+    /**
+     * Metodo constructor del boton por defecto
+     */
     public IButton() {
         super();
     }
-    
+    /**
+     * Metodo para pintar el boton con la propiedad del antialiasing
+     * @param g componente a pintar
+     */
     @Override
     protected void paintComponent(Graphics g){
         Graphics2D g2 = (Graphics2D) g;

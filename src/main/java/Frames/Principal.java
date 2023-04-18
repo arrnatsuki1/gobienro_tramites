@@ -11,11 +11,11 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.JOptionPane;
-import swing_propio.GobiernoButton;
 
 
 /**
- *
+ * Clase que nos muestra la pantalla principal desde donde realizaremos 
+ * todos nuestros tramites
  * @author ib
  */
 public class Principal extends javax.swing.JFrame {
@@ -25,7 +25,14 @@ public class Principal extends javax.swing.JFrame {
      */
     
     private Persona persona;
-    private final Persona consultante = new Persona();
+    /**
+     * Metodo constructor donde se recibe un booleano y un objeto de tipo persona
+     * en caso de que el logIn sea true esto significa que hay una persona
+     * precargada, por lo que se proceden a habilitar los botones solicitar licencia
+     * solicitar placa y salir dentro del menu principal
+     * @param logIn
+     * @param p 
+     */
     public Principal(boolean logIn, Persona p) {
         initComponents();
         persona = p;
@@ -58,7 +65,7 @@ public class Principal extends javax.swing.JFrame {
         botonSalir = new javax.swing.JButton();
         botonSolicitante = new javax.swing.JButton();
         botonPlaca = new swing_propio.GobiernoButton();
-        jButton7 = new swing_propio.GobiernoButton();
+        btnReporte = new swing_propio.GobiernoButton();
         btnRecepcion = new swing_propio.GobiernoButton();
         BtnConsultas = new swing_propio.GobiernoButton();
         btnGenerarRegistros = new swing_propio.GobiernoButton();
@@ -76,13 +83,12 @@ public class Principal extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        botonLicencia.setText("Solicitar Licencia");
         botonLicencia.setBackground(new java.awt.Color(255, 255, 255));
+        botonLicencia.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        botonLicencia.setText("Solicitar Licencia");
         botonLicencia.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
         botonLicencia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         botonLicencia.setFocusPainted(false);
-        botonLicencia.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        botonLicencia.setForeground(new java.awt.Color(0, 0, 0));
         botonLicencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonLicenciaActionPerformed(evt);
@@ -96,14 +102,14 @@ public class Principal extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Sitka Subheading", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
 
-        botonSalir.setText("Salir");
         botonSalir.setBackground(new java.awt.Color(157, 36, 73));
+        botonSalir.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        botonSalir.setForeground(new java.awt.Color(255, 255, 255));
+        botonSalir.setText("Salir");
         botonSalir.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
         botonSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         botonSalir.setEnabled(false);
         botonSalir.setFocusPainted(false);
-        botonSalir.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        botonSalir.setForeground(new java.awt.Color(255, 255, 255));
         botonSalir.setRequestFocusEnabled(false);
         botonSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,13 +117,12 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        botonSolicitante.setText("Ingresar solicitante");
         botonSolicitante.setBackground(new java.awt.Color(188, 149, 92));
+        botonSolicitante.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        botonSolicitante.setText("Ingresar solicitante");
         botonSolicitante.setBorder(null);
         botonSolicitante.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         botonSolicitante.setFocusPainted(false);
-        botonSolicitante.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        botonSolicitante.setForeground(new java.awt.Color(0, 0, 0));
         botonSolicitante.setPreferredSize(new java.awt.Dimension(35, 25));
         botonSolicitante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,13 +161,12 @@ public class Principal extends javax.swing.JFrame {
 
         jPanel1.add(baner, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 541, -1));
 
-        botonPlaca.setText("Placas");
         botonPlaca.setBackground(new java.awt.Color(255, 255, 255));
+        botonPlaca.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        botonPlaca.setText("Placas");
         botonPlaca.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
         botonPlaca.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         botonPlaca.setFocusPainted(false);
-        botonPlaca.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        botonPlaca.setForeground(new java.awt.Color(0, 0, 0));
         botonPlaca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonPlacaActionPerformed(evt);
@@ -170,27 +174,25 @@ public class Principal extends javax.swing.JFrame {
         });
         jPanel1.add(botonPlaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 160, 55));
 
-        jButton7.setText("Reportes");
-        jButton7.setBackground(new java.awt.Color(255, 255, 255));
-        jButton7.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
-        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton7.setFocusPainted(false);
-        jButton7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(0, 0, 0));
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btnReporte.setBackground(new java.awt.Color(255, 255, 255));
+        btnReporte.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnReporte.setText("Reportes");
+        btnReporte.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
+        btnReporte.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnReporte.setFocusPainted(false);
+        btnReporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btnReporteActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 180, 160, 55));
+        jPanel1.add(btnReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 180, 160, 55));
 
-        btnRecepcion.setText("Recepcion");
         btnRecepcion.setBackground(new java.awt.Color(255, 255, 255));
+        btnRecepcion.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnRecepcion.setText("Recepcion");
         btnRecepcion.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
         btnRecepcion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRecepcion.setFocusPainted(false);
-        btnRecepcion.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        btnRecepcion.setForeground(new java.awt.Color(0, 0, 0));
         btnRecepcion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRecepcionActionPerformed(evt);
@@ -198,13 +200,12 @@ public class Principal extends javax.swing.JFrame {
         });
         jPanel1.add(btnRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 160, 55));
 
-        BtnConsultas.setText("Historial Persona");
         BtnConsultas.setBackground(new java.awt.Color(255, 255, 255));
+        BtnConsultas.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        BtnConsultas.setText("Historial Persona");
         BtnConsultas.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
         BtnConsultas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnConsultas.setFocusPainted(false);
-        BtnConsultas.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        BtnConsultas.setForeground(new java.awt.Color(0, 0, 0));
         BtnConsultas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnConsultasActionPerformed(evt);
@@ -212,13 +213,12 @@ public class Principal extends javax.swing.JFrame {
         });
         jPanel1.add(BtnConsultas, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 160, 55));
 
-        btnGenerarRegistros.setText("20 registros");
         btnGenerarRegistros.setBackground(new java.awt.Color(255, 255, 255));
+        btnGenerarRegistros.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnGenerarRegistros.setText("20 registros");
         btnGenerarRegistros.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
         btnGenerarRegistros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGenerarRegistros.setFocusPainted(false);
-        btnGenerarRegistros.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        btnGenerarRegistros.setForeground(new java.awt.Color(0, 0, 0));
         btnGenerarRegistros.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnGenerarRegistros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -241,7 +241,13 @@ public class Principal extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    /**
+     * Metodo para ingresar al menu para poder solicitar licencia, 
+     * este metodo verifica la edad del solicitante por lo que si es menor a 
+     * 18 anios no podra generar una licencia y por ende sacar placas
+     * @param evt 
+     */
     private void botonLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLicenciaActionPerformed
         
         Calendar fechaActual = new GregorianCalendar();
@@ -269,33 +275,53 @@ public class Principal extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_botonLicenciaActionPerformed
-
+    /**
+     * Este boton ya no existe pero no sabemos porque sigue el metodo aqui
+     * @param evt 
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    /**
+     * Metodo para buscar licencias vigentes y en caso de tener proseguir
+     * con el menu de solicitar placa
+     * @param evt 
+     */
     private void botonPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPlacaActionPerformed
         buscarLicenciasVigentes(persona);
     }//GEN-LAST:event_botonPlacaActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    /**
+     * Metodo para entrar al menu de reportes
+     * @param evt 
+     */
+    private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
         Reporte rp = new Reporte(false,null);
         rp.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton7ActionPerformed
-
+    }//GEN-LAST:event_btnReporteActionPerformed
+    /**
+     * Metodo para cerrar la sesion del solicitante que este en curso dentro
+     * del sistema precargado
+     * @param evt 
+     */
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
         this.persona = null;
         this.botonLicencia.setEnabled(false);
         this.botonPlaca.setEnabled(false);
     }//GEN-LAST:event_botonSalirActionPerformed
-
+    /**
+     * Metodo para ingresar al menu para ingresar solicitantes
+     * @param evt 
+     */
     private void botonSolicitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSolicitanteActionPerformed
         IngresaSolicitante i = new IngresaSolicitante();
         i.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_botonSolicitanteActionPerformed
-
+    /**
+     * Metodo para generar los 20 registros que se piden dentro del documento
+     * @param evt 
+     */
     private void btnGenerarRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarRegistrosActionPerformed
         IPersonaDAO dao = new PersonaDAO();
         List<Persona> personas;
@@ -320,16 +346,30 @@ public class Principal extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnGenerarRegistrosActionPerformed
-
+    /**
+     * Metodo para abrir el menu de recepcion dentro de la pantalla principal
+     * @param evt 
+     */
     private void btnRecepcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecepcionActionPerformed
         RecepcionDialog r = new RecepcionDialog(this, true);
     }//GEN-LAST:event_btnRecepcionActionPerformed
-
+    /**
+     * Metodo para abrir el menu de seleccionar persona para poder
+     * proseguir con las consultas
+     * @param evt 
+     */
     private void BtnConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConsultasActionPerformed
         SeleccionarPersona selecP = new SeleccionarPersona();
         selecP.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BtnConsultasActionPerformed
+    /**
+     * Metodo para buscar todas las licencias vigentes de una persona dentro de
+     * la base de datos, en caso de que tenga licencias vigentes, se 
+     * procedera con el menu para poder solicitar placas
+     * @param persona objeto Persona del cual se buscaran todos los tramites
+     * de licencia que esten vigentes
+     */
     public void buscarLicenciasVigentes(Persona persona){
         ILicenciaDAO licenciadao = new LicenciaDAO();
         List <Licencia> listalicencia = licenciadao.listaLicenciasVigentes(persona);
@@ -351,8 +391,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton botonSolicitante;
     private javax.swing.JButton btnGenerarRegistros;
     private javax.swing.JButton btnRecepcion;
+    private javax.swing.JButton btnReporte;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

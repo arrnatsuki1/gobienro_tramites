@@ -9,10 +9,16 @@ package Excepciones;
  * @author Rosa Rodriguez
  */
 public class RFCExistenteException extends Exception {
+    /**
+     * Metodo constructor por defecto para la excepcion RFCExistente
+     */
     public RFCExistenteException() {
         super();
     }
-    
+    /**
+     * Metodo constructor con mensaje para la excepcion RFCExistente
+     * @param msg String mensaje
+     */
     public RFCExistenteException(String msg) {
         super(msg);
     }

@@ -10,10 +10,8 @@ import Entidades.Tramite;
 import Excepciones.FechaDisparejaException;
 import PDF.PdfReporte;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -21,7 +19,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
@@ -30,8 +27,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import static net.sf.jasperreports.engine.JasperExportManager.exportReportToPdfFile;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -41,12 +36,9 @@ import swing_propio.GobiernoButton;
 import swing_propio.IButton;
 import swing_propio.IPanel;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 /**
- *
+ *  Clase para poder ver los tramites de todas las personas ya sea por fecha,
+ *  periodo o tipos.
  * @author jctri
  */
 public class Reporte extends javax.swing.JFrame {
@@ -57,13 +49,19 @@ public class Reporte extends javax.swing.JFrame {
      * modelo de tabla donde salga el nombre de la persona en caso de ser los
      * reportes generales y un modelo de tabla diferente para las personas en
      * particular
-     *
+     *  Pues quedara como recuerdo pero al final no lo hicimos
      */
     /**
-     * Creates new form Reporte
+     * Persona que realiza los tramites
      */
     private Persona consultante;
+    /**
+     * TramiteDAO para poder hacer las consultas
+     */
     private final ITramiteDAO daotramite;
+    /**
+     * Lista de tramites que se muestran
+     */
     private List<Tramite> listaTabla;
     /**
      * inicio es desde que valor a va a iniciar la consulta fin donde va a
@@ -71,9 +69,16 @@ public class Reporte extends javax.swing.JFrame {
      * a traer de la base de datos
      */
     private int inicio = 0, fin = 10, limite = 100;
-
+    /**
+     * Lista de tramites que se muestran
+     */
     private List<Tramite> tramites;
-
+    /**
+     * Metodo constructor que recibe una persona y un booleano, el booleano nos dice
+     * si los tramites a consultar son para una persona y asi habilitar unas casillas o desabilitar otras
+     * @param p boolean si hay persona: true, no hay: false
+     * @param consultante Persona persona con la cual se realizaran las consultas
+     */
     public Reporte(boolean p, Persona consultante) {
         daotramite = new TramiteDAO();
         initComponents();
@@ -98,7 +103,9 @@ public class Reporte extends javax.swing.JFrame {
         mostrarPanelFecha(false);
         inicializarBotones();
     }
-
+    /**
+     * Agrega oyentes a todos los botones del JFrame
+     */
     private void inicializarBotones() {
 
         this.btnLicencia.addMouseListener(new MouseAdapter() {
@@ -202,9 +209,9 @@ public class Reporte extends javax.swing.JFrame {
     }
 
     /**
-     * Este es el metodo que hiciste Carlos, el otro que dice llenarTabla es
-     * para llenar la tabla, no hay que hacer consultas en metodos con nombres
-     * genericos
+     * Metodo para obtener una lista nueva con un nuevo inicio
+     * pero para buscar por nombres
+     * @return 
      */
     public List<Tramite> listaTablaActual() {
         List<Tramite> listaTramiteActual = new ArrayList();
@@ -221,7 +228,13 @@ public class Reporte extends javax.swing.JFrame {
         }
         return listaTramiteActual;
     }
-
+    
+    /**
+     * Metodo para obtener una lista de tramites con nombres parecidos 
+     * dentro de todos los tramites de la base de datos
+     * @param listaTramite List<Tramite> con los tramites donde se buscaran nombres parecidos
+     * @return List<Tramite> con todas las coincidencias
+     */
     private List<Tramite> buscarporNombre(List<Tramite> listaTramite) {
         List<Tramite> listaAuxiliar = new ArrayList<Tramite>();
         for (Tramite tramite : listaTramite) {
@@ -323,17 +336,15 @@ public class Reporte extends javax.swing.JFrame {
         background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelFecha.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        calendario.setForeground(new java.awt.Color(0, 0, 0));
         panelFecha.add(calendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        btnBuscarFecha.setBackground(new java.awt.Color(35, 91, 78));
-        btnBuscarFecha.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        btnBuscarFecha.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscarFecha.setText("Buscar");
+        btnBuscarFecha.setBackground(new java.awt.Color(35, 91, 78));
         btnBuscarFecha.setBorder(null);
         btnBuscarFecha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscarFecha.setFocusPainted(false);
+        btnBuscarFecha.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnBuscarFecha.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscarFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarFechaActionPerformed(evt);
@@ -343,12 +354,12 @@ public class Reporte extends javax.swing.JFrame {
 
         background.add(panelFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 340, 200));
 
-        btnPDF.setBackground(new java.awt.Color(255, 255, 255));
-        btnPDF.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnPDF.setText("Generar PDF");
+        btnPDF.setBackground(new java.awt.Color(255, 255, 255));
         btnPDF.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(188, 149, 92), 5, true));
         btnPDF.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnPDF.setFocusPainted(false);
+        btnPDF.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnPDF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPDFActionPerformed(evt);
@@ -356,12 +367,12 @@ public class Reporte extends javax.swing.JFrame {
         });
         background.add(btnPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 300, 100, 70));
 
-        btnFecha.setBackground(new java.awt.Color(255, 255, 255));
-        btnFecha.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnFecha.setText("Fecha");
+        btnFecha.setBackground(new java.awt.Color(255, 255, 255));
         btnFecha.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
         btnFecha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnFecha.setFocusPainted(false);
+        btnFecha.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFechaActionPerformed(evt);
@@ -369,13 +380,13 @@ public class Reporte extends javax.swing.JFrame {
         });
         background.add(btnFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 100, 40));
 
-        btnCancelar.setBackground(new java.awt.Color(157, 36, 73));
-        btnCancelar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelar.setText("Cancelar");
+        btnCancelar.setBackground(new java.awt.Color(157, 36, 73));
         btnCancelar.setBorder(null);
         btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancelar.setFocusPainted(false);
+        btnCancelar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -394,12 +405,12 @@ public class Reporte extends javax.swing.JFrame {
         jLabel2.setText("Nombre:");
         background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, -1, -1));
 
-        btnPeriodo.setBackground(new java.awt.Color(255, 255, 255));
-        btnPeriodo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnPeriodo.setText("Periodo");
+        btnPeriodo.setBackground(new java.awt.Color(255, 255, 255));
         btnPeriodo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
         btnPeriodo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnPeriodo.setFocusPainted(false);
+        btnPeriodo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnPeriodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPeriodoActionPerformed(evt);
@@ -407,12 +418,12 @@ public class Reporte extends javax.swing.JFrame {
         });
         background.add(btnPeriodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 100, 40));
 
-        btnSigPagina.setBackground(new java.awt.Color(255, 255, 255));
-        btnSigPagina.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSigPagina.setText(">");
+        btnSigPagina.setBackground(new java.awt.Color(255, 255, 255));
         btnSigPagina.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
         btnSigPagina.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSigPagina.setFocusPainted(false);
+        btnSigPagina.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSigPagina.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSigPaginaActionPerformed(evt);
@@ -420,12 +431,12 @@ public class Reporte extends javax.swing.JFrame {
         });
         background.add(btnSigPagina, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 280, 50, -1));
 
-        btnAntPagina.setBackground(new java.awt.Color(255, 255, 255));
-        btnAntPagina.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnAntPagina.setText("<");
+        btnAntPagina.setBackground(new java.awt.Color(255, 255, 255));
         btnAntPagina.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
         btnAntPagina.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAntPagina.setFocusPainted(false);
+        btnAntPagina.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnAntPagina.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAntPaginaActionPerformed(evt);
@@ -433,12 +444,12 @@ public class Reporte extends javax.swing.JFrame {
         });
         background.add(btnAntPagina, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 280, 50, -1));
 
-        btnTipo.setBackground(new java.awt.Color(255, 255, 255));
-        btnTipo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnTipo.setText("Tipo");
+        btnTipo.setBackground(new java.awt.Color(255, 255, 255));
         btnTipo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
         btnTipo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnTipo.setFocusPainted(false);
+        btnTipo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTipoActionPerformed(evt);
@@ -493,18 +504,13 @@ public class Reporte extends javax.swing.JFrame {
         });
         panelOpcionesTipo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnLicencia.setBackground(new java.awt.Color(35, 91, 78));
-        btnLicencia.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        btnLicencia.setForeground(new java.awt.Color(255, 255, 255));
         btnLicencia.setText("Licencias");
+        btnLicencia.setBackground(new java.awt.Color(35, 91, 78));
         btnLicencia.setBorder(null);
         btnLicencia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLicencia.setFocusPainted(false);
-        btnLicencia.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentResized(java.awt.event.ComponentEvent evt) {
-                btnLicenciaComponentResized(evt);
-            }
-        });
+        btnLicencia.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnLicencia.setForeground(new java.awt.Color(255, 255, 255));
         btnLicencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLicenciaActionPerformed(evt);
@@ -512,13 +518,13 @@ public class Reporte extends javax.swing.JFrame {
         });
         panelOpcionesTipo.add(btnLicencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 110, 130));
 
-        btnPlaca.setBackground(new java.awt.Color(35, 91, 78));
-        btnPlaca.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        btnPlaca.setForeground(new java.awt.Color(255, 255, 255));
         btnPlaca.setText("Placas");
+        btnPlaca.setBackground(new java.awt.Color(35, 91, 78));
         btnPlaca.setBorder(null);
         btnPlaca.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnPlaca.setFocusPainted(false);
+        btnPlaca.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnPlaca.setForeground(new java.awt.Color(255, 255, 255));
         btnPlaca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPlacaActionPerformed(evt);
@@ -598,7 +604,10 @@ public class Reporte extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Comienza el proceso para generar pdf con los tramites que hay en memoria
+     * @param evt 
+     */
     private void btnPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDFActionPerformed
         int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de ejecutar este comando?", "Confirmar", JOptionPane.YES_NO_OPTION);
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
@@ -657,13 +666,19 @@ public class Reporte extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnPDFActionPerformed
-
+    /**
+     * Regresa a la pagina principal cerrando la de reportes
+     * @param evt 
+     */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         Principal pl = new Principal(false, new Persona());
         pl.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
-
+    /**
+     * Avanza a una siguiente pagina
+     * @param evt 
+     */
     private void btnSigPaginaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSigPaginaActionPerformed
         this.inicio += 10;
         this.fin += 10;
@@ -682,7 +697,10 @@ public class Reporte extends javax.swing.JFrame {
 
         llenarTabla(tramites);
     }//GEN-LAST:event_btnSigPaginaActionPerformed
-
+    /**
+     * Se mueve a una pagina anterior
+     * @param evt 
+     */
     private void btnAntPaginaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAntPaginaActionPerformed
         if (this.inicio == 0) {
             return;
@@ -692,7 +710,11 @@ public class Reporte extends javax.swing.JFrame {
         this.fin -= 10;
         llenarTabla(tramites);
     }//GEN-LAST:event_btnAntPaginaActionPerformed
-
+    /**
+     * Activa o desactiva el panel de tipo
+     * desactivando todos los demas paneles
+     * @param evt 
+     */
     private void btnTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTipoActionPerformed
 //        buscarPorTramite();
         String[] lista = {"periodo", "fecha"};
@@ -705,7 +727,11 @@ public class Reporte extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnTipoActionPerformed
-
+    /**
+     * Activa o desactiva el panel del periodo
+     * desacticando todos los demas paneles
+     * @param evt 
+     */
     private void btnPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeriodoActionPerformed
 //        Calendar fecha1 = new GregorianCalendar(), fecha2 = new GregorianCalendar();
 //        buscarPorPeriodo(fecha1, fecha2);
@@ -716,7 +742,10 @@ public class Reporte extends javax.swing.JFrame {
         mostrarPanelOpcionesPeriodo(opcion);
 
     }//GEN-LAST:event_btnPeriodoActionPerformed
-
+    /**
+     * Activa o desactiva el panel que muestra la opcion para el periodo
+     * @param opt boolean activar: true, desactivar: false
+     */
     private void mostrarPanelOpcionesPeriodo(boolean opt) {
         if (opt) {
             panelOpcionesPeriodo.setEnabled(true);
@@ -726,7 +755,11 @@ public class Reporte extends javax.swing.JFrame {
             panelOpcionesPeriodo.setVisible(false);
         }
     }
-
+    /**
+     * Apaga/Cierra los paneles activos de los botones Fecha, Periodo, Tipo
+     * @param cuales String[] con los botones a desactivar
+     * [periodo, tipo, fecha]
+     */
     private void apagarBotones(String[] cuales) {
         for (String boton : cuales) {
             if (boton.equalsIgnoreCase("periodo")) {
@@ -738,7 +771,11 @@ public class Reporte extends javax.swing.JFrame {
             }
         }
     }
-
+    /**
+     * Activa el proceso para mostrar el menu de fecha desactivando los
+     * demas menus/paneles
+     * @param evt 
+     */
     private void btnFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFechaActionPerformed
 //        Calendar fecha = new GregorianCalendar();
 //        buscarPorFecha(fecha);
@@ -746,7 +783,10 @@ public class Reporte extends javax.swing.JFrame {
         apagarBotones(lista);
         mostrarPanelFecha(!panelFecha.isEnabled());
     }//GEN-LAST:event_btnFechaActionPerformed
-
+    /**
+     * Activa o desactiva el panel que muestra la fecha
+     * @param opt boolean, desactiva: false, activa: true
+     */
     private void mostrarPanelFecha(boolean opt) {
         if (opt == false) {
             panelFecha.setEnabled(false);
@@ -756,19 +796,27 @@ public class Reporte extends javax.swing.JFrame {
             panelFecha.setVisible(true);
         }
     }
-
+    /**
+     * En caso de que el panel de opciones tipo pierda el foco este se cerrara
+     * (tampoco sirve)
+     * @param evt 
+     */
     private void panelFondoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panelFondoFocusLost
         desactivarPanelFondo();
     }//GEN-LAST:event_panelFondoFocusLost
-
+    /**
+     * En caso de que el panelOpciones pierda el foco este se cerrara
+     * (No sirve)
+     * @param evt 
+     */
     private void panelOpcionesTipoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panelOpcionesTipoFocusLost
         desactivarPanelFondo();
     }//GEN-LAST:event_panelOpcionesTipoFocusLost
-
-    private void btnLicenciaComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_btnLicenciaComponentResized
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLicenciaComponentResized
-
+    /**
+     * Empieza el proceso de buscar por tipo, pero con el atributo StringBuffer
+     * de placa
+     * @param evt 
+     */
     private void btnPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlacaActionPerformed
         StringBuffer respuesta = new StringBuffer();
         respuesta.append(Estados.TIPO_PLACA);
@@ -783,7 +831,11 @@ public class Reporte extends javax.swing.JFrame {
 
         llenarTabla(tramites);
     }//GEN-LAST:event_btnPlacaActionPerformed
-
+    /**
+     * Empieza el proceso para buscar por tipo, pero con el atributo
+     * StringBuffer de licencia
+     * @param evt 
+     */
     private void btnLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLicenciaActionPerformed
         StringBuffer respuesta = new StringBuffer();
         respuesta.append(Estados.TIPO_LICENCIA);
@@ -798,11 +850,19 @@ public class Reporte extends javax.swing.JFrame {
 
         llenarTabla(tramites);
     }//GEN-LAST:event_btnLicenciaActionPerformed
-
+    /**
+     * Llena la tabla de personas cada que se escribe para tener una 
+     * relacion de personas cercanas al nombre
+     * @param evt 
+     */
     private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
         llenarTabla(listaTablaActual());
     }//GEN-LAST:event_txtNombreKeyReleased
-
+    /**
+     * Empieza el proceso para buscar por periodo en caso de que la fecha1
+     * y la fecha 2 no sean nulas
+     * @param evt 
+     */
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         Calendar fecha1 = new GregorianCalendar();
         Calendar fecha2 = new GregorianCalendar();
@@ -827,7 +887,11 @@ public class Reporte extends javax.swing.JFrame {
         mostrarPanelOpcionesPeriodo(false);
 
     }//GEN-LAST:event_btnBuscarActionPerformed
-
+    /**
+     * Metodo para empezar el proceso de buscar por fecha, llama al metodo
+     * buscarPorFecha en caso de que la fecha que se seleccione no sea null
+     * @param evt 
+     */
     private void btnBuscarFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarFechaActionPerformed
         Calendar fecha = new GregorianCalendar();
         try {
@@ -839,18 +903,28 @@ public class Reporte extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "NO SELECCIONASTE NINGUNA FECHA", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnBuscarFechaActionPerformed
-
+    /**
+     * Activa el panel que muestra el panel con las opciones para escoger
+     * los tipos de tramites
+     */
     private void activarPanelFondo() {
         this.panelFondo.setEnabled(true);
         this.panelFondo.setVisible(true);
     }
-
+    /**
+     * Desactiva el panel que muestra las opciones para escoger los tipos de 
+     * tramites
+     */
     private void desactivarPanelFondo() {
         this.panelFondo.setEnabled(false);
         this.panelFondo.setVisible(false);
     }
 
     /*AQUI EMPIEZAN LOS METODOS PARA BUSCAR POR FECHA*/
+    /**
+     * Metodo para buscar por fecha
+     * @param fecha Calendar fecha a buscar
+     */
     private void buscarPorFecha(Calendar fecha) {
         if (consultante != null) {
             buscarPorFechaConsultante(fecha);
@@ -860,12 +934,18 @@ public class Reporte extends javax.swing.JFrame {
 
         llenarTabla(tramites);
     }
-
+    /**
+     * Busca todos los tramites que tengan una fecha en espesifico
+     * @param c Calendar fecha
+     */
     private void buscarPorFechaTodos(Calendar c) {
 //        new SeleccionarFecha(this, true, c);
         tramites = daotramite.listaTramiteFechaTodos(c, inicio, limite);
     }
-
+    /**
+     * Busca todos los tramites de una persona con una fecha en espesifico
+     * @param c Calendar fecha
+     */
     private void buscarPorFechaConsultante(Calendar c) {
 //        new SeleccionarFecha(this, true, c);
         tramites = daotramite.listaTramitePersonaNacimiento(consultante, c, inicio, limite);
@@ -874,6 +954,11 @@ public class Reporte extends javax.swing.JFrame {
     /*AQUI TERMINAN LOS METODOS PARA BUSCAR POR FECHA*/
 
  /*AQUI EMPIZAN LOS METODOS PARA LA BUSQUEDA POR PERIODO*/
+    /**
+     * Metodo para buscar tramites por periodo
+     * @param f1 Calendar fecha de comienzo
+     * @param f2 Calendar fecha de final
+     */
     private void buscarPorPeriodo(Calendar f1, Calendar f2) {
         if (consultante != null) {
             buscarPorPeriodoConsultante(f1, f2);
@@ -883,18 +968,29 @@ public class Reporte extends javax.swing.JFrame {
 
         llenarTabla(tramites);
     }
-
+    /**
+     * Metodo que busca todos los tramites de una persona en un periodo dado
+     * @param f1 Calendar fecha de comienzo
+     * @param f2 Calendar fecha final
+     */
     private void buscarPorPeriodoConsultante(Calendar f1, Calendar f2) {
 //        new SeleccionarPeriodo(this, true, f1, f2);
         tramites = daotramite.listaPeriodoPersona(consultante, f1, f2, inicio, limite);
     }
-
+    /**
+     * Metodo que busca todo los tramites de un periodo
+     * @param f1 Calendar fecha inicio
+     * @param f2 Calendar fecha final
+     */
     private void buscarPorPeriodoTodos(Calendar f1, Calendar f2) {
 //        new SeleccionarPeriodo(this, true, f1, f2);
         tramites = daotramite.listaPeriodoTodos(f1, f2, inicio, limite);
     }
 
     /*AQUI TERMINAN LOS METODOS PARA LA BUSQUEDA POR PERIODO*/
+    /**
+     * Metodo para buscar tramites de un cierto tipo
+     */
     private void buscarPorTramite() {
         StringBuffer respuesta = new StringBuffer();
         if (consultante != null) {
@@ -905,11 +1001,17 @@ public class Reporte extends javax.swing.JFrame {
 
         llenarTabla(tramites);
     }
-
+    /**
+     * Metodo que busca todos los tramites de un cierto tipo de un consultante
+     * @param respuesta StringBuffer con el tipo de tramite buscado
+     */
     private void buscarPorTipoTramiteConsultante(StringBuffer respuesta) {
         tramites = daotramite.listaPorTipoPersona(consultante, respuesta, inicio, limite);
     }
-
+    /**
+     * Tramote que bisca todos los tramites en general de un cierto tipo
+     * @param respuesta StringBuffer con el tipo de tramite buscado
+     */
     private void buscarPorTipoTramiteTodos(StringBuffer respuesta) {
         tramites = daotramite.listaPorTipoTodos(respuesta, inicio, limite);
     }
