@@ -363,8 +363,8 @@ public class PersonaDAO implements IPersonaDAO {
             for (Persona p : personas) {
                 this.agregarPersona(p);
             }
-            Encriptacion en = new Encriptacion();
-            personas = en.desencriptarNombresPersonas(personas);
+            
+          
 
             return personas;
         }catch (RFCExistenteException rfce){
