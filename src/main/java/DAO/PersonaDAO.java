@@ -363,8 +363,7 @@ public class PersonaDAO implements IPersonaDAO {
             for (Persona p : personas) {
                 this.agregarPersona(p);
             }
-            
-          
+                     
 
             return personas;
         }catch (RFCExistenteException rfce){
