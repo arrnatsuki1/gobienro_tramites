@@ -12,7 +12,7 @@ import javax.swing.JButton;
 /**
  *  Clase BotonGobierno, esto nomas esta clase es para poder hacer botones
  *  iguales con atributos identicos
- * @author Rosa Rodriguez
+ * @author Rosa Rodriguez y Jose Trista
  */
 public class GobiernoButton extends JButton {
     /**
@@ -20,12 +20,20 @@ public class GobiernoButton extends JButton {
      * exited
      */
     public Color colorDefault = new Color(255, 255, 255);
+    /**
+     * Los colores que tendra el boton en caso de que se dispare la accion
+     * exited
+     */
     public Color defaultText = new Color(0, 0, 0);
     /**
      * Los colores que tendra el boton en caso de que se dispare la 
      * accion hover/entered
      */
     public Color colorEntered = new Color(157, 36, 73);
+    /**
+     * Los colores que tendra el boton en caso de que se dispare la 
+     * accion hover/entered
+     */
     public Color enteredText = new Color(255, 255, 255);
     
     /**

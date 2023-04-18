@@ -14,7 +14,7 @@ import swing_propio.GobiernoButton;
 /**
  * Form para mostrar el ingresar a un solicitante donde se puede o bien
  * ingresar a uno nuevo o buscar a un por el RFC dado
- * @author jctri
+ * @author Rosa Rodriguez y Jose Trista
  */
 public class IngresaSolicitante extends javax.swing.JFrame {
     /**
@@ -341,6 +341,9 @@ public class IngresaSolicitante extends javax.swing.JFrame {
             this.dispose();
         }
     }
+    /**
+     * Variables declaration - do not modify  
+     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnBuscar;
     private javax.swing.JPanel background;

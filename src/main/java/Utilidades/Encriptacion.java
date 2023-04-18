@@ -69,7 +69,7 @@ public class Encriptacion {
     }
     /**
      * Metodo para desencriptar los nombres de una lista de personas
-     * @param lista List<Persona>
+     * @param lista lista de Personas
      * @return regresa una lista con todas los nombres de todas las personas
      * desencriptados
      */
@@ -90,7 +90,7 @@ public class Encriptacion {
      * Metodo para desencriptar todos los nombres de todas las personas
      * que vienen en los tramites
      * @param lista lista de los tramites
-     * @return regresa List<Tramite> con el nombre de las personas que lo hicieron
+     * @return regresa Lista  con el nombre de las personas que lo hicieron
      * desencriptado
      */
     public List<Tramite> desencriptarListaTramite(List<Tramite> lista) {
@@ -126,7 +126,7 @@ public class Encriptacion {
     }
     /**
      * Metodo para desencriptar el nombre de todas las personas en una lista
-     * @param lista List<Persona> con nombres encriptados
+     * @param lista Lista de personas con nombres encriptados
      * @return regresa una lista con todas las personas pero con el nombre, primerApellido y
      * segundoApellido desencriptados
      */

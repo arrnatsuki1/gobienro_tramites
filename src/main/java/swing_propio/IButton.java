@@ -8,7 +8,7 @@ import javax.swing.JButton;
 /**
  * Este esta clase boton es para instanciar botones que tengan la propiedad
  * del antialiasing
- * @author Rosa Rodriguez
+ * @author Rosa Rodriguez y Jose Trista
  */
 public class IButton extends JButton {
     /**

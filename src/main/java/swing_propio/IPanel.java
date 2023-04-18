@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 
 /**
  * Clase para crear botones con antialiasing
- * @author Rosa Rodriguez
+ * @author Rosa Rodriguez y Jose Trista
  */
 public class IPanel extends JPanel{
     /**
@@ -35,7 +35,7 @@ public class IPanel extends JPanel{
     /**
      * Este metodo pinta debajo de un panel un un recuadro para dar un efecto
      * que sale de un boton en espesifico
-     * @param g 
+     * @param g graphics
      */
     @Override
     protected void paintComponent(Graphics g) {        

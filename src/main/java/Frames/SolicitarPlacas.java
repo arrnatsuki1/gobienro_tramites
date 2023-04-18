@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author jctri
+ * @author Rosa Rodriguez y Jose Trista
  */
 public class SolicitarPlacas extends javax.swing.JFrame {
     
@@ -577,7 +577,9 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnBuscarActionPerformed
-
+/**
+ * Variables declaration - do not modify  
+ */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
     private javax.swing.JButton btnBuscar;

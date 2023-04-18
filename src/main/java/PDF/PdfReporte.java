@@ -7,7 +7,7 @@ package PDF;
 /**
  *  Clase para setear los atributos de un tramite y poder generar una fila
  * en el reporte
- * @author jctri
+ * @author Rosa Rodriguez y Jose Trista
  */
 public class PdfReporte {
     /**

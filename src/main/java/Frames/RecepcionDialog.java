@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 /**
  * Clase para crear un dialog con el cual podremos generar recepciones de placas
- * @author Rosa Rodriguez
+ * @author Rosa Rodriguez y Jose Trista
  */
 public class RecepcionDialog extends javax.swing.JDialog {
 
@@ -237,6 +237,9 @@ public class RecepcionDialog extends javax.swing.JDialog {
         return false;
     }
 
+    /**
+     * Variables declaration - do not modify  
+     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
     private javax.swing.JButton btnBuscar;

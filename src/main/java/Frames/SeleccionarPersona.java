@@ -268,7 +268,7 @@ public class SeleccionarPersona extends javax.swing.JFrame {
      * anio de nacimiento no este vacio va a buscar a todas las personas que
      * hayan nacido ese dia
      *
-     * @return List<Persona> con todas las personas que concuerdan con las
+     * @return Lista  con todas las personas que concuerdan con las
      * caracteristicas anteriores
      */
     public List<Persona> listaTablaActual() {
@@ -384,6 +384,9 @@ public class SeleccionarPersona extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Variables declaration - do not modify  
+     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
     private javax.swing.JButton btnBuscar;

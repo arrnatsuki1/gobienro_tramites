@@ -17,32 +17,38 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 /**
- *
+ * Esta clase implementa la interfaz ITramiteDAO y proporciona la lógica para
+ * interactuar con la base de datos para las operaciones relacionadas con la
+ * entidad Tramite.
  * @author Rosa Rodriguez y Jose Trista
  */
 public class TramiteDAO implements ITramiteDAO {
-
+    /**
+     * Se crea la conexion con el EntityManagerFactory con la BD
+     */
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("conexion");
 
+    /**
+     * Devuelve un objeto EntityManager para interactuar con la base de datos.
+     * @return el objeto EntityManager
+     */
     @Override
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
+    /**
+     * Metodo que obtiene los tramites que esten en la BD
+     * @param inicio El índice del primer elemento a obtener.
+     * @param fin El número máximo de elementos a obtener.
+     * @return Una lista de trámites que cumplan con los criterios de búsqueda
+     * especificados.
+     */
     @Override
     public List<Tramite> listaTramite(int inicio, int fin) {
         EntityManager em = null;
         try {
             em = getEntityManager();
-
-            /**
-             * Aqui hay un error, porque toma los ID para hacer la seleccion
-             * tipo, select * from tramite where id >= inicio and id <= id ta
-             * raro asi que no se que hacer para que las tome por filas y no por
-             * el id, a menos que tomemos todos los tramites y en un array en
-             * algun lado solo tomemos 10 de las filas que regrese pero nunca
-             * van a estar bien
-             */
             List<Tramite> tramites = em.createQuery("SELECT t FROM Tramite t")
                     .setFirstResult(inicio)
                     .setMaxResults(fin)
@@ -62,6 +68,15 @@ public class TramiteDAO implements ITramiteDAO {
         }
     }
 
+    /**
+     * Obtiene una lista de trámites de la base de datos relacionados con una
+     * persona específica
+     * @param persona La persona relacionada con los trámites que se quieren
+     * obtener.
+     * @param inicio El índice del primer elemento a obtener.
+     * @param limit El número máximo de elementos a obtener.
+     * @return Una lista de trámites relacionados con la persona especificada
+     */
     @Override
     public List<Tramite> listaTramitePersona(Persona persona, int inicio, int limit) {
         EntityManager em = null;
@@ -90,6 +105,16 @@ public class TramiteDAO implements ITramiteDAO {
         }
     }
 
+    /**
+     * Obtiene una lista de trámites de la base de datos realizados por una
+     * persona específica con una fecha de nacimiento
+     * @param p La persona de la cual se quieren obtener los trámites.
+     * @param fecha La fecha de nacimiento de la persona.
+     * @param inicio El índice del primer elemento a obtener.
+     * @param limit El número máximo de elementos a obtener.
+     * @return Una lista de trámites realizados por la persona especificada en
+     * la fecha de nacimiento especificada.
+     */
     @Override
     public List<Tramite> listaTramitePersonaNacimiento(Persona p, Calendar fecha, int inicio, int limit) {
         EntityManager em = null;
@@ -115,6 +140,14 @@ public class TramiteDAO implements ITramiteDAO {
         }
     }
 
+    /**
+     * Obtiene una lista de trámites de la base de datos realizados en una fecha
+     * específica.
+     * @param fecha La fecha en la cual se realizaron los trámites.
+     * @param inicio El índice del primer elemento a obtener.
+     * @param limit El número máximo de elementos a obtener.
+     * @return Una lista de trámites realizados en la fecha especificada 
+     */
     @Override
     public List<Tramite> listaTramiteFechaTodos(Calendar fecha, int inicio, int limit) {
         EntityManager em = null;
@@ -138,7 +171,18 @@ public class TramiteDAO implements ITramiteDAO {
             return null;
         }
     }
-
+    
+    /**
+     * Este método recupera una lista de trámites realizados por una persona
+     * dentro de un periodo de tiempo determinado.
+     * @param p representa la persona a la que se le buscarán los trámites.
+     * @param f1 representa la fecha inicial del periodo de tiempo.
+     * @param f2 representa la fecha final del periodo de tiempo.
+     * @param inicio índice del primer resultado que se recuperará de la lista.
+     * @param limit número máximo de resultados que se recuperarán.
+     * @return los trámites realizados por la persona en el periodo de tiempo
+     * especificado.
+     */
     @Override
     public List<Tramite> listaPeriodoPersona(Persona p, Calendar f1, Calendar f2, int inicio, int limit) {
         EntityManager em = null;
@@ -165,6 +209,15 @@ public class TramiteDAO implements ITramiteDAO {
         }
     }
 
+    /**
+     * Este método recupera una lista de todos los trámites realizados en 
+     * un periodo de tiempo determinado.
+     * @param f1 representa la fecha inicial del periodo de tiempo.
+     * @param f2 representa la fecha final del periodo de tiempo.
+     * @param inicio indice del primer resultado que se recuperará de la lista.
+     * @param limit número máximo de resultados que se recuperarán.
+     * @return todos los trámites realizados en el periodo de tiempo especificado.
+     */
     @Override
     public List<Tramite> listaPeriodoTodos(Calendar f1, Calendar f2, int inicio, int limit) {
         EntityManager em = null;
@@ -190,6 +243,16 @@ public class TramiteDAO implements ITramiteDAO {
         }
     }
 
+    /**
+     * Este método recupera una lista de trámites realizados por una persona 
+     * de acuerdo a un tipo de trámite específico.
+     * @param p representa la persona a la que se le buscarán los trámites.
+     * @param respuesta contendrá la respuesta que se enviará al usuario.
+     * @param inicio índice del primer resultado que se recuperará de la lista.
+     * @param limite número máximo de resultados que se recuperarán.
+     * @return los trámites realizados por la persona de acuerdo al tipo de
+     * trámite especificado.
+     */
     @Override
     public List<Tramite> listaPorTipoPersona(Persona p, StringBuffer respuesta, int inicio, int limite) {
         EntityManager em = null;
@@ -223,6 +286,15 @@ public class TramiteDAO implements ITramiteDAO {
         }
     }
 
+    /**
+     * Este método recupera una lista de todos los trámites realizados de acuerdo
+     * a un tipo de trámite específico.
+     * @param respuesta contendrá la respuesta que se enviará al usuario.
+     * @param inicio índice del primer resultado que se recuperará de la lista.
+     * @param limite número máximo de resultados que se recuperarán.
+     * @return todos los trámites realizados de acuerdo al tipo de trámite 
+     * especificado.
+     */
     @Override
     public List<Tramite> listaPorTipoTodos(StringBuffer respuesta, int inicio, int limite) {
         EntityManager em = null;
@@ -255,6 +327,14 @@ public class TramiteDAO implements ITramiteDAO {
         }
     }
 
+    /**
+     * Obtiene una lista de trámites de la base de datos realizados por una
+     * persona específica con el nombre de esa persona
+     * @param p La persona de la cual se quieren obtener los trámites.
+     * @param inicio El índice del primer elemento a obtener.
+     * @param limit El número máximo de elementos a obtener.
+     * @return Una lista de trámites realizados por la persona especificada 
+     */
     @Override
     public List<Tramite> listaTramiteNombre(Persona p, int inicio, int limit) {
         EntityManager em = null;

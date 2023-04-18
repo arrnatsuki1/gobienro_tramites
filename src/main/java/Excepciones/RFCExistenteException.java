@@ -6,7 +6,7 @@ package Excepciones;
 
 /**
  *
- * @author Rosa Rodriguez
+ * @author Rosa Rodriguez y Jose Trista
  */
 public class RFCExistenteException extends Exception {
     /**

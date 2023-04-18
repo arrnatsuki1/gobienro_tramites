@@ -39,7 +39,7 @@ import swing_propio.IPanel;
 /**
  *  Clase para poder ver los tramites de todas las personas ya sea por fecha,
  *  periodo o tipos.
- * @author jctri
+ * @author Rosa Rodriguez y Jose Trista
  */
 public class Reporte extends javax.swing.JFrame {
 
@@ -211,7 +211,7 @@ public class Reporte extends javax.swing.JFrame {
     /**
      * Metodo para obtener una lista nueva con un nuevo inicio
      * pero para buscar por nombres
-     * @return 
+     * @return Lista de tramites
      */
     public List<Tramite> listaTablaActual() {
         List<Tramite> listaTramiteActual = new ArrayList();
@@ -1015,7 +1015,9 @@ public class Reporte extends javax.swing.JFrame {
     private void buscarPorTipoTramiteTodos(StringBuffer respuesta) {
         tramites = daotramite.listaPorTipoTodos(respuesta, inicio, limite);
     }
-
+/**
+ * Variables declaration - do not modify  
+ */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
     private javax.swing.JPanel baner;

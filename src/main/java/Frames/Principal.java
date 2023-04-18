@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 /**
  * Clase que nos muestra la pantalla principal desde donde realizaremos 
  * todos nuestros tramites
- * @author ib
+ * @author Rosa Rodriguez y Jose Trista
  */
 public class Principal extends javax.swing.JFrame {
 
@@ -30,8 +30,8 @@ public class Principal extends javax.swing.JFrame {
      * en caso de que el logIn sea true esto significa que hay una persona
      * precargada, por lo que se proceden a habilitar los botones solicitar licencia
      * solicitar placa y salir dentro del menu principal
-     * @param logIn
-     * @param p 
+     * @param logIn true or false
+     * @param p persona
      */
     public Principal(boolean logIn, Persona p) {
         initComponents();
@@ -285,14 +285,14 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Metodo para buscar licencias vigentes y en caso de tener proseguir
      * con el menu de solicitar placa
-     * @param evt 
+     * @param evt evento
      */
     private void botonPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPlacaActionPerformed
         buscarLicenciasVigentes(persona);
     }//GEN-LAST:event_botonPlacaActionPerformed
     /**
      * Metodo para entrar al menu de reportes
-     * @param evt 
+     * @param evt evento
      */
     private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
         Reporte rp = new Reporte(false,null);
@@ -302,7 +302,7 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Metodo para cerrar la sesion del solicitante que este en curso dentro
      * del sistema precargado
-     * @param evt 
+     * @param evt evento
      */
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
         this.persona = null;
@@ -311,7 +311,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_botonSalirActionPerformed
     /**
      * Metodo para ingresar al menu para ingresar solicitantes
-     * @param evt 
+     * @param evt evento
      */
     private void botonSolicitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSolicitanteActionPerformed
         IngresaSolicitante i = new IngresaSolicitante();
@@ -320,7 +320,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_botonSolicitanteActionPerformed
     /**
      * Metodo para generar los 20 registros que se piden dentro del documento
-     * @param evt 
+     * @param evt evento
      */
     private void btnGenerarRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarRegistrosActionPerformed
         IPersonaDAO dao = new PersonaDAO();
@@ -381,7 +381,9 @@ public class Principal extends javax.swing.JFrame {
         sp.setVisible(true);
         this.dispose();
     }
-
+    /**
+     * Variables declaration - do not modify  
+     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnConsultas;
     private javax.swing.JPanel baner;

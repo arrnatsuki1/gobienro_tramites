@@ -7,7 +7,6 @@ package DAO;
 import Utilidades.Encriptacion;
 import Entidades.Persona;
 import Excepciones.RFCExistenteException;
-//import Utilidades.ChiperPersonas;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -20,22 +19,42 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 /**
- *
+ * La clase PersonaDAO implementa la interfaz IPersonaDAO y se encarga de 
+ * realizar operaciones relacionadas con la persistencia de objetos Persona
+ * en la base de datos. 
  * @author Rosa Rodriguez y Jose Trista
  */
 public class PersonaDAO implements IPersonaDAO {
-
+    /**
+     * Se crea el EntityManagerFactory 
+     */
     private EntityManagerFactory emf;
 
+    /**
+     * Constructor sin parametros que contiene la conexion 
+     */
     public PersonaDAO() {
         emf = Persistence.createEntityManagerFactory("conexion");
     }
 
+    /**
+     * Este método devuelve un objeto EntityManager que se utiliza 
+     * para realizar operaciones de persistencia en la base de datos.
+     * @return EntityManager
+     */
     @Override
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
+    /**
+     * Este método recibe un objeto Persona y lo persiste en la base de datos
+     * Además, encripta el nombre y los apellidos de la persona antes de 
+     * guardarlos en la base de datos. 
+     * @param p Persona que se agregara en la BD
+     * @return Persona con el nombre desencriptado
+     * @throws RFCExistenteException Si el RFC ya existe
+     */
     @Override
     public Persona agregarPersona(Persona p) throws RFCExistenteException{
         EntityManager em = null;
@@ -78,6 +97,13 @@ public class PersonaDAO implements IPersonaDAO {
         }
     }
 
+    /**
+     * Metodo que consulta una Persona con la RFC que se esta enviando en el
+     * parametro 
+     * @param rfc RFC de la persona que se busca
+     * @return Regresa la persona cuya RFC coincida y con su nombre 
+     * desencriptado
+     */
     @Override
     public Persona consultarRFC(String rfc) {
         EntityManager em = null;
@@ -101,6 +127,12 @@ public class PersonaDAO implements IPersonaDAO {
         }
     }
 
+    /**
+     * Metodo que consulta una Lista de personas con la RFC que se manda en el 
+     * parametro 
+     * @param rfc RFC de las personas que se buscan 
+     * @return Lista de personas cuya RFC coinicida
+     */
     @Override
     public List<Persona> consultarRFClista(String rfc) {
         EntityManager em = null;
@@ -122,11 +154,20 @@ public class PersonaDAO implements IPersonaDAO {
         }
     }
 
+    /**
+     * Consulta una persona a partir de su RFC.
+     * @param p la persona a consultar
+     * @return la persona con el RFC especificado
+     */
     @Override
     public Persona consultarObj(Persona p) {
         return consultarRFC(p.getRFC());
     }
 
+    /**
+     * Consulta todas las personas 
+     * @return Lista de todas las Personas
+     */
     @Override
     public List<Persona> consultarTodos() {
         EntityManager em = null;
@@ -149,6 +190,10 @@ public class PersonaDAO implements IPersonaDAO {
         }
     }
 
+    /**
+     * Metodo que actualiza una persona en la BD
+     * @param p persona a actualizar
+     */
     @Override
     public void refrescar(Persona p) {
         EntityManager em = null;
@@ -163,6 +208,11 @@ public class PersonaDAO implements IPersonaDAO {
         }
     }
 
+    /**
+     * Consulta una lista de personas por su nombre 
+     * @param persona persona a buscar en la BD
+     * @return Lista de personas segun su nombre desencriptado
+     */
     @Override
     public List<Persona> buscarPorNombre(Persona persona) {
         EntityManager em = null;
@@ -206,6 +256,11 @@ public class PersonaDAO implements IPersonaDAO {
         }
     }
 
+    /**
+     * Consulta las Personas en la BD segun su fecha de nacimiento
+     * @param date fecha de nacimiento de la persona
+     * @return Lista de personas con su fecha de nacimiento
+     */
     @Override
     public List<Persona> buscarPorNacimiento(Calendar date) {
         EntityManager em = null;
@@ -231,6 +286,12 @@ public class PersonaDAO implements IPersonaDAO {
         }
     }
 
+    /**
+     * Consulta la persona que se solicita tanto por su nombre como por su 
+     * fecha de nacimiento
+     * @param persona persona que se va a buscar
+     * @return Lista de personas con su nombre y fecha de nacimiento
+     */
     @Override
     public List<Persona> buscarPorNombreNacimiento(Persona persona) {
         EntityManager em = null;
@@ -270,6 +331,11 @@ public class PersonaDAO implements IPersonaDAO {
         }
     }
 
+    /**
+     * Metodo que inserta un registro masivo de 20 personas en la BD 
+     * @return Lista de personas agregadas a la BD
+     * @throws RFCExistenteException Si las personas ya estan registradas
+     */
     public List<Persona> agregar20Personas() throws RFCExistenteException{
         try {
             List<Persona> personas = new ArrayList();
@@ -308,5 +374,4 @@ public class PersonaDAO implements IPersonaDAO {
             return null;
         }
     }
-
 }

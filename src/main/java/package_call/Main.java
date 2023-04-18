@@ -4,7 +4,7 @@ import Frames.Principal;
 
 /**
  * Metodo main del cual se incia el programa
- * @author jctri
+ * @author Rosa Rodriguez y Jose Trista
  */
 public class Main {
 

@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 
 /**
  *  Clase para poder realizar el tramite de licencias
- * @author jctri
+ * @author Rosa Rodriguez y Jose Trista
  */
 public class SolicitarLicencia extends javax.swing.JFrame {
 
@@ -33,7 +33,7 @@ public class SolicitarLicencia extends javax.swing.JFrame {
     /**
      * Metodo constructor que recibe a una persona de referencia 
      * para realizar tramites con ella
-     * @param persona 
+     * @param persona persona que solicita la licencia
      */
     public SolicitarLicencia(Persona persona) {
         this.persona = persona;
@@ -285,6 +285,9 @@ public class SolicitarLicencia extends javax.swing.JFrame {
         dao.actualizar(lic);
     }
 
+    /**
+     * Variables declaration - do not modify  
+     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel baner;
     private javax.swing.JButton botonAceptar;
