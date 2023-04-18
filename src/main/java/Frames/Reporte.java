@@ -83,11 +83,9 @@ public class Reporte extends javax.swing.JFrame {
         daotramite = new TramiteDAO();
         initComponents();
         this.listaTabla = new ArrayList<Tramite>();
+      
         if (p) {
-//            this.btnBuscarporNombre.setEnabled(false);
             this.txtNombre.setEnabled(false);
-//            this.txtPrimerApellido.setEnabled(false);
-//            this.txtSegundoApellido.setEnabled(false);
             this.consultante = consultante;
             configurarHistorialPersona();
         } else {
@@ -570,6 +568,7 @@ public class Reporte extends javax.swing.JFrame {
         tabla.setEnabled(false);
         tabla.setFocusable(false);
         tabla.setRequestFocusEnabled(false);
+        tabla.getTableHeader().setReorderingAllowed(false);
         tabla.setVerifyInputWhenFocusTarget(false);
         jScrollPane1.setViewportView(tabla);
 
@@ -671,9 +670,16 @@ public class Reporte extends javax.swing.JFrame {
      * @param evt 
      */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        Principal pl = new Principal(false, new Persona());
-        pl.setVisible(true);
-        this.dispose();
+        if (consultante != null) {
+            Principal pl = new Principal(true, consultante);
+            pl.setVisible(true);
+            this.dispose();
+        } else {
+            Principal pl = new Principal(false, consultante);
+            pl.setVisible(true);
+            this.dispose();
+        }
+        
     }//GEN-LAST:event_btnCancelarActionPerformed
     /**
      * Avanza a una siguiente pagina

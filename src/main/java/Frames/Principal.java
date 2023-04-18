@@ -23,7 +23,7 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
-    
+    private boolean logIn;
     private Persona persona;
     /**
      * Metodo constructor donde se recibe un booleano y un objeto de tipo persona
@@ -36,6 +36,7 @@ public class Principal extends javax.swing.JFrame {
     public Principal(boolean logIn, Persona p) {
         initComponents();
         persona = p;
+        this.logIn = logIn;
         if (logIn) {
             this.botonLicencia.setEnabled(true);
             this.botonPlaca.setEnabled(true);
@@ -295,7 +296,7 @@ public class Principal extends javax.swing.JFrame {
      * @param evt evento
      */
     private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
-        Reporte rp = new Reporte(false,null);
+        Reporte rp = new Reporte(logIn,persona);
         rp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnReporteActionPerformed
@@ -305,9 +306,11 @@ public class Principal extends javax.swing.JFrame {
      * @param evt evento
      */
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
+        logIn = false;
         this.persona = null;
         this.botonLicencia.setEnabled(false);
         this.botonPlaca.setEnabled(false);
+        this.setTitle("");
     }//GEN-LAST:event_botonSalirActionPerformed
     /**
      * Metodo para ingresar al menu para ingresar solicitantes

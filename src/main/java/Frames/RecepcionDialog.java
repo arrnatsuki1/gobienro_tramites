@@ -169,6 +169,8 @@ public class RecepcionDialog extends javax.swing.JDialog {
         if (nplaca != null) {
             btnGenerar.setEnabled(true);
             llenarCampos(nplaca);
+        }else{
+            JOptionPane.showMessageDialog(this, "NUMERO DE PLACA INCORRECTO","ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
     /**

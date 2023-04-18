@@ -297,7 +297,7 @@ public class IngresaSolicitante extends javax.swing.JFrame {
      * @param evt 
      */
     private void txtPaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPaternoKeyTyped
-       char caracter = evt.getKeyChar();
+        char caracter = evt.getKeyChar();
         int codigoTecla = evt.getKeyCode();
         if (!Character.isLetter(caracter) && codigoTecla != java.awt.event.KeyEvent.VK_BACK_SPACE) {
             evt.consume(); 

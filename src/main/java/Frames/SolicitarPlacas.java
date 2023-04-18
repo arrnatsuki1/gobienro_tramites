@@ -404,11 +404,11 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         txtModelo.setBorder(null);
         datosCarro.add(txtModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, 160, 20));
 
-        btnRegresarNuevo.setText("Regresar");
         btnRegresarNuevo.setBackground(new java.awt.Color(255, 255, 255));
+        btnRegresarNuevo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        btnRegresarNuevo.setText("Regresar");
         btnRegresarNuevo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
         btnRegresarNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnRegresarNuevo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnRegresarNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegresarNuevoActionPerformed(evt);
@@ -416,11 +416,11 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         });
         datosCarro.add(btnRegresarNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, 80, 30));
 
-        btnGenerar.setText("Generar");
         btnGenerar.setBackground(new java.awt.Color(255, 255, 255));
+        btnGenerar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        btnGenerar.setText("Generar");
         btnGenerar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(188, 149, 92), 2, true));
         btnGenerar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnGenerar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnGenerar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGenerarActionPerformed(evt);
@@ -442,9 +442,9 @@ public class SolicitarPlacas extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(16, 49, 43));
 
-        jLabel1.setText("Solicitud Placas");
         jLabel1.setFont(new java.awt.Font("Sitka Subheading", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Solicitud Placas");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -471,13 +471,18 @@ public class SolicitarPlacas extends javax.swing.JFrame {
 
         txtNumeroSeriePrincipal.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         txtNumeroSeriePrincipal.setBorder(null);
+        txtNumeroSeriePrincipal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumeroSeriePrincipalKeyTyped(evt);
+            }
+        });
         background.add(txtNumeroSeriePrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 400, 30));
 
-        btnRegresarPrincipal.setText("Regresar");
         btnRegresarPrincipal.setBackground(new java.awt.Color(255, 255, 255));
+        btnRegresarPrincipal.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnRegresarPrincipal.setText("Regresar");
         btnRegresarPrincipal.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
         btnRegresarPrincipal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnRegresarPrincipal.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnRegresarPrincipal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegresarPrincipalActionPerformed(evt);
@@ -485,11 +490,11 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         });
         background.add(btnRegresarPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 90, 40));
 
-        btnBuscar.setText("Buscar");
         btnBuscar.setBackground(new java.awt.Color(255, 255, 255));
+        btnBuscar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnBuscar.setText("Buscar");
         btnBuscar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 36, 73), 2, true));
         btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnBuscar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
@@ -577,6 +582,14 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void txtNumeroSeriePrincipalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroSeriePrincipalKeyTyped
+        char caracter = evt.getKeyChar();
+        int codigoTecla = evt.getKeyCode();
+        if (!Character.isLetterOrDigit(caracter) && codigoTecla != java.awt.event.KeyEvent.VK_BACK_SPACE) {
+            evt.consume(); 
+        }
+    }//GEN-LAST:event_txtNumeroSeriePrincipalKeyTyped
 /**
  * Variables declaration - do not modify  
  */
