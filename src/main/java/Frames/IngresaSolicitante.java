@@ -280,6 +280,10 @@ public class IngresaSolicitante extends javax.swing.JFrame {
         if (!Character.isLetterOrDigit(caracter) && codigoTecla != java.awt.event.KeyEvent.VK_BACK_SPACE) {
             evt.consume(); 
         }
+        
+        if(txtRFC.getText().length() == 12){
+            evt.consume();
+        }
     }//GEN-LAST:event_txtRFCKeyTyped
     /**
      * Si en el txtApellido hay un caracter que no es una letra lo borra
@@ -323,6 +327,10 @@ public class IngresaSolicitante extends javax.swing.JFrame {
 
         if (c < '0' || c > '9')
             evt.consume();
+        
+        if(txtTelefono.getText().length() == 10){
+            evt.consume();
+        }
     }//GEN-LAST:event_txtTelefonoKeyTyped
     /**
      * Metodo que busca a una persona por su RFC dentro de la base de datos
